@@ -26,7 +26,7 @@ Titan <- R6::R6Class(
           resp <- private$.render()
           fn <- getFromNamespace("httpResponse", "shiny")
           return(
-            fn(200, content = resp,content_type = "text/plain")
+            fn(200, content = resp, content_type = "text/plain")
           )
         }
         original(req)
