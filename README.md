@@ -3,11 +3,9 @@
 
 # titan
 
-The goal of titan is to ...
+[Prometheus](prometheus.io/) monitoring for shiny applications.
 
 ## Installation
-
-You can install the released version of titan from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 # install.packages("remotes")
@@ -16,13 +14,12 @@ remotes::install_github("devOpifex/titan")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
-
 ``` r
 library(titan)
+library(shiny)
 
 # create a registry
-registry <- Titan$new()
+reg <- Titan$new()
 
 ui <- fluidPage(
   actionButton("click", "Click me")
@@ -31,7 +28,7 @@ ui <- fluidPage(
 server <- function(input, output){
 
   # create counter
-  cnter <- registry$new()
+  cnter <- reg$counter(name = "btn_click", "Buttons clicked")
 
   observeEvent(input$click, {
     cnter$inc()
@@ -43,6 +40,6 @@ server <- function(input, output){
 app <- shinyApp(ui, server)
 
 # serve metrics
-registry$runApp(app)
+reg$runApp(app)
 ```
 
