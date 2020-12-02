@@ -18,10 +18,10 @@ Metric <- R6::R6Class(
     },
     retrieve = function(){
       list(
-        name = private$.name,
-        label = private$.label,
         help = private$.help,
         type = private$.type,
+        name = private$.name,
+        label = private$.label,
         value = private$.value
       )
     }

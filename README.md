@@ -19,7 +19,7 @@ library(titan)
 library(shiny)
 
 # create a registry
-reg <- Titan$new()
+reg <- Titan$new(namespace = "shiny")
 
 ui <- fluidPage(
   actionButton("click", "Click me")
@@ -37,7 +37,7 @@ server <- function(input, output){
 
 }
 
-app <- shinyApp(ui, server)
+app <- shinyApp(ui, server, options = list(port = 3000))
 
 # serve metrics
 reg$runApp(app)

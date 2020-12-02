@@ -23,9 +23,11 @@ Titan <- R6::R6Class(
 
       app$httpHandler <- function(req){
         if(req$PATH_INFO == "/metrics"){
-          private$.render()
+          resp <- private$.render()
           fn <- getFromNamespace("httpResponse", "shiny")
-          return(fn(200, content = "hello"))
+          return(
+            fn(200, content = resp,content_type = "text/plain")
+          )
         }
         original(req)
       }
@@ -47,10 +49,18 @@ Titan <- R6::R6Class(
     .render = function(){
       metrics <- ls(registry)
 
+      resp <- ""
       for(i in 1:length(metrics)){
-        registry[[metrics[i]]]$retrieve() -> x
-        print(x)
+        m <- registry[[metrics[i]]]$retrieve()
+
+        h <- sprintf("#HELP %s%s %s\n", private$.namespace, m$name, m$help)
+        t <- sprintf("#TYPE %s%s %s\n", private$.namespace, m$name, m$type)
+        v <- sprintf("%s%s %s\n", private$.namespace, m$name, m$value)
+
+        resp <- sprintf("%s%s%s", h, t, v)
       }
+
+      return(resp)
     }
   )
 )
