@@ -8,9 +8,6 @@ Counter
 
 Counter
 }
-\section{Super class}{
-\code{\link[titan:Titan]{titan::Titan}} -> \code{Counter}
-}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
@@ -19,13 +16,6 @@ Counter
 \item \href{#method-set}{\code{Counter$set()}}
 \item \href{#method-clone}{\code{Counter$clone()}}
 }
-}
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="titan" data-topic="Titan" data-id="counter">}\href{../../titan/html/Titan.html#method-counter}{\code{titan::Titan$counter()}}\out{</span>}
-}
-\out{</details>}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}

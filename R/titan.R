@@ -28,18 +28,19 @@ Titan <- R6::R6Class(
     }
   ),
   private = list(
-    .namespace = "",
-    .storage = function(x, val, namespace = ""){
-
-      nm <- sprintf("%s%s", namespace, x)
-
-      if(missing(val))
-        return(registry[[nm]])
-
-      registry[[nm]] <- val
-    }
+    .namespace = ""
   )
 )
+
+storage = function(x, val, namespace = ""){
+
+  nm <- sprintf("%s%s", namespace, x)
+
+  if(missing(val))
+    return(registry[[nm]])
+
+  registry[[nm]] <- val
+}
 
 #' With Titan
 #' 
@@ -91,7 +92,6 @@ render_metrics <- function(){
   resp <- ""
   for(i in 1:length(metrics)){
     m <- registry[[metrics[i]]]$render()
-    print(metrics)
     resp <- sprintf("%s%s", resp, m)
   }
 

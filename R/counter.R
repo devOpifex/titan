@@ -2,7 +2,6 @@
 #' @importFrom assertthat assert_that
 Counter <- R6::R6Class(
   "Counter",
-  inherit = Titan,
   public = list(
 #' @details Create a counter.
 #' @param name Name of the counter.
@@ -15,7 +14,7 @@ Counter <- R6::R6Class(
       private$.name <- name
       private$.namespace <- namespace
 
-      super$.storage(
+      storage(
         name,
         Metric$new(
           name, help, 
@@ -56,8 +55,9 @@ Counter <- R6::R6Class(
   private = list(
     .name = "",
     .value = 0,
+    .namespace = "",
     .run = function(){
-      super$.storage(private$.name, namespace = private$.namespace)
+      storage(private$.name, namespace = private$.namespace)
     }
   )
 ) 

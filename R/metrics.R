@@ -3,7 +3,6 @@
 #' @importFrom assertthat assert_that
 Metric <- R6::R6Class(
   "Metric",
-  inherit = Titan,
   public = list(
 #' @details Create a new metric
 #' @param name Name of the metric.

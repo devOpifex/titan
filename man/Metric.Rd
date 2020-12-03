@@ -11,9 +11,6 @@ Store Prometheus metrics
 Metrics
 Store Prometheus metrics
 }
-\section{Super class}{
-\code{\link[titan:Titan]{titan::Titan}} -> \code{Metric}
-}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
@@ -24,13 +21,6 @@ Store Prometheus metrics
 \item \href{#method-render}{\code{Metric$render()}}
 \item \href{#method-clone}{\code{Metric$clone()}}
 }
-}
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="titan" data-topic="Titan" data-id="counter">}\href{../../titan/html/Titan.html#method-counter}{\code{titan::Titan$counter()}}\out{</span>}
-}
-\out{</details>}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
