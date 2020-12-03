@@ -8,6 +8,9 @@ registry <- new.env(hash = TRUE)
 Titan <- R6::R6Class(
   "Titan",
   public = list(
+#' @details Initialise a registry
+#' @param namespace Namespace to prefix all metric
+#' names from this registry.
     initialize = function(namespace = NULL){
 
       if(!is.null(namespace))
@@ -15,21 +18,33 @@ Titan <- R6::R6Class(
       
       private$.namespace <- namespace
     },
-    counter = function(name, help, label = NULL){
-      Counter$new(name, help, label = NULL)
+#' @details Create a counter
+#' @param name Name of the counter, must be unique
+#' and match the following regex 
+#' `[a-zA-Z_:][a-zA-Z0-9_:]*`.
+#' @param help Help text describing the counter.
+    counter = function(name, help){
+      Counter$new(name, help)
     },
+#' @details Runs shiny application with titan.
+#' 
+#' Runs the application and serves the metrics
+#' on the `/metrics` endpoint.
+#' 
+#' @param app An object of class `shiny.appobj`
+#' as returned by [shiny::shinyApp()].
+#' 
+#' @return A modified version of the shiny application.
     runApp = function(app){
-      original <- app$httpHandler
+      assert_that(is_app(app))
+      original_http_handler <- app$httpHandler
 
       app$httpHandler <- function(req){
         if(req$PATH_INFO == "/metrics"){
           resp <- private$.render()
-          fn <- getFromNamespace("httpResponse", "shiny")
-          return(
-            fn(200, content = resp, content_type = "text/plain")
-          )
+          return(http_response(resp))
         }
-        original(req)
+        original_http_handler(req)
       }
 
       return(app)
@@ -51,13 +66,8 @@ Titan <- R6::R6Class(
 
       resp <- ""
       for(i in 1:length(metrics)){
-        m <- registry[[metrics[i]]]$retrieve()
-
-        h <- sprintf("#HELP %s%s %s\n", private$.namespace, m$name, m$help)
-        t <- sprintf("#TYPE %s%s %s\n", private$.namespace, m$name, m$type)
-        v <- sprintf("%s%s %s\n", private$.namespace, m$name, m$value)
-
-        resp <- sprintf("%s%s%s", h, t, v)
+        m <- registry[[metrics[i]]]$render(private$.namespace)
+        resp <- sprintf("%s%s", resp, m)
       }
 
       return(resp)

@@ -25,13 +25,40 @@ Registry
 \if{html}{\out{<div class="r">}}\preformatted{Titan$new(namespace = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{namespace}}{Namespace to prefix all metric
+names from this registry.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Initialise a registry
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-counter"></a>}}
 \if{latex}{\out{\hypertarget{method-counter}{}}}
 \subsection{Method \code{counter()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Titan$counter(name, help, label = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Titan$counter(name, help)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{Name of the counter, must be unique
+and match the following regex
+\verb{[a-zA-Z_:][a-zA-Z0-9_:]*}.}
+
+\item{\code{help}}{Help text describing the counter.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Create a counter
 }
 
 }
@@ -43,6 +70,24 @@ Registry
 \if{html}{\out{<div class="r">}}\preformatted{Titan$runApp(app)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{app}}{An object of class \code{shiny.appobj}
+as returned by \code{\link[shiny:shinyApp]{shiny::shinyApp()}}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Runs shiny application with titan.
+
+Runs the application and serves the metrics
+on the \verb{/metrics} endpoint.
+}
+
+\subsection{Returns}{
+A modified version of the shiny application.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

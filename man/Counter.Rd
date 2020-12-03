@@ -33,7 +33,20 @@ Counter
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Counter$new(name, help, label = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Counter$new(name, help)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{Name of the counter.}
+
+\item{\code{help}}{Help text for the counter.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Create a counter.
 }
 
 }
@@ -42,7 +55,23 @@ Counter
 \if{latex}{\out{\hypertarget{method-inc}{}}}
 \subsection{Method \code{inc()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Counter$inc(value = 1)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Counter$inc(value = 1L)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{\emph{Positive} value (integer or numeric) to increase the
+counter by.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Increase the counter.
+
+
+If a negative value is passed the method
+throws a warning and does not log metric.
 }
 
 }
@@ -52,6 +81,20 @@ Counter
 \subsection{Method \code{set()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Counter$set(value)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{Value to set the counter to. This
+value must be greater than the current counter
+value or a warning is thrown and the value is
+not logged.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set the counter to a specific value.
 }
 
 }

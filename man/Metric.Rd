@@ -18,6 +18,7 @@ Store Prometheus metrics
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{Metric$new()}}
+\item \href{#method-label}{\code{Metric$label()}}
 \item \href{#method-value}{\code{Metric$value()}}
 \item \href{#method-retrieve}{\code{Metric$retrieve()}}
 \item \href{#method-clone}{\code{Metric$clone()}}
@@ -36,12 +37,44 @@ Store Prometheus metrics
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Metric$new(
-  name,
-  help,
-  type = c("counter", "gauge", "histogram", "summary"),
-  label = NULL
-)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Metric$new(name, help, type = c("counter", "gauge", "histogram", "summary"))}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{Name of the metric.}
+
+\item{\code{help}}{Help text describing the metric.}
+
+\item{\code{type}}{Metric type.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Create a new metric
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-label"></a>}}
+\if{latex}{\out{\hypertarget{method-label}{}}}
+\subsection{Method \code{label()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Metric$label(name, value)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{Label name.}
+
+\item{\code{value}}{Value of the label.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add a label to the metric
 }
 
 }
@@ -53,6 +86,17 @@ Store Prometheus metrics
 \if{html}{\out{<div class="r">}}\preformatted{Metric$value(value)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{Value to set the metric to.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set the metric value
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-retrieve"></a>}}
@@ -60,6 +104,10 @@ Store Prometheus metrics
 \subsection{Method \code{retrieve()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Metric$retrieve()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Retrieve the metrics.
 }
 
 }
