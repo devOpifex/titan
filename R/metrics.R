@@ -43,9 +43,10 @@ Metric <- R6::R6Class(
     },
 #' @details Render the metric
     render = function(){
+      labels <- make_labels(private$.labels)
       h <- sprintf("#HELP %s%s %s\n", private$.namespace, private$.name, private$.help)
       t <- sprintf("#TYPE %s%s %s\n", private$.namespace, private$.name, private$.type)
-      v <- sprintf("%s%s %s\n", private$.namespace, private$.name, private$.value)
+      v <- sprintf("%s%s%s %s\n", private$.namespace, private$.name, labels, private$.value)
       paste0(h, t, v)
     }
   ),
@@ -58,3 +59,12 @@ Metric <- R6::R6Class(
     .namespace = ""
   )
 )
+
+make_labels <- function(labels){
+  if(is.null(labels))
+    return("")
+
+  labels <- paste0(names(labels), "='", labels, "'", collapse = ",")  
+
+  paste0("{", labels, "}")
+}

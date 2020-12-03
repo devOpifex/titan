@@ -24,6 +24,13 @@ Counter <- R6::R6Class(
         namespace = namespace
       )
     },
+#' @details Add a label to the metric
+#' @param name Label name.
+#' @param value Value of the label.
+    label = function(name, value){
+      private$.run()$label(name, value)
+      invisible(self)
+    },
 #' @details Increase the counter.
 #' @param value _Positive_ value (integer or numeric) to increase the 
 #' counter by.
@@ -37,6 +44,7 @@ Counter <- R6::R6Class(
       }
       private$.value <- private$.value + value
       private$.run()$value(private$.value)
+      invisible(self)
     },
 #' @details Set the counter to a specific value.
 #' @param value Value to set the counter to. This
@@ -50,6 +58,7 @@ Counter <- R6::R6Class(
       }
       private$.value <- private$.value + value
       private$.run()$value(private$.value)
+      invisible(self)
     }
   ),
   private = list(
