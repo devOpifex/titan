@@ -13,7 +13,6 @@ Registry
 \itemize{
 \item \href{#method-new}{\code{Titan$new()}}
 \item \href{#method-counter}{\code{Titan$counter()}}
-\item \href{#method-runApp}{\code{Titan$runApp()}}
 \item \href{#method-clone}{\code{Titan$clone()}}
 }
 }
@@ -61,33 +60,6 @@ and match the following regex
 Create a counter
 }
 
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-runApp"></a>}}
-\if{latex}{\out{\hypertarget{method-runApp}{}}}
-\subsection{Method \code{runApp()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Titan$runApp(app)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{app}}{An object of class \code{shiny.appobj}
-as returned by \code{\link[shiny:shinyApp]{shiny::shinyApp()}}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Runs shiny application with titan.
-
-Runs the application and serves the metrics
-on the \verb{/metrics} endpoint.
-}
-
-\subsection{Returns}{
-A modified version of the shiny application.
-}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

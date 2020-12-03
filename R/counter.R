@@ -7,18 +7,22 @@ Counter <- R6::R6Class(
 #' @details Create a counter.
 #' @param name Name of the counter.
 #' @param help Help text for the counter.
-    initialize = function(name, help){
+#' @param namespace Namespace.
+    initialize = function(name, help, namespace = ""){
       assert_that(not_missing(name))
       assert_that(not_missing(help))
 
       private$.name <- name
+      private$.namespace <- namespace
 
       super$.storage(
         name,
         Metric$new(
           name, help, 
-          type = "counter"
-        )
+          type = "counter",
+          namespace = namespace
+        ),
+        namespace = namespace
       )
     },
 #' @details Increase the counter.
@@ -53,7 +57,7 @@ Counter <- R6::R6Class(
     .name = "",
     .value = 0,
     .run = function(){
-      super$.storage(private$.name)
+      super$.storage(private$.name, namespace = private$.namespace)
     }
   )
 ) 

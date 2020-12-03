@@ -24,7 +24,6 @@ Counter
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
 \item \out{<span class="pkg-link" data-pkg="titan" data-topic="Titan" data-id="counter">}\href{../../titan/html/Titan.html#method-counter}{\code{titan::Titan$counter()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="titan" data-topic="Titan" data-id="runApp">}\href{../../titan/html/Titan.html#method-runApp}{\code{titan::Titan$runApp()}}\out{</span>}
 }
 \out{</details>}
 }
@@ -33,7 +32,7 @@ Counter
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Counter$new(name, help)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Counter$new(name, help, namespace = "")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -42,6 +41,8 @@ Counter
 \item{\code{name}}{Name of the counter.}
 
 \item{\code{help}}{Help text for the counter.}
+
+\item{\code{namespace}}{Namespace.}
 }
 \if{html}{\out{</div>}}
 }

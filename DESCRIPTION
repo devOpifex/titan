@@ -1,6 +1,6 @@
 Package: titan
 Title: Serve 'Prometheus' Metrics for 'Shiny' Applications
-Version: 0.0.0.9000
+Version: 1.0.0.9000
 Authors@R: 
   c(
     person(given = "John",

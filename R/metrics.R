@@ -9,9 +9,11 @@ Metric <- R6::R6Class(
 #' @param name Name of the metric.
 #' @param help Help text describing the metric.
 #' @param type Metric type.
-    initialize = function(name, help, type = c("counter", "gauge", "histogram", "summary")){
+#' @param namespace Namespace.
+    initialize = function(name, help, type = c("counter", "gauge", "histogram", "summary"), namespace = ""){
       private$.name <- name
       private$.help <- help
+      private$.namespace <- namespace
       private$.type <- match.arg(type)
     },
 #' @details Add a label to the metric
@@ -41,11 +43,10 @@ Metric <- R6::R6Class(
       )
     },
 #' @details Render the metric
-#' @param ns The namespace.
-    render = function(ns){
-      h <- sprintf("#HELP %s%s %s\n", ns, private$.name, private$.help)
-      t <- sprintf("#TYPE %s%s %s\n", ns, private$.name, private$.type)
-      v <- sprintf("%s%s %s\n", ns, private$.name, private$.value)
+    render = function(){
+      h <- sprintf("#HELP %s%s %s\n", private$.namespace, private$.name, private$.help)
+      t <- sprintf("#TYPE %s%s %s\n", private$.namespace, private$.name, private$.type)
+      v <- sprintf("%s%s %s\n", private$.namespace, private$.name, private$.value)
       paste0(h, t, v)
     }
   ),
@@ -54,6 +55,7 @@ Metric <- R6::R6Class(
     .help = "",
     .type = "counter",
     .value = 0,
-    .labels = NULL
+    .labels = NULL,
+    .namespace = ""
   )
 )

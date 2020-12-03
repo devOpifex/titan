@@ -21,6 +21,7 @@ Store Prometheus metrics
 \item \href{#method-label}{\code{Metric$label()}}
 \item \href{#method-value}{\code{Metric$value()}}
 \item \href{#method-retrieve}{\code{Metric$retrieve()}}
+\item \href{#method-render}{\code{Metric$render()}}
 \item \href{#method-clone}{\code{Metric$clone()}}
 }
 }
@@ -28,7 +29,6 @@ Store Prometheus metrics
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
 \item \out{<span class="pkg-link" data-pkg="titan" data-topic="Titan" data-id="counter">}\href{../../titan/html/Titan.html#method-counter}{\code{titan::Titan$counter()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="titan" data-topic="Titan" data-id="runApp">}\href{../../titan/html/Titan.html#method-runApp}{\code{titan::Titan$runApp()}}\out{</span>}
 }
 \out{</details>}
 }
@@ -37,7 +37,12 @@ Store Prometheus metrics
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Metric$new(name, help, type = c("counter", "gauge", "histogram", "summary"))}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Metric$new(
+  name,
+  help,
+  type = c("counter", "gauge", "histogram", "summary"),
+  namespace = ""
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -48,6 +53,8 @@ Store Prometheus metrics
 \item{\code{help}}{Help text describing the metric.}
 
 \item{\code{type}}{Metric type.}
+
+\item{\code{namespace}}{Namespace.}
 }
 \if{html}{\out{</div>}}
 }
@@ -108,6 +115,19 @@ Set the metric value
 
 \subsection{Details}{
 Retrieve the metrics.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-render"></a>}}
+\if{latex}{\out{\hypertarget{method-render}{}}}
+\subsection{Method \code{render()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Metric$render()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Render the metric
 }
 
 }
