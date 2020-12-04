@@ -1,70 +1,8 @@
-#' Metrics
-#' Store Prometheus metrics
-#' @importFrom assertthat assert_that
 Metric <- R6::R6Class(
   "Metric",
-  public = list(
-#' @details Create a new metric
-#' @param name Name of the metric.
-#' @param help Help text describing the metric.
-#' @param type Metric type.
-#' @param namespace Namespace.
-    initialize = function(name, help, type = c("counter", "gauge", "histogram", "summary"), namespace = ""){
-      private$.name <- name
-      private$.help <- help
-      private$.namespace <- namespace
-      private$.type <- match.arg(type)
-    },
-#' @details Add a label to the metric
-#' @param name Label name.
-#' @param value Value of the label.
-    label = function(name, value){
-      assert_that(not_missing(name), not_missing(value))
-      lab <- list()
-      lab[[name]] <- value
-      private$.labels <- append(private$.labels, lab)
-    },
-#' @details Set the metric value
-#' @param value Value to set the metric to.
-    value = function(value){
-      assert_that(not_missing(value))
-      private$.value <- value
-      invisible(self)
-    },
-#' @details Retrieve the metrics.
-    retrieve = function(){
-      list(
-        help = private$.help,
-        type = private$.type,
-        name = private$.name,
-        labels = private$.labels,
-        value = private$.value
-      )
-    },
-#' @details Render the metric
-    render = function(){
-      labels <- make_labels(private$.labels)
-      h <- sprintf("#HELP %s%s %s\n", private$.namespace, private$.name, private$.help)
-      t <- sprintf("#TYPE %s%s %s\n", private$.namespace, private$.name, private$.type)
-      v <- sprintf("%s%s%s %s\n", private$.namespace, private$.name, labels, private$.value)
-      paste0(h, t, v)
-    }
-  ),
+  inherit = Store,
   private = list(
-    .name = "",
-    .help = "",
     .type = "counter",
-    .value = 0,
-    .labels = NULL,
-    .namespace = ""
+    .store = NULL
   )
 )
-
-make_labels <- function(labels){
-  if(is.null(labels))
-    return("")
-
-  labels <- paste0(names(labels), "='", labels, "'", collapse = ",")  
-
-  paste0("{", labels, "}")
-}
