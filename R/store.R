@@ -99,7 +99,9 @@ Store <- R6::R6Class(
 
       labs <- apply(labels, 1, as.list)
       labs <- lapply(labs, renderLabels)
-      paste(name, labs, values, "\n", collapse = "")
+      string <- paste(name, labs, values, "\n", collapse = "")
+      # remove empty string (when no labels are used)
+      gsub("  ", " ", string)
     }
   )
 )
@@ -129,7 +131,7 @@ labelsAsDataframe <- function(val, labels){
 #' @noRd 
 #' @keywords internal
 renderLabels <- function(labels = NULL){
-  if(is.null(labels))
+  if(length(labels) == 0)
     return("")
 
   labels <- paste0(names(labels), "=\"", labels, "\"", collapse = ",")  
