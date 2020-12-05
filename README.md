@@ -12,31 +12,23 @@
 remotes::install_github("devOpifex/titan")
 ```
 
-## Example
+## Basic Example
 
 ``` r
 library(titan)
 library(shiny)
 
+cnter <- Counter$new(
+  "visits_total", 
+  "Total visit to the app"
+)
+
 ui <- fluidPage(
-  actionButton("click1", "Click"),
-  actionButton("click2", "Click")
+  h1("Hello!")
 )
 
 server <- function(input, output){
-  cnter <- Counter$new(
-    "btn_click_total", 
-    "Total button click",
-    labels = "button_id"
-  )
-  
-  observeEvent(input$click1, {
-    cnter$inc(button_id = "first")
-  })
-
-  observeEvent(input$click2, {
-    cnter$inc(button_id = "second")
-  })
+  cnter$inc()
 }
 
 titanApp(ui, server)
