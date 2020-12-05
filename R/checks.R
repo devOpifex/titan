@@ -4,6 +4,8 @@
 #' 
 #' @param what Name of argument (string) that is missing.
 #' 
+#' @author John Coene, \email{john@@opifex.org}
+#' 
 #' @noRd 
 #' @keywords internal
 warnMissing <- function(what){

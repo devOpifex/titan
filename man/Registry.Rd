@@ -7,6 +7,9 @@
 Interface to the main registry of metrics of titan,
 should not be interacted with directly.
 }
+\author{
+John Coene, \email{john@opifex.org}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{

@@ -3,6 +3,8 @@
 #' Interface to the main registry of metrics of titan, 
 #' should not be interacted with directly.
 #' 
+#' @author John Coene, \email{john@@opifex.org}
+#' 
 #' @export 
 Registry <- R6::R6Class(
   "Registry",

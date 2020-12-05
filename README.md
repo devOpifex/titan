@@ -18,28 +18,27 @@ remotes::install_github("devOpifex/titan")
 library(titan)
 library(shiny)
 
-# create a registry
-reg <- Titan$new(namespace = "shiny")
-
 ui <- fluidPage(
-  actionButton("click", "Click me")
+  actionButton("click1", "Click"),
+  actionButton("click2", "Click")
 )
 
 server <- function(input, output){
-
-  # create counter
-  cnter <- reg$counter(name = "btn_click", "Buttons clicked")
-
-  observeEvent(input$click, {
-    cnter$inc()
-    print("button clicked")
+  cnter <- Counter$new(
+    "btn_click_total", 
+    "Total button click",
+    labels = "button_id"
+  )
+  
+  observeEvent(input$click1, {
+    cnter$inc(button_id = "first")
   })
 
+  observeEvent(input$click2, {
+    cnter$inc(button_id = "second")
+  })
 }
 
-app <- shinyApp(ui, server, options = list(port = 3000))
-
-# serve metrics
-reg$runApp(app)
+titanApp(ui, server)
 ```
 

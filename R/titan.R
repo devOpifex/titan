@@ -7,6 +7,8 @@
 #' 
 #' @return A modified version of the shiny application.
 #' 
+#' @author John Coene, \email{john@@opifex.org}
+#' 
 #' @export
 withTitan <- function(app){
   originalHttpHandler <- app$httpHandler
@@ -27,6 +29,8 @@ withTitan <- function(app){
 #' Run a shiny application with titan.
 #' 
 #' @param ... Arguments passed to [shiny::shinyApp()]. 
+#' 
+#' @author John Coene, \email{john@@opifex.org}
 #' 
 #' @export
 #' @importFrom shiny shinyApp
@@ -55,7 +59,9 @@ renderMetrics <- function(){
 
 #' Reset
 #' 
-#' Reset all titan counters, gauges, histograms, and metrics.
+#' Resets all titan counters, gauges, histograms, and metrics.
+#' 
+#' @author John Coene, \email{john@@opifex.org}
 #' 
 #' @export 
 resetTitan <- function(){

@@ -12,3 +12,6 @@ titanApp(...)
 \description{
 Run a shiny application with titan.
 }
+\author{
+John Coene, \email{john@opifex.org}
+}

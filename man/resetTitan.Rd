@@ -7,5 +7,8 @@
 resetTitan()
 }
 \description{
-Reset all titan counters, gauges, histograms, and metrics.
+Resets all titan counters, gauges, histograms, and metrics.
+}
+\author{
+John Coene, \email{john@opifex.org}
 }
