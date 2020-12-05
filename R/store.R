@@ -4,7 +4,7 @@
 #' 
 #' @author John Coene, \email{john@@opifex.org}
 #' 
-#' @importFrom dplyr anti_join bind_rows
+#' @importFrom dplyr anti_join inner_join bind_rows
 #' 
 #' @noRd 
 #' @keywords internal
@@ -27,16 +27,32 @@ Store <- R6::R6Class(
     },
     getData = function(){
       return(private$.data)
+    },
+    getCurrentValue = function(...){
+      labels <- labelsOrNull(...)
+      match <- private$checkLabelsMatch(labels)
+      
+      if(!match) return(invisible())
+
+      if(is.null(labels))
+        return(private$.data$value %||% 0)
+      
+      newData <- labelsAsDataframe(val = 0, labels)
+      newData$value <- NULL
+      
+      current <- inner_join(private$.data, newData, by = private$.labels)
+      
+      return(current$value %||% 0)
     }
   ),
   private = list(
     .labels = NULL,
     .data = data.frame(),
     upsert = function(val, labels = NULL){
-      newLabels <- list(value = val, labels)
-      newLabels <- dropNulls(newLabels)
-      newData <- as.data.frame(newLabels)
+      newData <- labelsAsDataframe(val, labels)
 
+      # if no labels are used then dataset can
+      # simply be replaced
       if(is.null(labels)){
         private$.data <- newData
         return()
@@ -74,9 +90,52 @@ Store <- R6::R6Class(
         "Labels mismatch, must have ", existing, " received ", passed,
         call. = FALSE
       )
+    },
+    renderLabel = function(name){
+      # split labels and values
+      labels <- private$.data
+      values <- labels$value
+      labels$value <- NULL
+
+      labs <- apply(labels, 1, as.list)
+      labs <- lapply(labs, renderLabels)
+      paste(name, labs, values, "\n", collapse = "")
     }
   )
 )
+
+#' Values and labels as data.frame
+#' 
+#' Turns values and list of labels (key value pairs)
+#' as data.frame.
+#' 
+#' @param value A numeric vector of length 1.
+#' @param labels A `list` of labels.
+#' 
+#' @noRd 
+#' @keywords internal
+labelsAsDataframe <- function(val, labels){
+  newLabels <- list(value = val, labels)
+  newLabels <- dropNulls(newLabels)
+  as.data.frame(newLabels)
+}
+
+#' Render Labels
+#' 
+#' Render labels as Prometheus metrics.
+#' 
+#' @param labels Vector of labels or `NULL`.
+#' 
+#' @noRd 
+#' @keywords internal
+renderLabels <- function(labels = NULL){
+  if(is.null(labels))
+    return("")
+
+  labels <- paste0(names(labels), "=\"", labels, "\"", collapse = ",")  
+
+  paste0("{", labels, "}")
+}
 
 #' Labels to string
 #' 

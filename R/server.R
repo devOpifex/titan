@@ -1,5 +1,5 @@
 # httpResponse is not exported
-httpResponse <- getFromNamespace("httpResponse", "shiny")
+shinyResponse <- getFromNamespace("httpResponse", "shiny")
 
 #' HTTP Response
 #' 
@@ -9,8 +9,8 @@ httpResponse <- getFromNamespace("httpResponse", "shiny")
 #' 
 #' @noRd 
 #' @keywords internal
-http_response <- function(content){
-  httpResponse(
+httpResponse <- function(content){
+  shinyResponse(
     200, 
     content = content, 
     content_type = "text/plain"
