@@ -19,48 +19,19 @@ stopIfMissing <- function(var, what = deparse(substitute(var))){
     stop("Missing `", what, "`", call. = FALSE)
 }
 
-#' Health Check
+#' Get all names of objects in registry
 #' 
-#' Performs a health check on titan and attempts
-#' at identifying potential issues with the setup.
+#' @param name the name of an object to
+#' check in the registry.
 #' 
-#' @importFrom dplyr count filter
-#' 
-#' @export 
-healthCheck <- function(){
-  cat("Do no run this in production!\n")
-
-  names <- getRegistryNames()
-
-  nameCounts <- count(
-    data.frame(names = names),
-    names
-  )
-
-  duplicates <- filter(nameCounts, n > 1)
-
-  if(nrow(duplicates) > 0){
-    apply(duplicates, 1, function(x){
-      warning(x$names, "is used", x$n, "times!")
-    })
-  } else {
-    cat("Looks good!")
-  }
-
-  invisible()
-}
-
+#' @noRd
+#' @keywords internal
 getRegistryNames <- function(){
-  names <- c()
-  items <- ls(titanCollector)
-  for(item in items){
-    metric <- titanCollector[[item]]
-    
-    names <- append(names, metric$getName())
-  }
-  return(names)
+  names(titanCollector)
 }
 
+#' @noRd
+#' @keywords internal
 hasRegistryName <- function(name){
   names <- getRegistryNames()
   if(any(name %in% names))
