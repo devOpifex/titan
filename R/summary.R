@@ -1,19 +1,19 @@
-#' Histogram
+#' Summary
 #' 
-#' Create a histogram.
+#' Create a summary.
 #' 
 #' @author John Coene, \email{john@@opifex.org}
 #' 
 #' @export 
-Histogram <- R6::R6Class(
-  "Histogram",
+Summary <- R6::R6Class(
+  "Summary",
   inherit = Registry,
   public = list(
 #' @details Initialise
 #' 
-#' @param name Name of the histogram.
-#' @param help Help text describing the histogram.
-#' @param labels Labels to use for the historgram, a
+#' @param name Name of the summary.
+#' @param help Help text describing the summary.
+#' @param labels Labels to use for the summary, a
 #' character vector.
 #' @param predicate A callback function that take a 
 #' single argument, a numeric vector of length 1 and 
@@ -25,10 +25,10 @@ Histogram <- R6::R6Class(
 
       cntName <- sprintf("%s_count", name)
       sumName <- sprintf("%s_sum", name)
-      labelsLe <- c(labels, "le")
+      labelsQuantile <- c(labels, "quantile")
 
       # buckets & quantiles
-      metric <- Metric$new(name, help, "histogram", labelsLe)
+      metric <- Metric$new(name, help, "summary", labelsQuantile)
       # sum & count
       count <- Metric$new(cntName, help, "counter", labels, "v")
       sum <- Metric$new(sumName, help, "counter", labels, "v")
@@ -71,8 +71,8 @@ Histogram <- R6::R6Class(
       private$increaseCnt(...)
       private$increaseSum(val, ...)
 
-      current <- super$get()$getCurrentValue(le = results$label, ...) %||% 0
-      super$get()$setValue(current + 1, le = results$label, ...)
+      current <- super$get()$getCurrentValue(quantile = results$label, ...) %||% 0
+      super$get()$setValue(current + results$value, quantile = results$label, ...)
 
       invisible(self)
     }
@@ -101,59 +101,3 @@ Histogram <- R6::R6Class(
     }
   )
 )
-
-#' bucket
-#' 
-#' Create a Bucket, needed for the `predicate` of
-#' the [Histogram] which must return an object of
-#' class `bucket`.
-#' 
-#' @param label Name of the label.
-#' @param value Value of the label.
-#' @param obj Object to check.
-#' 
-#' @examples 
-#' bucket("0.3", 2)
-#' 
-#' pred <- function(x){
-#'  if(x > .5)
-#'    return(bucket("1", x))
-#' 
-#'  bucket(".5", x)
-#' }
-#' 
-#' result <- pred(.8)
-#' is.bucket(result)
-#' 
-#' @return An object of class `bucket`.
-#' 
-#' @name bucket
-#' @export
-bucket <- function(label, value){
-  stopIfMissing(label)
-  stopIfMissing(value)
-
-  label <- as.character(label)
-
-  if(!is.numeric(value)){
-    warning("value of bucket must be a numeric", call. = FALSE)
-    return(FALSE)
-  }
-
-  pair <- list(label = label[1], value = value[1])
-  structure(pair, class = c("bucket", class(pair)))
-}
-
-#' @rdname bucket
-#' @export
-is.bucket <- function(obj){
-  if(inherits(obj, "bucket"))
-    return(TRUE)
-  
-  return(FALSE)
-}
-
-#' @export 
-print.bucket <- function(x, ...){
-  cat("bucket:", x$label, "-", x$value)
-}
