@@ -68,12 +68,12 @@ Summary <- R6::R6Class(
         return(invisible())
       }
 
-      private$increaseCnt(...)
-      private$increaseSum(val, ...)
-
       current <- super$get()$getCurrentValue(quantile = results$label, ...) %||% 0
       super$get()$setValue(current + results$value, quantile = results$label, ...)
 
+      private$increaseCnt(...)
+      private$increaseSum(val, ...)
+      
       invisible(self)
     }
   ),
