@@ -24,4 +24,4 @@ function() {
 #*
 #* @serializer text
 #* @get /metrics
-titanPlumber
+renderMetrics

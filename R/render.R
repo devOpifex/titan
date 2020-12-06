@@ -39,21 +39,11 @@ titanApp <- function(...){
   withTitan(app)
 }
 
-#' Titan Plumber
-#' 
-#' Serve titan metrics for plumber
-#' 
-#' @export 
-titanPlumber <- function(){
-  renderMetrics()
-}
-
 #' Render the recorded metrics
 #' 
 #' Loops over the registry to render the metrics for prometheus.
 #' 
-#' @noRd 
-#' @keywords internal
+#' @export
 renderMetrics <- function(){
   metrics <- ls(titanCollector)
 

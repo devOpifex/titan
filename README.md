@@ -6,7 +6,7 @@
 
 # titan
 
-[Prometheus](prometheus.io/) monitoring for shiny applications and plumber services.
+[Prometheus](prometheus.io/) monitoring for shiny applications, plumber APIs, and other R web services
 
 ## Installation
 
@@ -111,5 +111,37 @@ function() {
 #*
 #* @serializer text
 #* @get /metrics
-titanPlumber
+renderMetrics
+```
+
+## Ambiorix
+
+```r
+library(titan)
+library(ambiorix)
+
+# basic counter
+c <- Counter$new(
+  name = "visits_total", 
+  help = "Total visit to the site",
+  labels = "path"
+)
+
+app <- Ambiorix$new()
+
+app$get("/", function(req, res){
+  c$inc(path = "/")
+  res$send("Using {titan} with {ambiorix}!")
+})
+
+app$get("/about", function(req, res){
+  c$inc(path = "/about")
+  res$send("About {titan} and {ambiorix}!")
+})
+
+app$get("/metrics", function(req, res){
+  res$text(renderMetrics())
+})
+
+app$start()
 ```
