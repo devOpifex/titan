@@ -1,7 +1,5 @@
 library(titan)
 
-resetTitan()
-
 cnter <- Counter$new(
   "home", 
   "Counts number of pings at /",
