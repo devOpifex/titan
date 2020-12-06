@@ -6,7 +6,7 @@
 
 # titan
 
-[Prometheus](prometheus.io/) monitoring for shiny applications, plumber APIs, and other R web services
+[Prometheus](prometheus.io/) monitoring for shiny applications, plumber APIs, and other R web services.
 
 ## Installation
 
@@ -18,6 +18,8 @@ remotes::install_github("devOpifex/titan")
 ## Shiny
 
 ### Counter
+
+A simple counter, a value that can only increase, and never decrease.
 
 ``` r
 library(titan)
@@ -94,6 +96,8 @@ titanApp(ui, server)
 
 ## Plumber
 
+Using titan in plumber.
+
 ```r
 cnter <- Counter$new(
   "home", 
@@ -115,6 +119,8 @@ renderMetrics
 ```
 
 ## Ambiorix
+
+Using titan with ambiorix.
 
 ```r
 library(titan)
