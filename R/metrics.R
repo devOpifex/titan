@@ -10,12 +10,13 @@ Metric <- R6::R6Class(
   "Metric",
   inherit = Store,
   public = list(
-    initialize = function(name, help, type = c("counter", "gauge", "histogram", "summary"), labels = NULL){
+    initialize = function(name, help, type = c("counter", "gauge", "histogram", "summary"), labels = NULL, render = c("h", "t", "v")){
       stopIfMissing(name)
       stopIfMissing(help)
 
       super$initialize(labels)
 
+      private$.render <- render
       private$.name <- name
       private$checkName()
       private$.help <- help
@@ -26,10 +27,28 @@ Metric <- R6::R6Class(
       cat("A", private$.type, "\n")
     },
     renderMetric = function(){
-      help <- sprintf("# HELP %s %s\n", private$.name, private$.help)
-      type <- sprintf("# TYPE %s %s\n", private$.name, private$.type)
-      labels <- super$renderLabel(private$.name)
-      sprintf("%s%s%s", help, type, labels)
+      output <- ""
+
+      if("h" %in% private$.render){
+        help <- sprintf(
+          "# HELP %s %s\n", 
+          private$.name, 
+          private$.help
+        )
+        output <- paste0(output, help)
+      }
+
+      if("t" %in% private$.render){
+        type <- sprintf("# TYPE %s %s\n", private$.name, private$.type)
+        output <- paste0(output, type)
+      }
+
+      if("v" %in% private$.render){
+        labels <- super$renderLabel(private$.name)
+        output <- paste0(output, labels)
+      }
+
+      return(output)
     }
   ),
   private = list(
@@ -37,6 +56,7 @@ Metric <- R6::R6Class(
     .name = "",
     .help = "",
     .type = "counter",
+    .render = c("h", "t", "v"),
     checkName = function(){
       name <- private$.name
       hasSpace <- grep("\\s", name)

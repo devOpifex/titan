@@ -11,10 +11,16 @@
 Store <- R6::R6Class(
   "Store",
   public = list(
+#' @details Initialise a metric storage
+#' 
+#' @param labels Labels to use for this metric
     initialize = function(labels = NULL){
       private$.labels <- labels
       private$.data <- initStorage(labels)
     },
+#' @details Set value of metric
+#' @param val Value to give.
+#' @param ... Labels and values pairs.
     setValue = function(val, ...){
       labels <- labelsOrNull(...)
       match <- private$checkLabelsMatch(labels)
@@ -25,9 +31,12 @@ Store <- R6::R6Class(
 
       invisible(self)
     },
+#' @details Get the data as stored by the class
     getData = function(){
       return(private$.data)
     },
+#' @details Get the current value of a metric given labels
+#' @param ... Labels and values pairs.
     getCurrentValue = function(...){
       labels <- labelsOrNull(...)
       match <- private$checkLabelsMatch(labels)

@@ -17,6 +17,7 @@ Registry <- R6::R6Class(
 #' @param obj Object to store.
     store = function(obj){
       store(private$.id, obj)
+      invisible(self)
     },
 #' @details Retrieve something from the registry.
     get = function(){
