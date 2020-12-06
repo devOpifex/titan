@@ -26,26 +26,26 @@ c$inc(1, module = "tableview")
 ## Method `Counter$inc`
 ## ------------------------------------------------
 
-c <- Counter$new(
- "refresh_btn_total", 
+cnter <- Counter$new(
+ "load_btn_total", 
  "Loads data button count",
- labels = c("module")
+ labels = "module"
 ) 
 
-c$inc(1, module = "homepage")
-c$inc(1, module = "tableview")
+cnter$inc(1, module = "homepage")
+cnter$inc(1, module = "tableview")
 
 ## ------------------------------------------------
 ## Method `Counter$set`
 ## ------------------------------------------------
 
-c <- Counter$new(
- "refresh_btn_total", 
- "Loads data button count"
+c1 <- Counter$new(
+ "relaod_btn_total", 
+ "Re-Loads data button count"
 ) 
 
-c$set(1)
-c$set(5)
+c1$set(1)
+c1$set(5)
 
 # will throw warning: 3 < 5
 \dontrun{c$set(3)}
@@ -137,14 +137,14 @@ Increase the value of the counter.
 
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{c <- Counter$new(
- "refresh_btn_total", 
+\preformatted{cnter <- Counter$new(
+ "load_btn_total", 
  "Loads data button count",
- labels = c("module")
+ labels = "module"
 ) 
 
-c$inc(1, module = "homepage")
-c$inc(1, module = "tableview")
+cnter$inc(1, module = "homepage")
+cnter$inc(1, module = "tableview")
 }
 \if{html}{\out{</div>}}
 
@@ -174,13 +174,13 @@ Set the counter to a certain value.
 
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{c <- Counter$new(
- "refresh_btn_total", 
- "Loads data button count"
+\preformatted{c1 <- Counter$new(
+ "relaod_btn_total", 
+ "Re-Loads data button count"
 ) 
 
-c$set(1)
-c$set(5)
+c1$set(1)
+c1$set(5)
 
 # will throw warning: 3 < 5
 \dontrun{c$set(3)}

@@ -39,6 +39,15 @@ titanApp <- function(...){
   withTitan(app)
 }
 
+#' Titan Plumber
+#' 
+#' Serve titan metrics for plumber
+#' 
+#' @export 
+titanPlumber <- function(){
+  renderMetrics()
+}
+
 #' Render the recorded metrics
 #' 
 #' Loops over the registry to render the metrics for prometheus.
@@ -59,7 +68,7 @@ renderMetrics <- function(){
 
 #' Reset
 #' 
-#' Resets all titan counters, gauges, histograms, and metrics.
+#' Resets all titan counters, gauges, histograms, and summaries.
 #' 
 #' @author John Coene, \email{john@@opifex.org}
 #' 

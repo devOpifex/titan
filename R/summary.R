@@ -37,8 +37,8 @@ Summary <- R6::R6Class(
       super$store(metric)
 
       # create new registries for sum & count
-      regSum <- Registry$new()$store(sum)
-      regCnt <- Registry$new()$store(count)
+      regSum <- Registry$new(sumName)$store(sum)
+      regCnt <- Registry$new(cntName)$store(count)
 
       private$.regSum <- regSum
       private$.regCnt <- regCnt

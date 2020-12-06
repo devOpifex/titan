@@ -6,7 +6,7 @@
 
 # titan
 
-[Prometheus](prometheus.io/) monitoring for shiny applications.
+[Prometheus](prometheus.io/) monitoring for shiny applications and plumber services.
 
 ## Installation
 
@@ -15,7 +15,7 @@
 remotes::install_github("devOpifex/titan")
 ```
 
-## Examples
+## Shiny
 
 ### Counter
 
@@ -90,4 +90,26 @@ server <- function(input, output){
 }
 
 titanApp(ui, server)
+```
+
+## Plumber
+
+```r
+cnter <- Counter$new(
+  "home", 
+  "Counts number of pings"
+)
+
+#* Increment a counter
+#* @get /
+function() {
+  cnter$inc()
+  return("Hello titan!")
+}
+
+#* Render Metrics
+#*
+#* @serializer text
+#* @get /metrics
+titanPlumber
 ```

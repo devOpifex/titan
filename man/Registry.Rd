@@ -24,9 +24,16 @@ John Coene, \email{john@opifex.org}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Registry$new()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Registry$new(name)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{Name of the object to store (the metric).}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Details}{
 Initialise a new storage for a metric.
 }

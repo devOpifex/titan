@@ -1,5 +1,5 @@
 Package: titan
-Title: Serve 'Prometheus' Metrics for 'Shiny' Applications
+Title: Serve 'Prometheus' Metrics for 'Shiny' Applications and 'Plumber' services
 Version: 1.0.0.9000
 Authors@R: 
   c(
@@ -11,8 +11,9 @@ Authors@R:
            role = c("cph"),
            email = "john@opifex.org")
   )
-Description: Serve 'Prometheus' metrics for Shiny applications
-  to track health and performances of applications.
+Description: Track and serve 'Prometheus' metrics for 
+  'Shiny' applications to track health and performances,
+  also works with 'Plumber'.
 License: AGPL-3
 Encoding: UTF-8
 LazyData: true

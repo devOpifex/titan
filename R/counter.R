@@ -26,7 +26,7 @@ Counter <- R6::R6Class(
 #' c$inc(1, module = "homepage")
 #' c$inc(1, module = "tableview")
     initialize = function(name, help, labels = NULL){
-      super$initialize()
+      super$initialize(name)
       
       metric <- Metric$new(name, help, "counter", labels)
 
@@ -38,14 +38,14 @@ Counter <- R6::R6Class(
 #' @param ... Named label and value pair(s). 
 #' 
 #' @examples 
-#' c <- Counter$new(
-#'  "refresh_btn_total", 
+#' cnter <- Counter$new(
+#'  "load_btn_total", 
 #'  "Loads data button count",
-#'  labels = c("module")
+#'  labels = "module"
 #' ) 
 #' 
-#' c$inc(1, module = "homepage")
-#' c$inc(1, module = "tableview")
+#' cnter$inc(1, module = "homepage")
+#' cnter$inc(1, module = "tableview")
     inc = function(val = 1, ...){
       value <- super$get()$getCurrentValue(...) + val
       super$get()$setValue(value, ...)
@@ -57,13 +57,13 @@ Counter <- R6::R6Class(
 #' @param ... Named label and value pair(s). 
 #' 
 #' @examples 
-#' c <- Counter$new(
-#'  "refresh_btn_total", 
-#'  "Loads data button count"
+#' c1 <- Counter$new(
+#'  "relaod_btn_total", 
+#'  "Re-Loads data button count"
 #' ) 
 #' 
-#' c$set(1)
-#' c$set(5)
+#' c1$set(1)
+#' c1$set(5)
 #' 
 #' # will throw warning: 3 < 5
 #' \dontrun{c$set(3)}

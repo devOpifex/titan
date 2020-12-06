@@ -26,7 +26,7 @@ Gauge <- R6::R6Class(
 #' c$inc(1, module = "homepage")
 #' c$inc(1, module = "tableview")
     initialize = function(name, help, labels = NULL){
-      super$initialize()
+      super$initialize(name)
       
       metric <- Metric$new(name, help, "gauge", labels)
 

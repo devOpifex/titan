@@ -30,13 +30,7 @@ stopIfMissing <- function(var, what = deparse(substitute(var))){
 healthCheck <- function(){
   cat("Do no run this in production!\n")
 
-  names <- c()
-  items <- ls(titanCollector)
-  for(item in items){
-    metric <- titanCollector[[item]]
-    
-    names <- append(names, metric$getName())
-  }
+  names <- getRegistryNames()
 
   nameCounts <- count(
     data.frame(names = names),
@@ -54,4 +48,23 @@ healthCheck <- function(){
   }
 
   invisible()
+}
+
+getRegistryNames <- function(){
+  names <- c()
+  items <- ls(titanCollector)
+  for(item in items){
+    metric <- titanCollector[[item]]
+    
+    names <- append(names, metric$getName())
+  }
+  return(names)
+}
+
+hasRegistryName <- function(name){
+  names <- getRegistryNames()
+  if(any(name %in% names))
+    return(TRUE)
+
+  return(FALSE)
 }

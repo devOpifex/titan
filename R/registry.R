@@ -10,12 +10,22 @@ Registry <- R6::R6Class(
   "Registry",
   public = list(
 #' @details Initialise a new storage for a metric.
-    initialize = function(){
-      private$.id <- generateId()
+#' @param name Name of the object to store (the metric).
+    initialize = function(name){
+
+      if(missing(name))
+        name <- generateId()
+
+      private$.id <- name
     },
 #' @details Store something in the registry.
 #' @param obj Object to store.
     store = function(obj){
+
+      # don't overwrite if it already exists
+      if(hasRegistryName(private$.id))
+        return(invisible())
+
       store(private$.id, obj)
       invisible(self)
     },
