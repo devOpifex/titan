@@ -28,11 +28,7 @@ Counter <- R6::R6Class(
     initialize = function(name, help, labels = NULL){
       super$initialize()
       
-      metric <- Metric$
-        new(labels)$
-        type("counter")$
-        name(name)$
-        help(help)
+      metric <- Metric$new(name, help, "counter", labels)
 
       super$store(metric)
     },
@@ -73,7 +69,7 @@ Counter <- R6::R6Class(
 #' \dontrun{c$set(3)}
     set = function(val, ...){
       if(missing(val)){
-        warnMissing(val)
+        warnIfMissing(val)
         return(invisible())
       }
 

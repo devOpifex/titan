@@ -8,13 +8,13 @@
 #' 
 #' @noRd 
 #' @keywords internal
-warnMissing <- function(what){
+warnIfMissing <- function(what){
   warning("Missing `", what, "` [ignoring]", call. = FALSE)
 }
 
 #' @noRd 
 #' @keywords internal
-stopMissing <- function(var, what){
+stopIfMissing <- function(var, what){
   if(missing(var))
     stop("Missing `", what, "`", call. = FALSE)
 }

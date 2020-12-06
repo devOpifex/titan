@@ -28,11 +28,7 @@ Gauge <- R6::R6Class(
     initialize = function(name, help, labels = NULL){
       super$initialize()
       
-      metric <- Metric$
-        new(labels)$
-        type("gauge")$
-        name(name)$
-        help(help)
+      metric <- Metric$new(name, help, "gauge", labels)
 
       super$store(metric)
     },
@@ -93,7 +89,7 @@ Gauge <- R6::R6Class(
 #' \dontrun{c$set(3)}
     set = function(val, ...){
       if(missing(val)){
-        warnMissing(val)
+        warnIfMissing(val)
         return(invisible())
       }
       super$get()$setValue(val, ...)

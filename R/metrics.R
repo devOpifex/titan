@@ -10,24 +10,17 @@ Metric <- R6::R6Class(
   "Metric",
   inherit = Store,
   public = list(
-    initialize = function(labels){
+    initialize = function(name, help, type = c("counter", "gauge", "histogram", "summary"), labels = NULL){
+      stopIfMissing(name, "name")
+      stopIfMissing(help, "help")
+
       super$initialize(labels)
+
+      private$.name <- name
+      private$checkName()
+      private$.help <- help
       private$.id <- generateId()
-    },
-    type = function(type = c("counter", "gauge", "histogram", "summary")){
       private$.type <- match.arg(type)
-      invisible(self)
-    },
-    name = function(text){
-      stopMissing(text, "name")
-      private$checkName(text)
-      private$.name <- text
-      invisible(self)
-    },
-    help = function(text){
-      stopMissing(text, "help")
-      private$.help <- text
-      invisible(self)
     },
     print = function(){
       cat("A", private$.type, "\n")
@@ -44,7 +37,8 @@ Metric <- R6::R6Class(
     .name = "",
     .help = "",
     .type = "counter",
-    checkName = function(name){
+    checkName = function(){
+      name <- private$.name
       hasSpace <- grep("\\s", name)
       doubleUnderscore <- grepl("^__", name)
       if(any(hasSpace, doubleUnderscore))
