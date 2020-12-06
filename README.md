@@ -15,15 +15,18 @@
 remotes::install_github("devOpifex/titan")
 ```
 
-## Basic Example
+## Examples
+
+### Counter
 
 ``` r
 library(titan)
 library(shiny)
 
+# basic counter
 cnter <- Counter$new(
-  "visits_total", 
-  "Total visit to the app"
+  name = "visits_total", 
+  help = "Total visit to the app"
 )
 
 ui <- fluidPage(
@@ -31,9 +34,60 @@ ui <- fluidPage(
 )
 
 server <- function(input, output){
+  # increment at every visit
   cnter$inc()
 }
 
 titanApp(ui, server)
 ```
 
+### Histogram
+
+A histogram to measure the time it takes to process an arbitrary request.
+
+```r
+library(titan)
+library(shiny)
+
+# predicate to put data in buckets
+pred <- function(val){
+  if(val >= 2)
+    return(bucket("2", val))
+  
+  return(bucket("1", val))
+}
+
+# histogram
+hist <- Histogram$new(
+  "request_seconds",
+  "Request in seconds",
+  predicate = pred
+)
+
+ui <- fluidPage(
+  h1("Hello!"),
+  actionButton("click1", "time")
+)
+
+server <- function(input, output){
+  
+  observeEvent(input$click1, {
+    # get start time
+    start <- Sys.time()
+
+    # randomly sleep 1 or 2 seconds
+    Sys.sleep(sample(1:2, 1))
+
+    # on done observe the time difference
+    on.exit({
+      end <- as.numeric(Sys.time() - start)
+      hist$observe(end)
+    })
+
+    print(input$click1)
+  })
+
+}
+
+titanApp(ui, server)
+```

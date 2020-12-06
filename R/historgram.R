@@ -72,7 +72,8 @@ Histogram <- R6::R6Class(
       private$increaseCnt(...)
       private$increaseSum(val, ...)
 
-      super$get()$setValue(results$value, le = results$label, ...)
+      current <- super$get()$getCurrentValue(le = results$label, ...) %||% 0
+      super$get()$setValue(current + 1, le = results$label, ...)
 
       invisible(self)
     }
