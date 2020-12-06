@@ -26,6 +26,9 @@ Metric <- R6::R6Class(
     print = function(){
       cat("A", private$.type, "\n")
     },
+    getName = function(){
+      return(private$.name)
+    },
     renderMetric = function(){
       output <- ""
 

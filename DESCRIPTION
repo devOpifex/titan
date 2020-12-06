@@ -22,3 +22,5 @@ Imports:
     R6,
     shiny,
     dplyr
+Suggests: 
+    testthat

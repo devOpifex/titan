@@ -1,2 +1,5 @@
 ^test\.R$
 ^LICENSE\.md$
+^\.github$
+^\.travis\.yml$
+^appveyor\.yml$

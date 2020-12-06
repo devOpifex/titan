@@ -1,4 +1,7 @@
 <!-- badges: start -->
+[![R build status](https://github.com/devOpifex/titan/workflows/R-CMD-check/badge.svg)](https://github.com/devOpifex/titan/actions)
+[![Travis build status](https://travis-ci.com/devOpifex/titan.svg?branch=master)](https://travis-ci.com/devOpifex/titan)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/devOpifex/titan?branch=master&svg=true)](https://ci.appveyor.com/project/devOpifex/titan)
 <!-- badges: end -->
 
 # titan
