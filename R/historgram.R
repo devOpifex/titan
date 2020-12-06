@@ -2,8 +2,9 @@ Histogram <- R6::R6Class(
   "Histogram",
   inherit = Registry,
   public = list(
-    initialize = function(name, help, labels){
-      stopIfMissing(labels, "labels")
+    initialize = function(name, help, labels, predicate){
+      stopIfMissing(labels)
+      stopIfMissing(predicate)
 
       super$initialize()
       

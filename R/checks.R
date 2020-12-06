@@ -14,7 +14,7 @@ warnIfMissing <- function(what){
 
 #' @noRd 
 #' @keywords internal
-stopIfMissing <- function(var, what){
+stopIfMissing <- function(var, what = deparse(substitute(var))){
   if(missing(var))
     stop("Missing `", what, "`", call. = FALSE)
 }

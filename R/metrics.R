@@ -11,8 +11,8 @@ Metric <- R6::R6Class(
   inherit = Store,
   public = list(
     initialize = function(name, help, type = c("counter", "gauge", "histogram", "summary"), labels = NULL){
-      stopIfMissing(name, "name")
-      stopIfMissing(help, "help")
+      stopIfMissing(name)
+      stopIfMissing(help)
 
       super$initialize(labels)
 
