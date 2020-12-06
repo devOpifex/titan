@@ -54,7 +54,7 @@ pred <- function(val){
   if(val >= 2)
     return(bucket("2", val))
   
-  return(bucket("1", val))
+  bucket("1", val)
 }
 
 # histogram

@@ -68,3 +68,13 @@ resetTitan <- function(){
   rm(list = ls(titanCollector), envir = titanCollector)
   invisible()
 }
+
+#' Preview metrics
+#' 
+#' Preview the metrics by printing on the screen the 
+#' metrics as will be served by the endpoint.
+#' 
+#' @export 
+previewMetrics <- function(){
+  cat(renderMetrics())
+}

@@ -18,3 +18,40 @@ stopIfMissing <- function(var, what = deparse(substitute(var))){
   if(missing(var))
     stop("Missing `", what, "`", call. = FALSE)
 }
+
+#' Health Check
+#' 
+#' Performs a health check on titan and attempts
+#' at identifying potential issues with the setup.
+#' 
+#' @importFrom dplyr count filter
+#' 
+#' @export 
+healthCheck <- function(){
+  cat("Do no run this in production!\n")
+
+  names <- c()
+  items <- ls(titanCollector)
+  for(item in items){
+    metric <- titanCollector[[item]]
+    
+    names <- append(names, metric$getName())
+  }
+
+  nameCounts <- count(
+    data.frame(names = names),
+    names
+  )
+
+  duplicates <- filter(nameCounts, n > 1)
+
+  if(nrow(duplicates) > 0){
+    apply(duplicates, 1, function(x){
+      warning(x$names, "is used", x$n, "times!")
+    })
+  } else {
+    cat("Looks good!")
+  }
+
+  invisible()
+}
