@@ -104,7 +104,7 @@ server <- function(input, output){
 
     Sys.sleep(sample(1:9, 1))
 
-    cat("Logging one click\n")
+    cat("Done with process\n")
   })
 }
 
