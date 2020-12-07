@@ -87,6 +87,7 @@ Histogram <- R6::R6Class(
       private$.regCnt$get()$setValue(val, ...)
     },
     increaseSum = function(val, ...){
+      print(val)
       val <- private$.regSum$get()$getCurrentValue(...) + val
       private$.regSum$get()$setValue(val, ...)
     },
