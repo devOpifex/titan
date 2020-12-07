@@ -54,3 +54,63 @@ titanApp(ui, server)
 ```
 
 ![](../images/shiny-basic.png)
+
+## Histogram
+
+We can also use a histogram to track the performances of a particularly long request.
+
+Say for instance, that the application, at the click of a button, makes a relatively large request to a database or runs a time consuming model, surely we'd like to track that.
+
+We can build a histogram to track the time it takes to run that process. We'll use the histogram to put the time it takes into three bins:
+
+- Less than 3 seconds
+- Between 3 and 6 seconds
+- 6 Seconds and more
+
+```r
+library(titan)
+library(shiny)
+
+classify <- function(value){
+  v <- as.numeric(value)
+  
+  if(v < 3)
+    return(bucket("0-3", v))
+  else if (v > 3 && v < 6)
+    return(bucket("3-6", v))
+  else
+    return(bucket("9", v))
+}
+
+hist <- Histogram$new(
+  "process_time",
+  "Lengthy process timing",
+  predicate = classify
+)
+
+ui <- fluidPage(
+  actionButton("click", "click me!")
+)
+
+server <- function(input, output){
+  observeEvent(input$click, {
+    start <- Sys.time()
+
+    on.exit({
+      diff <- Sys.time() - start
+
+      hist$observe(diff)
+    })
+
+    Sys.sleep(sample(1:9, 1))
+
+    cat("Logging one click\n")
+  })
+}
+
+titanApp(ui, server)
+```
+
+![](../images/shiny-histogram.png)
+
+## Visits

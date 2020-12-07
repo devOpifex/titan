@@ -237,7 +237,7 @@ request_process_time_sum 13.0094513893127
 <p>The Summary metric is very similar to the histogram, and works the same with Titan (predicate, etc.) except it does not count the observations in each buckets, instead it computes the sum of it. Also these buckets in Summary are called quantiles and must be between zero and one (0 &lt; q &lt; 1). </p>
 <h2 id="labels">Labels</h2>
 <p>Labels allow adding granularity to metrics without duplicating them.</p>
-<p>From the <a href="https://prometheus.io/docs/practices/naming/#labels">official documentation</a></p>
+<p>From the <a href="https://prometheus.io/docs/practices/naming/#labels">official documentation</a>:</p>
 <blockquote>
 <p>CAUTION: Remember that every unique combination of key-value label pairs represents a new time series, which can dramatically increase the amount of data stored. Do not use labels to store dimensions with high cardinality (many different label values), such as user IDs, email addresses, or other unbounded sets of values.</p>
 </blockquote>

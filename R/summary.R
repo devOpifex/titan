@@ -87,7 +87,7 @@ Summary <- R6::R6Class(
       private$.regCnt$get()$setValue(val, ...)
     },
     increaseSum = function(val, ...){
-      val <- private$.regCnt$get()$getCurrentValue(...) + val
+      val <- private$.regSum$get()$getCurrentValue(...) + val
       private$.regSum$get()$setValue(val, ...)
     },
     checkPredicate = function(){

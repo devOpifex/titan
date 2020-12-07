@@ -70,6 +70,10 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#counter">Counter</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#histogram">Histogram</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#visits">Visits</a>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -156,6 +160,60 @@ titanApp(ui, server)
 </code></pre>
 
 <p><img alt="" src="../../images/shiny-basic.png" /></p>
+<h2 id="histogram">Histogram</h2>
+<p>We can also use a histogram to track the performances of a particularly long request.</p>
+<p>Say for instance, that the application, at the click of a button, makes a relatively large request to a database or runs a time consuming model, surely we'd like to track that.</p>
+<p>We can build a histogram to track the time it takes to run that process. We'll use the histogram to put the time it takes into three bins:</p>
+<ul>
+<li>Less than 3 seconds</li>
+<li>Between 3 and 6 seconds</li>
+<li>6 Seconds and more</li>
+</ul>
+<pre><code class="r">library(titan)
+library(shiny)
+
+classify &lt;- function(value){
+  v &lt;- as.numeric(value)
+
+  if(v &lt; 3)
+    return(bucket(&quot;0-3&quot;, v))
+  else if (v &gt; 3 &amp;&amp; v &lt; 6)
+    return(bucket(&quot;3-6&quot;, v))
+  else
+    return(bucket(&quot;9&quot;, v))
+}
+
+hist &lt;- Histogram$new(
+  &quot;process_time&quot;,
+  &quot;Lengthy process timing&quot;,
+  predicate = classify
+)
+
+ui &lt;- fluidPage(
+  actionButton(&quot;click&quot;, &quot;click me!&quot;)
+)
+
+server &lt;- function(input, output){
+  observeEvent(input$click, {
+    start &lt;- Sys.time()
+
+    on.exit({
+      diff &lt;- Sys.time() - start
+
+      hist$observe(diff)
+    })
+
+    Sys.sleep(sample(1:9, 1))
+
+    cat(&quot;Logging one click\n&quot;)
+  })
+}
+
+titanApp(ui, server)
+</code></pre>
+
+<p><img alt="" src="../../images/shiny-histogram.png" /></p>
+<h2 id="visits">Visits</h2>
               
             </div>
           </div>

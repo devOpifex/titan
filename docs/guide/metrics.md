@@ -150,7 +150,7 @@ The Summary metric is very similar to the histogram, and works the same with Tit
 
 Labels allow adding granularity to metrics without duplicating them.
 
-From the [official documentation](https://prometheus.io/docs/practices/naming/#labels)
+From the [official documentation](https://prometheus.io/docs/practices/naming/#labels):
 
 >  CAUTION: Remember that every unique combination of key-value label pairs represents a new time series, which can dramatically increase the amount of data stored. Do not use labels to store dimensions with high cardinality (many different label values), such as user IDs, email addresses, or other unbounded sets of values.
 
