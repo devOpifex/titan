@@ -1,0 +1,25 @@
+site_name: titan
+theme:
+  name: readthedocs
+  use_pygments: true
+  palette:
+    primary: deep orange
+    accent: orange
+  features:
+    - navigation.instant
+    - search.suggest
+
+plugins:
+  - search
+
+extra_css:
+  - css/extra.css
+
+nav:
+  - Home: index.md
+  - About: about.md
+  - Internals: internals.md
+  - Guide: 
+      - Installation: guide/index.md
+      - Metrics: guide/metrics.md
+      - Shiny: guide/shiny.md

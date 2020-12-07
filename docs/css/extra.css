@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300&family=Raleway:wght@300;700&display=swap');
+
+body, input {
+  font-family: 'Raleway', sans-serif;
+}
+
+code, pre {
+  font-family: 'JetBrains Mono', monospace;
+}

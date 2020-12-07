@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Metrics - titan</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link href="../../css/extra.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Metrics";
+    var mkdocs_page_input_path = "guide/metrics.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> titan</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../about/">About</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../internals/">Internals</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Guide</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../">Installation</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Metrics</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#basics">Basics</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#counter">Counter</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#gauge">Gauge</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#histogram">Histogram</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#labels">Labels</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../shiny/">Shiny</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">titan</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Guide &raquo;</li>
+        
+      
+    
+    <li>Metrics</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="metrics">Metrics</h1>
+<p>Prometheus provides four types of metrics. This document only briefly explains them, please refer to the <a href="https://prometheus.io/docs/concepts/metric_types/">official documentation</a> if you need to learn more about it.</p>
+<p>Note that of the four types the most commonly used are the Counter and Gauge, the Histogram and Summary are extremely useful but used must less as they are most complicated to fully understand and set up correctly. Many client libraries of Prometheus do not even provide support for Histograms and Summaries. </p>
+<h2 id="basics">Basics</h2>
+<p>Every metrics must bear a <strong>unique name</strong> and help text. Titan <strong>will not</strong> let you override a metric: make sure the names (identifiers) are unique.</p>
+<p>The help text is also mandatory as per Prometheus, it allows giving more context on the metric tracked.</p>
+<p>Optionally, metrics can also take labels, which will be detailed later in this document.</p>
+<p>All metrics are R6 classes, you can have any number of these metrics in any project.</p>
+<h2 id="counter">Counter</h2>
+<p>A counter is the most basic metrics one can use. It consists of a simple counter <strong>that can only go up</strong>; the value of counters can never decrease.</p>
+<p>This can be used to measure the number of times an application is visited, or the number of times an endpoint is hit: these values only ever go up. Never use Counters for values that go down, titan will not let you decrease their value.</p>
+<p>Instantiate a new counter from the <code>Counter</code> R6 class, give it a name and some help text, then use the method <code>inc</code> to increase it. You can also use the method <code>set</code> to set it to a specific value, again make sure that value is greater than that which the counter already holds or it will throw a warning and <em>not set the counter to that value.</em></p>
+<pre><code class="r">c &lt;- Counter$new(
+  name = &quot;btn_clicks_total&quot;,
+  help = &quot;Total clicks on buttons&quot;
+)
+
+c$inc() # increase
+c$inc(2) 
+
+# preview the metrics
+previewMetrics()
+</code></pre>
+
+<pre><code># HELP btn_clicks_total Total clicks on buttons
+# TYPE btn_clicks_total counter
+btn_clicks_total 3 
+</code></pre>
+
+<h2 id="gauge">Gauge</h2>
+<p>A gauge is very similar to the Counter at the exception that <strong>its value can decrease</strong>.</p>
+<p>Then again this is set up in similar way as the Counter, the only difference is that it also has a <code>dec</code> method to decrease the gauge.</p>
+<pre><code class="r">g &lt;- Gauge$new(
+  name = &quot;current_users_total&quot;,
+  help = &quot;Total number of users right now&quot;
+)
+
+g$inc(2) # increase by 2
+g$dec() # decrease by 1
+
+# preview the metrics
+previewMetrics()
+</code></pre>
+
+<pre><code># HELP current_users_total Total number of users right now
+# TYPE current_users_total gauge
+current_users_total 1
+</code></pre>
+
+<p>So why would you use a Counter when a Gauge does the same and more? Because this is stored and processed differently by Prometheus. Prometheus is, at its core, a time series database and will take the metric type into account when reporting metrics.</p>
+<h2 id="histogram">Histogram</h2>
+<p>Histograms allow you to count observations and put them in configurable buckets.</p>
+<p>Start by declaring a predicate; a function which will turn put the observations into buckets. A bucket is defined using the <code>bucket</code> function which takes 1) the label of the bucket, and 2) the value of said bucket. Below we create a predicate that will put the observations into two buckets. It will be used to measure the time it take to process a request, if the request takes more than 3 seconds it goes into a bucket called "3" and if it takes over 3 seconds it will put the observation into another bucket called "9".</p>
+<pre><code class="r"># predicate to put observations into buckets.
+pred &lt;- function(value){
+  v &lt;- as.numeric(value)
+
+  # put in bucket 3 if less than 3 seconds
+  if(v &lt; 3)
+    return(bucket(label = &quot;3&quot;, v))
+
+  # otherwise put in bucket 9
+  bucket(label = &quot;9&quot;, v)
+}
+</code></pre>
+
+<p>The creation of the histogram itself differs little from other metrics: specify a unique name, help text, and pass the predicate function previously defined. </p>
+<pre><code class="r">h &lt;- Histogram$new(
+  name = &quot;request_process_time&quot;,
+  help = &quot;Time it took to process the request&quot;,
+  predicate = pred
+)
+</code></pre>
+
+<p>Here, to demonstrate, we create a function to simulate a request taking time by randomly making the function sleep for between 1 and 9 seconds. When the function exits we <code>observe</code> the time difference between the beginning and end of the function. The <code>observe</code> method will internally run the <code>predicate</code> and place the results into buckets.</p>
+<pre><code class="r">simulateRequest &lt;- function(){
+  # time at which the request starts
+  start &lt;- Sys.time()
+
+  # when done
+  on.exit({
+    # compute time difference
+    diff &lt;- Sys.time() - start
+
+    # observe data
+    # will internally run `pred`
+    h$observe(diff)
+  })
+
+  # sleep between 1 and 9 seconds
+  Sys.sleep(sample(1:9, 1))
+
+  print(&quot;done&quot;)
+}
+
+# simulate some requests
+simulateRequest()
+simulateRequest()
+simulateRequest()
+simulateRequest()
+
+# preview the metrics
+previewMetrics()
+</code></pre>
+
+<pre><code># HELP request_process_time Time it took to process the request
+# TYPE request_process_time histogram
+request_process_time {le=&quot;3&quot;} 2 
+request_process_time {le=&quot;9&quot;} 2 
+request_process_time_count 4 
+request_process_time_sum 13.0094513893127 
+</code></pre>
+
+<p>Note that the histogram (as per Prometheus standards) also logs the <code>count</code>, the number of observations and the <code>sum</code> the sum of the observations. Above we can see that 4 requests were made that took a total of ~13 seconds; 2 of these took less than 3 seconds and the other 2 took more than that.</p>
+<h2 id="summary">Summary</h2>
+<p>The Summary metric is very similar to the histogram, and works the same with Titan (predicate, etc.) except it does not count the observations in each buckets, instead it computes the sum of it. Also these buckets in Summary are called quantiles and must be between zero and one (0 &lt; q &lt; 1). </p>
+<h2 id="labels">Labels</h2>
+<p>Labels allow adding granularity to metrics without duplicating them.</p>
+<p>From the <a href="https://prometheus.io/docs/practices/naming/#labels">official documentation</a></p>
+<blockquote>
+<p>CAUTION: Remember that every unique combination of key-value label pairs represents a new time series, which can dramatically increase the amount of data stored. Do not use labels to store dimensions with high cardinality (many different label values), such as user IDs, email addresses, or other unbounded sets of values.</p>
+</blockquote>
+<p>Say for instance you have a small API with three endpoints and simply want to track the number of times they get pinged.</p>
+<p>Though you could create three separate Counters it might be more convenient to create a simple Counter with a label that can be set to the path that is used.</p>
+<pre><code class="r">c &lt;- Counter$new(
+  name = &quot;api_visits_total&quot;,
+  help = &quot;Total API visits&quot;,
+  labels = &quot;endpoint&quot;
+)
+
+c$inc(1, endpoint = &quot;/&quot;)
+c$inc(1, endpoint = &quot;/count&quot;)
+c$inc(1, endpoint = &quot;/home&quot;)
+c$inc(2, endpoint = &quot;/home&quot;)
+
+previewMetrics()
+</code></pre>
+
+<pre><code># HELP api_visits_total Total API visits
+# TYPE api_visits_total counter
+api_visits_total {endpoint=&quot;/&quot;} 1 
+api_visits_total {endpoint=&quot;/count&quot;} 1 
+api_visits_total {endpoint=&quot;/home&quot;} 3
+</code></pre>
+
+<p>If you use <code>labels</code> you must specify <strong>all of the labels</strong> every time you change the value of the metric (<code>inc</code>, <code>dec</code>, <code>set</code>, <code>observe</code>). Otherwise titan throws a warning and ignores the action. </p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../shiny/" class="btn btn-neutral float-right" title="Shiny">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../" class="btn btn-neutral" title="Installation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../shiny/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

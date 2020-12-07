@@ -3,3 +3,6 @@
 ^\.github$
 ^\.travis\.yml$
 ^appveyor\.yml$
+mkdocs.yml
+docs
+site
