@@ -6,3 +6,4 @@
 mkdocs.yml
 docs
 site
+^CODE_OF_CONDUCT\.md$

@@ -2,7 +2,7 @@
 
 Then again, the metrics themselves and their usage does not differ, only the way the metrics are served.
 
-Create a new `get` method on the `/metrics` endpoint, and have it return the results of `renderMetrics`.
+With [ambiorix](https://github.com/JohnCoene/ambiorix), create a new `get` method on the `/metrics` endpoint, and have it return the results of `renderMetrics`.
 
 ```r
 library(titan)
