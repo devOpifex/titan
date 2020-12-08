@@ -55,6 +55,8 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">About</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#push-vs-pull">Push vs. Pull</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#black-box-vs-white-box">Black box vs. White box</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#scale">Scale</a>
@@ -73,6 +75,18 @@
                     <li class="toctree-l1"><a class="reference internal" href="../guide/metrics/">Metrics</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../guide/shiny/">Shiny</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../guide/plumber/">Plumber</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../guide/ambiorix/">Ambiorix</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../contribute/">Contribute</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
                     </li>
                 </ul>
       </div>
@@ -108,27 +122,27 @@
             <div class="section">
               
                 <h1 id="about-titan-monitoring">About Titan &amp; Monitoring</h1>
-<p>Titan is an R package to allow generating <a href="https://prometheus.io/">Prometheus</a> for R projects, including shiny, plumber, ambiorix, and more.</p>
-<p>While monitoring is probably not necessary for a single shiny application or plumber services, it becomes crucial as your infrastructure grows.</p>
-<p>When products rely on plumber APIs and teams rely on shiny applications these better be up and running. These services can simply run into issues, become overloaded, their response latency might increase, they may run out of resources, and more. In addition these scale non-linearly as the number of such services or containers grow; hence monitoring their health and being alerted when they raise too many errors or crash becomes crucial. </p>
+<p>Titan is an R package to allow generating <a href="https://prometheus.io/">Prometheus</a> metrics for R projects, including shiny, plumber, ambiorix, and more.</p>
+<p>When products rely on plumber APIs and teams rely on shiny applications these better be up and running. These services may crash, become overloaded, their response latency might increase, they may run out of resources, and more. In addition these scale non-linearly as the number of such services or containers grow; hence monitoring their health and being alerted when they raise too many errors or crash becomes crucial. </p>
 <p>Prometheus is an open-source monitoring and alerting solution. There are other such monitoring tools out there such as <a href="https://sensu.io/">Sensu</a>, <a href="https://www.nagios.org/">Nagios</a>, or <a href="https://www.influxdata.com/">InfluxDB</a> which also focus on time series data.</p>
-<p>Prometheus differs from other services in many ways but the most important one probably is the fact that it reads the metrics from services from an endpoint provided by said service; it <em>pulls</em> the data. Whereas other solutions work the other way around; metrics are <em>pushed</em> to the service for monitoring. The latter has the disadvantage that a tiny mistake can result in too much data being pushed to the monitoring service thereby DDoSing yourself.</p>
-<p>Another difference is that Prometheus is built with containers in mind (Docker &amp; Kubernetes). Though fully open-sourced today, it was initially developed at <a href="https://soundcloud.com/">Soundcloud</a> which is a big advocate and pioneer in using micro-services at scale.</p>
-<p>Titan allows creating metrics and their endpoints for Prometheus to scrape and monitor.</p>
+<h2 id="push-vs-pull">Push vs. Pull</h2>
+<p>Prometheus differs from other services in many ways but the most important one probably is the fact that it reads the metrics from services from an endpoint provided by said service; it <em>pulls</em> the data. </p>
+<p>Whereas many other solutions work the other way around; metrics are <em>pushed</em> to the service for monitoring. The latter has the disadvantage that a tiny mistake can result in too much data being pushed to the monitoring service thereby essentially DDoSing yourself.</p>
+<p>Another difference is that Prometheus is built with containers in mind (Docker &amp; Kubernetes). Though fully open-sourced today, it was initially developed at <a href="https://soundcloud.com/">Soundcloud</a> which is a big advocate of and pioneer in using micro-services at scale.</p>
 <h2 id="black-box-vs-white-box">Black box vs. White box</h2>
 <p>Up until recently most monitoring was probably "black box," applications were developed by some people and deployed by others. Devops had to set up monitoring of services with little knowledge of them.</p>
 <p>Nowadays, with the advent of micro-services where developers are responsible for the deployment of the apps they build, the industry is increasingly turning towards "white box" monitoring.</p>
 <blockquote>
 <p>You build it you run it
---- Jeff Bezos</p>
+-- Jeff Bezos</p>
 </blockquote>
 <p>As the developer of the service you know more about it than anyone and can therefore setup more appropriate monitoring; Prometheus and titan let you do just that.</p>
 <p>This is particularly relevant to R programmers, most of which actually have to deploy the services they build.</p>
-<p>It's not as daunting as it sounds, it's rather natural, and you quickly enjoy it, a bit like <a href="https://testthat.r-lib.org/">testthat</a> in a sense.</p>
+<p>It's not as daunting as it sounds, it's rather natural, and you quickly come to enjoy it, a bit like <a href="https://testthat.r-lib.org/">testthat</a> in a sense.</p>
 <h2 id="scale">Scale</h2>
 <p>Monitoring is often mentioned along with large-scale micro-services where it is absolutely necessary. But this is not the only time when monitoring is useful.</p>
 <p>Surely, as the developer of an application, you want to keep an eye on its performances. Perhaps you were given performance objectives, like reducing the load time of a shiny application or reducing the response time of a plumber API endpoint.</p>
-<p>Even at a small scale monitoring is interesting and useful. Set up alerts when your services go down and fix them before your boss learns about it from a client.</p>
+<p>Even at a small scale monitoring is interesting and useful. Set up alerts when your services go down and fix them before your boss learns about it via a client.</p>
               
             </div>
           </div>
