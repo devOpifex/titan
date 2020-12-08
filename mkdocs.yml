@@ -17,13 +17,15 @@ extra_css:
 
 nav:
   - Home: index.md
-  - About: about.md
-  - Internals: internals.md
+  - About:
+    - Monitoring: about.md
+    - Internals: internals.md
   - Guide: 
       - Installation: guide/index.md
       - Metrics: guide/metrics.md
       - Shiny: guide/shiny.md
       - Plumber: guide/plumber.md
       - Ambiorix: guide/ambiorix.md
-  - Contribute: contribute.md
-  - Changelog: changelog.md
+  - Misc:
+    - Contribute: contribute.md
+    - Changelog: changelog.md
