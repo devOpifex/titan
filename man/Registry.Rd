@@ -16,6 +16,10 @@ John Coene, \email{john@opifex.org}
 \item \href{#method-new}{\code{Registry$new()}}
 \item \href{#method-store}{\code{Registry$store()}}
 \item \href{#method-get}{\code{Registry$get()}}
+\item \href{#method-getValue}{\code{Registry$getValue()}}
+\item \href{#method-setValue}{\code{Registry$setValue()}}
+\item \href{#method-incValue}{\code{Registry$incValue()}}
+\item \href{#method-decValue}{\code{Registry$decValue()}}
 \item \href{#method-clone}{\code{Registry$clone()}}
 }
 }
@@ -69,6 +73,92 @@ Store something in the registry.
 
 \subsection{Details}{
 Retrieve something from the registry.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getValue"></a>}}
+\if{latex}{\out{\hypertarget{method-getValue}{}}}
+\subsection{Method \code{getValue()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Registry$getValue(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Named labels value pairs.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Retrieve current value
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-setValue"></a>}}
+\if{latex}{\out{\hypertarget{method-setValue}{}}}
+\subsection{Method \code{setValue()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Registry$setValue(val, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{val}}{Numeric value.}
+
+\item{\code{...}}{Named labels value pairs.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set the value of the metric
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-incValue"></a>}}
+\if{latex}{\out{\hypertarget{method-incValue}{}}}
+\subsection{Method \code{incValue()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Registry$incValue(val = 1, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{val}}{Numeric value.}
+
+\item{\code{...}}{Named labels value pairs.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Increase the value
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-decValue"></a>}}
+\if{latex}{\out{\hypertarget{method-decValue}{}}}
+\subsection{Method \code{decValue()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Registry$decValue(val = 1, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{val}}{Numeric value.}
+
+\item{\code{...}}{Named labels value pairs.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Decrease the value
 }
 
 }

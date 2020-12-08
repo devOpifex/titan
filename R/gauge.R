@@ -47,8 +47,7 @@ Gauge <- R6::R6Class(
 #' c$inc(1, module = "homepage")
 #' c$inc(1, module = "tableview")
     inc = function(val = 1, ...){
-      value <- super$get()$getCurrentValue(...) + val
-      super$get()$setValue(value, ...)
+      super$incValue(val, ...)
       invisible(self)
     },
 #' @details Decrease the value of the gauge.
@@ -67,8 +66,7 @@ Gauge <- R6::R6Class(
 #' c$dec(1)
 #' c$dec()
     dec = function(val = 1, ...){
-      value <- super$get()$getCurrentValue(...) - val
-      super$get()$setValue(value, ...)
+      super$decValue(val, ...)
       invisible(self)
     },
 #' @details Set the gauge to a certain value.
@@ -92,7 +90,7 @@ Gauge <- R6::R6Class(
         warnIfMissing(val)
         return(invisible())
       }
-      super$get()$setValue(val, ...)
+      super$setValue(val, ...)
       invisible(self)
     },
 #' @details Print the gauge.

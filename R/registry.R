@@ -32,6 +32,31 @@ Registry <- R6::R6Class(
 #' @details Retrieve something from the registry.
     get = function(){
       get(private$.id)
+    },
+#' @details Retrieve current value
+#' @param ... Named labels value pairs.
+    getValue = function(...){
+      self$get()$getCurrentValue(...)
+    },
+#' @details Set the value of the metric
+#' @param val Numeric value.
+#' @param ... Named labels value pairs.
+    setValue = function(val, ...){
+      self$get()$setValue(val, ...)
+    },
+#' @details Increase the value
+#' @param val Numeric value.
+#' @param ... Named labels value pairs.
+    incValue = function(val = 1, ...){
+      value <- self$getValue(...) + val
+      self$setValue(value, ...)
+    },
+#' @details Decrease the value
+#' @param val Numeric value.
+#' @param ... Named labels value pairs.
+    decValue = function(val = 1, ...){
+      value <- self$getValue(...) - val
+      self$setValue(value, ...)
     }
   ),
   private = list(

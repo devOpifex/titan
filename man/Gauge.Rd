@@ -82,9 +82,13 @@ John Coene, \email{john@opifex.org}
 }
 }
 \if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
+\out{<details ><summary>Inherited methods</summary>}
 \itemize{
+\item \out{<span class="pkg-link" data-pkg="titan" data-topic="Registry" data-id="decValue">}\href{../../titan/html/Registry.html#method-decValue}{\code{titan::Registry$decValue()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="titan" data-topic="Registry" data-id="get">}\href{../../titan/html/Registry.html#method-get}{\code{titan::Registry$get()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="titan" data-topic="Registry" data-id="getValue">}\href{../../titan/html/Registry.html#method-getValue}{\code{titan::Registry$getValue()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="titan" data-topic="Registry" data-id="incValue">}\href{../../titan/html/Registry.html#method-incValue}{\code{titan::Registry$incValue()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="titan" data-topic="Registry" data-id="setValue">}\href{../../titan/html/Registry.html#method-setValue}{\code{titan::Registry$setValue()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="titan" data-topic="Registry" data-id="store">}\href{../../titan/html/Registry.html#method-store}{\code{titan::Registry$store()}}\out{</span>}
 }
 \out{</details>}

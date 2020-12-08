@@ -47,8 +47,7 @@ Counter <- R6::R6Class(
 #' cnter$inc(1, module = "homepage")
 #' cnter$inc(1, module = "tableview")
     inc = function(val = 1, ...){
-      value <- super$get()$getCurrentValue(...) + val
-      super$get()$setValue(value, ...)
+      super$incValue(val, ...)
       invisible(self)
     },
 #' @details Set the counter to a certain value.
@@ -73,7 +72,7 @@ Counter <- R6::R6Class(
         return(invisible())
       }
 
-      if(val < super$get()$getCurrentValue(...)){
+      if(val < super$getValue(...)){
         warning(
           "`val` too low, must be higher than: ", 
           private$.value, " [ignoring]", 
@@ -81,7 +80,7 @@ Counter <- R6::R6Class(
         )
         return(invisible())
       }
-      super$get()$setValue(val, ...)
+      super$setValue(val, ...)
       invisible(self)
     },
 #' @details Print the counter.
