@@ -26,6 +26,6 @@ nav:
       - Shiny: guide/shiny.md
       - Plumber: guide/plumber.md
       - Ambiorix: guide/ambiorix.md
-  - Misc:
+  - Meta:
     - Contribute: contribute.md
     - Changelog: changelog.md
