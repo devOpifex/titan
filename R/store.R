@@ -106,6 +106,9 @@ Store <- R6::R6Class(
       values <- labels$value
       labels$value <- NULL
 
+      if(length(values) == 0)
+        values <- "NaN"
+
       labs <- apply(labels, 1, as.list)
       labs <- lapply(labs, renderLabels)
       string <- paste(name, labs, values, "\n", collapse = "")
