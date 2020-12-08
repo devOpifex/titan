@@ -24,7 +24,7 @@ Registry <- R6::R6Class(
 
       # don't overwrite if it already exists
       if(hasRegistryName(private$.id))
-        return(invisible(self$get()))
+        return(invisible(self))
 
       store(private$.id, obj)
       invisible(self)
