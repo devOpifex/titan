@@ -23,3 +23,5 @@ nav:
       - Installation: guide/index.md
       - Metrics: guide/metrics.md
       - Shiny: guide/shiny.md
+      - Plumber: guide/plumber.md
+      - Ambiorix: guide/ambiorix.md

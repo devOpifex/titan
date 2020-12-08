@@ -113,4 +113,27 @@ titanApp(ui, server)
 
 ![](../images/shiny-histogram.png)
 
-## Visits
+## Gauge
+
+You could also create a gauge to track the current number of visitors on the application using a Gauge.
+
+It's as simple as initialising the Gauge and increasing it by one every time the server fires.
+
+```r
+library(shiny)
+
+g <- Gauge$new(
+  "visitors_total",
+  "Current number of visitors"
+)
+
+ui <- fluidPage(
+  h1("Hello")
+)
+
+server <- function(input, output){
+  g$inc()
+}
+
+titanApp(ui, server)
+```
