@@ -167,10 +167,9 @@ Metric <- R6::R6Class(
 
 #' Metrics Interface
 #' 
-#' Interface the metrics class with the registry.
+#' Exposed interface to the metrics.
 #' 
-#' @noRd 
-#' @keywords internal
+#' @export
 MetricInterface <- R6::R6Class(
   "MetricInterface",
   public = list(
