@@ -91,8 +91,9 @@ Metric <- R6::R6Class(
 
       # render values
       if(length(private$.values) == 1){
-        values <- paste(
-          private$.name, 
+        values <- paste0(
+          "\n",
+          private$.name, " ", 
           private$.values
         )
       } else {

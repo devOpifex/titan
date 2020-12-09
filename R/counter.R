@@ -6,7 +6,6 @@
 Counter <- R6::R6Class(
   "Counter",
   inherit = MetricInterface,
-  portable = FALSE,
   public = list(
 #' @details Initialise
 #' 
