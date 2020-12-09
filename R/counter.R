@@ -6,6 +6,7 @@
 Counter <- R6::R6Class(
   "Counter",
   inherit = MetricInterface,
+  portable = FALSE,
   public = list(
 #' @details Initialise
 #' 
@@ -14,7 +15,10 @@ Counter <- R6::R6Class(
 #' @param labels Character vector of labels available.
 #' @param unit Unit of metric.
     initialize = function(name, help, labels = NULL, unit = NULL){
-      super$initialize(name, help, labels = labels, unit = unit, type = "counter")
+      super$initialize(
+        name, help, labels = labels, 
+        unit = unit, type = "counter"
+      )
     },
 #' @details Set the metrics to a specific value
 #' @param val Value to set the metric.
@@ -26,6 +30,13 @@ Counter <- R6::R6Class(
         stop("Less than current")
 
       super$set(val, ...)
+    },
+#' @details Cannot decrease a counter.
+    dec = function(){
+      warning(
+        "Counter cannot be decreased, see `Gauge`.", 
+        call. = FALSE
+      )
     }
   )
 )

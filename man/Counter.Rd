@@ -14,13 +14,13 @@ Create a new counter.
 \itemize{
 \item \href{#method-new}{\code{Counter$new()}}
 \item \href{#method-set}{\code{Counter$set()}}
+\item \href{#method-dec}{\code{Counter$dec()}}
 \item \href{#method-clone}{\code{Counter$clone()}}
 }
 }
 \if{html}{
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
-\item \out{<span class="pkg-link" data-pkg="titan" data-topic="MetricInterface" data-id="dec">}\href{../../titan/html/MetricInterface.html#method-dec}{\code{titan::MetricInterface$dec()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="titan" data-topic="MetricInterface" data-id="get">}\href{../../titan/html/MetricInterface.html#method-get}{\code{titan::MetricInterface$get()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="titan" data-topic="MetricInterface" data-id="inc">}\href{../../titan/html/MetricInterface.html#method-inc}{\code{titan::MetricInterface$inc()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="titan" data-topic="MetricInterface" data-id="render">}\href{../../titan/html/MetricInterface.html#method-render}{\code{titan::MetricInterface$render()}}\out{</span>}
@@ -72,6 +72,19 @@ Initialise
 }
 \subsection{Details}{
 Set the metrics to a specific value
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-dec"></a>}}
+\if{latex}{\out{\hypertarget{method-dec}{}}}
+\subsection{Method \code{dec()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Counter$dec()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Cannot decrease a counter.
 }
 
 }
