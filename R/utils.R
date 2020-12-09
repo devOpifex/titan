@@ -1,8 +1,6 @@
-globalVariables("n")
+`%||%` <- function(lhs, rhs){
+  if(is.null(lhs))
+    return(rhs)
 
-`%||%` <- function(x, y){
-  if (length(x) == 0) 
-    return(y)
-  
-  return(x)
+  lhs
 }
