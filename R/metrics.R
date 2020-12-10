@@ -111,7 +111,7 @@ Metric <- R6::R6Class(
         return("")
 
       # remove UNIQUE name
-      if(length(values) == 1)
+      if(names(values)[1] == "UNIQUE")
         names(values) <- ""
 
       values <- paste0(

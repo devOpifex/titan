@@ -33,6 +33,9 @@ registryCln <- function(){
 #' 
 #' Renders all metrics from the registry.
 #' 
+#' @seealso [previewMetrics()] for a more readable
+#' output.
+#' 
 #' @export
 renderMetrics <- function(){
   metricNames <- ls(.registry)
@@ -43,6 +46,15 @@ renderMetrics <- function(){
 
   paste0(metricsRendered, collapse = "")
 
+}
+
+#' Preview Metrics
+#' 
+#' Preview the metrics as are served by titan.
+#' 
+#' @export 
+previewMetrics <- function(){
+  cat(renderMetrics())
 }
 
 #' Clean Registry

@@ -9,3 +9,7 @@ renderMetrics()
 \description{
 Renders all metrics from the registry.
 }
+\seealso{
+\code{\link[=previewMetrics]{previewMetrics()}} for a more readable
+output.
+}

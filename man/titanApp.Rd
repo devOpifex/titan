@@ -4,13 +4,34 @@
 \alias{titanApp}
 \title{Serve Application with metrics}
 \usage{
-titanApp(ui, server, ...)
+titanApp(
+  ui,
+  server,
+  ...,
+  inputs = NULL,
+  visits = NULL,
+  concurrent = NULL,
+  duration = NULL
+)
 }
 \arguments{
 \item{ui, server}{UI definition and server function
 as passed to \code{\link[shiny:shinyApp]{shiny::shinyApp()}}.}
 
 \item{...}{Any other arguments passed to \code{\link[shiny:shinyApp]{shiny::shinyApp()}}.}
+
+\item{inputs}{Pass a character string to use as metric name
+to track input changes. Leave on \code{NULL} to not track.}
+
+\item{visits}{Pass a character string to use as metric name
+to track the number of visits. Leave on \code{NULL} to not track.}
+
+\item{concurrent}{Pass a character string to use as metric name
+to track the number of concurrent users.
+Leave on \code{NULL} to not track.}
+
+\item{duration}{Pass a character string to use as metric name
+to track session duration. Leave on \code{NULL} to not track.}
 }
 \description{
 Serve Application with metrics
