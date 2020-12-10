@@ -13,7 +13,7 @@ Authors@R:
   )
 Description: Track and serve 'Prometheus' metrics for 
   'Shiny' applications to track health and performances,
-  also works with 'Plumber'.
+  also works with 'Plumber' and other web services.
 License: AGPL-3
 Encoding: UTF-8
 LazyData: true
@@ -23,4 +23,7 @@ Imports:
     R6,
     shiny,
     plumber
-Suggests: testthat
+Suggests:
+  httr,
+  testthat,
+  base64enc

@@ -17,7 +17,20 @@ titanApp <- function(ui, server, ...){
     if(!req$PATH_INFO == "/metrics")
       return()
 
-    res(200, "text/plain", renderMetrics())
+    auth <- getAuthentication()
+
+    if(is.null(auth))
+      return(res(200L, "text/plain", renderMetrics()))
+
+    unauthorized <- res(401L, "text/plain", "Unauthorized")
+
+    if(is.null(req$HTTP_AUTHORIZATION))
+      return(unauthorized)
+
+    if(req$HTTP_AUTHORIZATION != auth)
+      return(unauthorized)
+
+    res(200L, "text/plain", renderMetrics())
     
   }
 

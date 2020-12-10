@@ -49,9 +49,11 @@ renderMetrics <- function(){
 #' 
 #' Empties the registry from all metrics.
 #' 
-#' @examples 
+#' @export 
 cleanRegistry <- function(){
   registryCln()
+  options(TITAN_NAMESPACE = NULL)
+  options(TITAN_BASIC_AUTH = NULL)
 }
 
 #' Set a Namespace
