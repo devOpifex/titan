@@ -67,11 +67,11 @@ Binned <- R6::R6Class(
         args <- list(1, le = pred$label, ...)
       else 
         args <- list(pred$value, quantile = pred$label, ...)
-      
+
       do.call(private$.buckets$inc, args)
 
-      private$.count$inc(1)
-      private$.sum$inc(pred$value)
+      private$.count$inc(1, ...)
+      private$.sum$inc(pred$value, ...)
     }
   ),
   private = list(

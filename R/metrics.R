@@ -85,24 +85,16 @@ Metric <- R6::R6Class(
     },
 #' @details Render the metric
     render = function(){
+
       # no value return nothing
       if(length(private$.values) == 0)
         return("")
 
-      # render values
-      if(length(private$.values) == 1){
-        values <- paste0(
-          "\n",
-          private$.name, " ", 
-          private$.values
-        )
-      } else {
-        values <- paste(
-          private$.name, 
-          names(private$.values), 
-          private$.values
-        )
-      }
+      values <- paste0(
+        private$.name,
+        names(private$.values)," ",
+        private$.values
+      )
 
       values <- paste0(values, collapse = "\n")
 
@@ -118,7 +110,7 @@ Metric <- R6::R6Class(
         values <- paste0(meta, values)
       }
 
-      return(values)
+      paste0(values, sep = "\n", collapse = "")
     }
   ),
   private = list(
@@ -137,7 +129,7 @@ Metric <- R6::R6Class(
       private$.validateLabels(labels)
 
       if(length(labels) == 0)
-        labels <- ""
+        return("")
 
       labels <- orderLabels(labels)
 
@@ -150,7 +142,7 @@ Metric <- R6::R6Class(
     },
     .validateLabels = function(labels){
       if(length(private$.labels) != length(labels))
-        stop("Aaah")
+        stop("Labels mismatch")
 
       if(length(private$.labels) == 0 && length(labels) == 0)
         return()
