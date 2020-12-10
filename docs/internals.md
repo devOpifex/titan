@@ -4,7 +4,7 @@ This gives some details on the internals of titan that may be of use when using 
 
 ## Principle
 
-Titan aims not to make your service go down, that would be too ironic. Therefore titan makes very little use of `stop` and instead uses `warning` and skips errors.
+Titan aims not to make your service go down, that would be too ironic. Therefore titan makes very little use of `stop` and instead uses `warning` starting in `[IGNORING]` and skips the action.
 
 E.g.: One cannot decrease the value of Counters, if you try to do so Titan will return a warning and ignore the action but will not `stop`.
 
@@ -14,7 +14,7 @@ When titan is loaded in your environment with `library(titan)` it creates an env
 
 This is useful when, for instance, you setup a shiny application with titan, run it locally with `titanApp`, test it, then stop the app to make changes; when you run it again the metrics from the previous run will remain.
 
-You can run `resetTitan` to clean the environment.
+You can run `cleanRegistry` to clean the environment.
 
 ## Serving
 

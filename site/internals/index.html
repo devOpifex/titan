@@ -126,12 +126,12 @@
                 <h1 id="internals">Internals</h1>
 <p>This gives some details on the internals of titan that may be of use when using the package.</p>
 <h2 id="principle">Principle</h2>
-<p>Titan aims not to make your service go down, that would be too ironic. Therefore titan makes very little use of <code>stop</code> and instead uses <code>warning</code> and skips errors.</p>
+<p>Titan aims not to make your service go down, that would be too ironic. Therefore titan makes very little use of <code>stop</code> and instead uses <code>warning</code> starting in <code>[IGNORING]</code> and skips the action.</p>
 <p>E.g.: One cannot decrease the value of Counters, if you try to do so Titan will return a warning and ignore the action but will not <code>stop</code>.</p>
 <h2 id="storage">Storage</h2>
 <p>When titan is loaded in your environment with <code>library(titan)</code> it creates an environment in which it stores all metrics.</p>
 <p>This is useful when, for instance, you setup a shiny application with titan, run it locally with <code>titanApp</code>, test it, then stop the app to make changes; when you run it again the metrics from the previous run will remain.</p>
-<p>You can run <code>resetTitan</code> to clean the environment.</p>
+<p>You can run <code>cleanRegistry</code> to clean the environment.</p>
 <h2 id="serving">Serving</h2>
 <p>As mentioned Prometheus pulls the metrics from your service, therefore those metrics have to be made available. These are exposed in the form of a plain text (<code>text/plain</code>) endpoint called <code>/metrics</code> where titan will serve the metrics that Prometheus can then read, store, and analyse.</p>
 <p>With shiny you can use the function <code>titanApp</code> where you would normally use <code>shinyApp</code>, with plumber, Ambiorix, and other services you can use <code>renderMetrics</code>. </p>
