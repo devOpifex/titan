@@ -45,6 +45,15 @@ renderMetrics <- function(){
 
 }
 
+#' Clean Registry
+#' 
+#' Empties the registry from all metrics.
+#' 
+#' @examples 
+cleanRegistry <- function(){
+  registryCln()
+}
+
 #' Set a Namespace
 #' 
 #' Set a namespace, all metrics name will

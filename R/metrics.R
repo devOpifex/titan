@@ -17,6 +17,12 @@ Metric <- R6::R6Class(
       type = c("gauge", "counter", "histogram", "summary"),
       renderMeta = TRUE){
 
+        if(missing(name))
+          stop("Missing `name`", call. = FALSE)
+
+        if(missing(help))
+          stop("Missing `help`", call. = FALSE)
+
         type <- match.arg(type)
         ns <- getTitanNamespace()
 
@@ -49,8 +55,10 @@ Metric <- R6::R6Class(
 #' @param ... Key value pairs of labels.
     set = function(val, ...){
       name <- private$.makeLabelName(...)
+
       if(is.error(name))
         return(invisible(name))
+      
       private$.values[[name]] <- val
 
       invisible(self)
@@ -59,9 +67,11 @@ Metric <- R6::R6Class(
 #' @param ... Key value pairs of labels.
     get = function(...){
       name <- private$.makeLabelName(...)
+      
       if(is.error(name))
         return(invisible(name))
-      private$.values[[name]] %||% 0
+
+      private$.values[[name]] %||%0
     },
 #' @details Increase the metric to a current value given labels.
 #' @param val Value to increase the metric.
@@ -94,14 +104,20 @@ Metric <- R6::R6Class(
 #' @details Render the metric
     render = function(){
 
+      values <- private$.values
+
       # no value return nothing
-      if(length(private$.values) == 0)
+      if(length(values) == 0)
         return("")
+
+      # remove UNIQUE name
+      if(length(values) == 1)
+        names(values) <- ""
 
       values <- paste0(
         private$.name,
-        names(private$.values)," ",
-        private$.values
+        names(values)," ",
+        values
       )
 
       values <- paste0(values, collapse = "\n")
@@ -139,8 +155,9 @@ Metric <- R6::R6Class(
       if(is.error(ok))
         return(ok)
 
+      # no labels, using UNIQUE as name
       if(length(labels) == 0)
-        return("")
+        return("UNIQUE")
 
       labels <- orderLabels(labels)
 

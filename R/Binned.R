@@ -30,8 +30,12 @@ Binned <- R6::R6Class(
         labelsBucket <- c(labels, bucketLabel)
 
         # predicate
+        if(missing(predicate))
+          stop("Missing `predicate`", call. = FALSE)
+
         if(!is.function(predicate))
           stop("Predicate must be a function")
+          
         private$.predicate <- predicate
 
         private$.buckets <- MetricInterface$new(

@@ -33,7 +33,7 @@ Counter <- R6::R6Class(
 #' @details Cannot decrease a counter.
     dec = function(){
       warning(
-        "Counter cannot be decreased, see `Gauge`.", 
+        "[IGNORING] Counter cannot be decreased, see `Gauge`.", 
         call. = FALSE
       )
     }
