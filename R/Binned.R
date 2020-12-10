@@ -57,7 +57,8 @@ Binned <- R6::R6Class(
 
       if(!is.bucket(pred)){
         warning(
-          "[IGNORING] `predicate` must return an object of class `bucket`",
+          "[IGNORING] `predicate` must return an object ", 
+          "of class `bucket`",
           call. = FALSE
         )
         return(invisible())

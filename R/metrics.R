@@ -49,6 +49,8 @@ Metric <- R6::R6Class(
 #' @param ... Key value pairs of labels.
     set = function(val, ...){
       name <- private$.makeLabelName(...)
+      if(is.error(name))
+        return(invisible(name))
       private$.values[[name]] <- val
 
       invisible(self)
@@ -57,6 +59,8 @@ Metric <- R6::R6Class(
 #' @param ... Key value pairs of labels.
     get = function(...){
       name <- private$.makeLabelName(...)
+      if(is.error(name))
+        return(invisible(name))
       private$.values[[name]] %||% 0
     },
 #' @details Increase the metric to a current value given labels.
@@ -64,6 +68,8 @@ Metric <- R6::R6Class(
 #' @param ... Key value pairs of labels.
     inc = function(val = 1, ...){
       current <- self$get(...)
+      if(is.error(current))
+        return(invisible(current))
       newValue <- current + val
       self$set(newValue, ...)
 
@@ -74,6 +80,8 @@ Metric <- R6::R6Class(
 #' @param ... Key value pairs of labels.
     dec = function(val = 1, ...){
       current <- self$get(...)
+      if(is.error(current))
+        return(invisible(current))
       newValue <- current - val
       self$set(newValue, ...)
 
@@ -126,7 +134,10 @@ Metric <- R6::R6Class(
     .makeLabelName = function(...){
       labels <- c(...)
       
-      private$.validateLabels(labels)
+      ok <- private$.validateLabels(labels)
+
+      if(is.error(ok))
+        return(ok)
 
       if(length(labels) == 0)
         return("")
@@ -141,19 +152,27 @@ Metric <- R6::R6Class(
       paste0("{", values, "}")
     },
     .validateLabels = function(labels){
-      if(length(private$.labels) != length(labels))
-        stop("Labels mismatch")
+      if(length(private$.labels) != length(labels)){
+        warnLabels(labels, private$.labels)
+        return(Error())
+      }
 
       if(length(private$.labels) == 0 && length(labels) == 0)
-        return()
+        return(TRUE)
 
-      if(length(labels) != length(private$.labels))
-        stop("Not enough labels")
+      if(length(labels) != length(private$.labels)){
+        warnLabels(labels, private$.labels)
+        return(Error())
+      }
 
       match <- all(names(labels) %in% private$.labels)
 
-      if(!match)
-        stop("labels missing")
+      if(!match){
+        warnLabels(labels, private$.labels)
+        return(Error())
+      }
+
+      return(TRUE)
     }
   )
 )
@@ -245,4 +264,29 @@ MetricInterface <- R6::R6Class(
 #' @keywords internal
 orderLabels <- function(labels){
   labels[order(labels)]
+}
+
+#' Warning on wrong labels
+#' 
+#' @param received Labels received.
+#' @param expected Labels expected.
+#' 
+#' @noRd 
+#' @keywords internal
+warnLabels <- function(received, expected){
+  warning(
+    "[IGNORING] labels mismatch.\nReceived: ",
+    collapseLabels(names(received)),
+    "\nExpected: ",
+    collapseLabels(expected),
+    call. = FALSE
+  )
+}
+
+#' @noRd 
+#' @keywords internal
+collapseLabels <- function(labels){
+  if(length(labels) == 0)
+    return("<none>")
+  paste0("`", labels, "`", collapse = ", ") 
 }
