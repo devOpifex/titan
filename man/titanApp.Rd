@@ -34,5 +34,5 @@ Leave on \code{NULL} to not track.}
 to track session duration. Leave on \code{NULL} to not track.}
 }
 \description{
-Serve Application with metrics
+Use this function like you would use \code{\link[shiny:shinyApp]{shiny::shinyApp()}}.
 }

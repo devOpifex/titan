@@ -3,6 +3,8 @@ res <- getFromNamespace("httpResponse", "shiny")
 
 #' Serve Application with metrics
 #' 
+#' Use this function like you would use [shiny::shinyApp()].
+#' 
 #' @param ui,server UI definition and server function
 #' as passed to [shiny::shinyApp()].
 #' @param ... Any other arguments passed to [shiny::shinyApp()].
@@ -47,44 +49,13 @@ titanApp <- function(ui, server, ..., inputs = NULL, visits = NULL,
       "Number of concurrent users"
     )
 
-  if(!is.null(duration)){
-    binit <- function(val){
-
-      v <- as.numeric(val)
-
-      if(v < 30)
-        return(bucket("30", v))
-
-      if(v < 45)
-        return(bucket("45", v))
-
-      if(v < 60)
-        return(bucket("60", v))
-
-      if(v < 120)
-        return(bucket("120", v))
-
-      if(v < 300)
-        return(bucket("300", v))
-
-      if(v < 600)
-        return(bucket("600", v))
-
-      if(v < 1200)
-        return(bucket("1200", v))
-
-      if(v < 1800)
-        return(bucket("1800", v))
-
-      bucket("+inf", v)
-    }
-
+  if(!is.null(duration))
     durationHist <- Histogram$new(
       duration,
       "Session duration",
-      predicate = binit
+      predicate = sessionDuration
     )
-  }
+  
 
   # hijack server function
   serverFnSource <- app$serverFuncSource()
@@ -153,30 +124,40 @@ titanApp <- function(ui, server, ..., inputs = NULL, visits = NULL,
   # get handler
   handlerManager <- getFromNamespace("handlerManager", "shiny")
 
-  # serve metrics
-  handler <- function(req){
-    if(!req$PATH_INFO == "/metrics")
-      return()
-
-    auth <- getAuthentication()
-
-    if(is.null(auth))
-      return(res(200L, "text/plain", renderMetrics()))
-
-    unauthorized <- res(401L, "text/plain", "Unauthorized")
-
-    if(is.null(req$HTTP_AUTHORIZATION))
-      return(unauthorized)
-
-    if(req$HTTP_AUTHORIZATION != auth)
-      return(unauthorized)
-
-    res(200L, "text/plain", renderMetrics())
-    
-  }
-
   # add handler
-  handlerManager$addHandler(handler, "/metrics")
+  handlerManager$addHandler(shinyHandler, "/metrics")
 
   return(app)
+}
+
+
+sessionDuration <- function(val){
+
+  v <- as.numeric(val)
+
+  if(v < 30)
+    return(bucket("30", v))
+
+  if(v < 45)
+    return(bucket("45", v))
+
+  if(v < 60)
+    return(bucket("60", v))
+
+  if(v < 120)
+    return(bucket("120", v))
+
+  if(v < 300)
+    return(bucket("300", v))
+
+  if(v < 600)
+    return(bucket("600", v))
+
+  if(v < 1200)
+    return(bucket("1200", v))
+
+  if(v < 1800)
+    return(bucket("1800", v))
+
+  bucket("+inf", v)
 }
