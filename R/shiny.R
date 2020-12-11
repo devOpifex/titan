@@ -136,7 +136,7 @@ titanApp <- function(ui, server, ..., inputs = NULL, visits = NULL,
       onSessionEnd <- onEnd(concurrentGauge, durationHist)
       shiny::onSessionEnded(onSessionEnd)
 
-      serverFnSource(input, output, session)
+      serverFnSource()
     }
   }
 
