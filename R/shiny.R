@@ -53,30 +53,30 @@ titanApp <- function(ui, server, ..., inputs = NULL, visits = NULL,
       v <- as.numeric(val)
 
       if(v < 30)
-        return(bucket("30sec", v))
+        return(bucket("30", v))
 
       if(v < 45)
-        return(bucket("45sec", v))
+        return(bucket("45", v))
 
       if(v < 60)
-        return(bucket("1min", v))
+        return(bucket("60", v))
 
       if(v < 120)
-        return(bucket("2min", v))
+        return(bucket("120", v))
 
       if(v < 300)
-        return(bucket("5min", v))
+        return(bucket("300", v))
 
       if(v < 600)
-        return(bucket("10min", v))
+        return(bucket("600", v))
 
       if(v < 1200)
-        return(bucket("20min", v))
+        return(bucket("1200", v))
 
       if(v < 1800)
-        return(bucket("30min", v))
+        return(bucket("1800", v))
 
-      bucket("30min+", v)
+      bucket("+inf", v)
     }
 
     durationHist <- Histogram$new(
