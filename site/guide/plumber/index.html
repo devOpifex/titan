@@ -120,9 +120,7 @@
                 <h1 id="plumber-apis">Plumber APIs</h1>
 <p>The metrics and how they are used never changes, the only thing that changes across projects is how the metrics are served.</p>
 <p>Create the plumber API as you normally would.</p>
-<pre><code class="r">library(titan)
-
-#* Increment a counter
+<pre><code class="r">#* Increment a counter
 #* @get /
 function() {
   return(&quot;Hello titan!&quot;)

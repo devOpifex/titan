@@ -23,22 +23,20 @@ A simple counter, a value that can only increase, and never decrease.
 library(titan)
 library(shiny)
 
-# basic counter
-cnter <- Counter$new(
-  name = "visits_total", 
-  help = "Total visit to the app"
-)
-
 ui <- fluidPage(
   h1("Hello!")
 )
 
-server <- function(input, output){
-  # increment at every visit
-  cnter$inc()
-}
+server <- function(input, output){}
 
-titanApp(ui, server)
+# use titanApp
+titanApp(
+  ui, server,
+  inputs = "inputs",
+  visits = "visits",
+  concurrent = "concurrent",
+  duration = "duration"
+)
 ```
 
 
@@ -47,23 +45,26 @@ titanApp(ui, server)
 Using titan in plumber.
 
 ```r
-cnter <- Counter$new(
-  "home", 
-  "Counts number of pings"
-)
-
 #* Increment a counter
 #* @get /
 function() {
-  cnter$inc()
   return("Hello titan!")
 }
 
-#* Render Metrics
-#*
-#* @serializer text
-#* @get /metrics
-renderMetrics
+#* Plot a histogram
+#* @serializer png
+#* @get /plot
+function() {
+  rand <- rnorm(100)
+  hist(rand)
+}
+```
+
+```r
+library(plumber)
+
+titan::prTitan("file.R", latency = "latency") %>% 
+  pr_run()
 ```
 
 ## Ambiorix
@@ -99,6 +100,17 @@ app$get("/metrics", function(req, res){
 
 app$start()
 ```
+
+## Acknowledgement 
+
+I have put this package together in order to 1) grasp a better understanding of Prometheus metrics and 2) have some direct control over the source code of software I deploy for clients. I have written and re-written this three times before discovering [openmetrics](https://github.com/atheriel/openmetrics/), an R package that provides the same functionalities. I have taken much inspiration from it.
+
+## Related work
+
+There are other packages out there that will let you serve Prometheus metrics.
+
+- [openmetrics](https://github.com/atheriel/openmetrics/) provides support for all metrics as well as authentication, and goes a step further in enforcing [OpenMetrics](https://openmetrics.io/) standards.
+- [pRometheus](https://github.com/cfmack/pRometheus/) Provides support for Gauge and Counter.
 
 ## Code of Conduct
 

@@ -5,8 +5,6 @@ The metrics and how they are used never changes, the only thing that changes acr
 Create the plumber API as you normally would.
 
 ```r
-library(titan)
-
 #* Increment a counter
 #* @get /
 function() {
