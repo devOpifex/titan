@@ -87,7 +87,7 @@ titanApp <- function(ui, server, ..., inputs = NULL, visits = NULL,
   }
 
   # hijack server function
-  serverFnSource <- app$serverFuncSource
+  serverFnSource <- app$serverFuncSource()
 
   app$serverFuncSource <- function(){
     function(input, output, session){
@@ -136,7 +136,10 @@ titanApp <- function(ui, server, ..., inputs = NULL, visits = NULL,
       onSessionEnd <- onEnd(concurrentGauge, durationHist)
       shiny::onSessionEnded(onSessionEnd)
 
-      serverFnSource()
+      app <- tryCatch(serverFnSource(input, output, session), error = function(e) e)
+      
+      if(inherits(app, "error"))
+        serverFnSource(input, output)
     }
   }
 
