@@ -1,4 +1,9 @@
-# serve metrics
+#' Handlers
+#' 
+#' Handlers to server the metrics for shiny and plumber.
+#' 
+#' @noRd
+#' @keywords internal
 shinyHandler <- function(req){
   if(!req$PATH_INFO == "/metrics")
     return()
@@ -20,7 +25,8 @@ shinyHandler <- function(req){
   
 }
 
-# serve metrics
+#' @noRd
+#' @keywords internal
 plumberHandler <- function(req, res){
   
   auth <- getAuthentication()
