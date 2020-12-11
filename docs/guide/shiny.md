@@ -2,9 +2,11 @@
 
 In this wee vignette we give just basic examples of how to use titan in shiny applications.
 
-## Counter
+## Helpers
 
-Below is a very basic shiny application that simply logs clicks of a button.
+Titan allows easily tracking some interactions by default, saving you the trouble of setting up metrics.
+
+Starting from the (very) basic shiny application below which simply prints text to the console at the click of a button.
 
 ```r
 library(shiny)
@@ -22,7 +24,43 @@ server <- function(input, output){
 shinyApp(ui, server)
 ```
 
-Let's use titan to track the number of clicks on this button. We can use a counter since the number of clicks can only increase over time.
+We will see how to define custom metrics later but before we do so, there are a number out-of-the-box (optional) metrics that titan provides:
+
+1. Inputs: Tracks all input messages sent from the front-end to the server to better understand which are most used. This is handled with a counter that uses the `name` of the inputs as `labels`.
+2. Visits: Tracks the total number of visits to the shiny application with a counter.
+3. Concurrent: Tracks the number of concurrent users currently on the application with a gauge.
+4. Duration: Tracks the session duration; the time (in seconds) users stay and interact with the application.
+
+As mentioned, all of those are optional (off by default) but whether you use the defaults presented here and/or your custom metrics you __must use__ `titanApp` to launch the application. 
+
+This function takes the same inputs as `shinyApp` and more. The arguments `inputs`, `visits`, `concurrent`, and `duration`, which all default to `NULL` meaning they are not being tracked. To track those metrics one must pass it a character string defining the name of the metric. 
+
+```r
+library(shiny)
+
+ui <- fluidPage(
+  actionButton("click", "click me!")
+)
+
+server <- function(input, output){
+  observeEvent(input$click, {
+    cat("Logging one click\n")
+  })
+}
+
+# use titanApp
+titanApp(
+  ui, server,
+  inputs = "inputs",
+  visits = "visits",
+  concurrent = "concurrent",
+  duration = "duration"
+)
+```
+
+## Counter
+
+Let's use titan to track the number of clicks on this button rather than use the defaults provided by titan. We can use a counter since the number of clicks can only increase over time.
 
 Load the titan package then create the counter. Note that it is created outside the application, as it only needs to be created once, placing it in the `server` would recreate it every time. Though this should not be an issue as titan prevents you from overwriting an already created counter it is best to avoid it.
 
