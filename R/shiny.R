@@ -136,10 +136,17 @@ titanApp <- function(ui, server, ..., inputs = NULL, visits = NULL,
       onSessionEnd <- onEnd(concurrentGauge, durationHist)
       shiny::onSessionEnded(onSessionEnd)
 
-      app <- tryCatch(serverFnSource(input, output, session), error = function(e) e)
+      # fails if user only uses input and output
+      # if fails try without session
+      app <- tryCatch(
+        serverFnSource(input, output, session), 
+        error = function(e) e
+      )
       
       if(inherits(app, "error"))
-        serverFnSource(input, output)
+        app <- serverFnSource(input, output)
+
+      app
     }
   }
 
