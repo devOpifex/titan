@@ -11,7 +11,10 @@ This gives some details on the internals of titan that may be of use when using 
 
 ## Principle
 
-Titan aims not to make your service go down, that would be too ironic. Therefore titan makes very little use of `stop` and instead uses `warning` starting in `[IGNORING]` and skips the action.
+Titan aims not to make your service go down, the irony that would be... Therefore titan makes very little use of `stop` and instead uses `warning` starting in `[IGNORING]` and skips the action.
+
+!!! tip
+    Warnings starting in `[IGNORING]` indicate actions being ignored, e.g.: metric not being set to given value.
 
 E.g.: One cannot decrease the value of Counters, if you try to do so Titan will return a warning and ignore the action but will not `stop`.
 
@@ -28,6 +31,6 @@ This is useful when, for instance, you setup a shiny application with titan, run
 
 As mentioned Prometheus pulls the metrics from your service, therefore those metrics have to be made available. These are exposed in the form of a plain text (`text/plain`) endpoint called `/metrics` where titan will serve the metrics that Prometheus can then read, store, and analyse.
 
-With shiny you can use the function `titanApp` where you would normally use `shinyApp`, with plumber, Ambiorix, and other services you can use `renderMetrics`. 
+With shiny you can use the function `titanApp` where you would normally use `shinyApp`, with plumber you can use `prTitan` where you would normally use `pr`, with Ambiorix, and other services you can use `renderMetrics`. 
 
-There is more detail and many examples on how to use this on this site.
+There are more details and many examples on how to use this on this site.

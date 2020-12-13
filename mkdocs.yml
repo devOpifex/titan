@@ -48,8 +48,8 @@ markdown_extensions:
 nav:
   - Home: index.md
   - About:
-    - Monitoring: about.md
-    - Internals: internals.md
+    - Monitoring: about/monitoring.md
+    - Internals: about/internals.md
   - Guide: 
       - Installation: guide/installation.md
       - Metrics: guide/metrics.md

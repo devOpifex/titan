@@ -13,7 +13,10 @@ Note that of the four types the most commonly used are the Counter and Gauge, th
 
 ## Basics
 
-Every metrics must bear a __unique name__ and help text. Titan __will not__ let you override a metric: make sure the names (identifiers) are unique.
+Every metrics must bear a unique name and help text. Titan will not let you override a metric: make sure the names (identifiers) are unique.
+
+!!! Note
+    Make sure metrics bear a unique name.
 
 The help text is also mandatory as per Prometheus, it allows giving more context on the metric tracked.
 
@@ -23,7 +26,10 @@ All metrics are R6 classes, you can have any number of these metrics in any proj
 
 ## Counter
 
-A counter is the most basic metrics one can use. It consists of a simple counter __that can only go up__; the value of counters can never decrease.
+A counter is the most basic metrics one can use. It consists of a simple counter that can only go up; the value of counters can never decrease.
+
+!!! tip
+    The value of counters can only increase, use the Gauge if the value may decrease.
 
 This can be used to measure the number of times an application is visited, or the number of times an endpoint is hit: these values only ever go up. Never use Counters for values that go down, titan will not let you decrease their value.
 
@@ -50,7 +56,7 @@ btn_clicks_total 3
 
 ## Gauge
 
-A gauge is very similar to the Counter at the exception that __its value can decrease__.
+A gauge is very similar to the Counter at the exception that its value can decrease.
 
 Then again this is set up in similar way as the Counter, the only difference is that it also has a `dec` method to decrease the gauge.
 
@@ -75,7 +81,7 @@ current_users_total 1
 
 So why would you use a Counter when a Gauge does the same and more? Because this is stored and processed differently by Prometheus. Prometheus is, at its core, a time series database and will take the metric type into account when reporting metrics.
 
-!!! warning
+!!! tip
     Gauges and counters are fundamentally stored as different data types; do not simply switch one for the other, think thoroughly about what you measure.
 
 ## Histogram
@@ -162,10 +168,13 @@ Labels allow adding granularity to metrics without duplicating them.
 
 From the [official documentation](https://prometheus.io/docs/practices/naming/#labels):
 
-!!! danger
-    Remember that every unique combination of key-value label pairs represents a new time series, which can dramatically increase the amount of data stored. Do not use labels to store dimensions with high cardinality (many different label values), such as user IDs, email addresses, or other unbounded sets of values.
+!!! abstract
+    Remember that every unique combination of key-value label pairs represents a new time series, which can dramatically increase the amount of data stored. Do not use labels to store dimensions with high cardinality (many different label values), such as user IDs, email addresses, or other unbounded sets of values. --- Official documentation
 
 Say for instance you have a small API with three endpoints and simply want to track the number of times they get pinged.
+
+!!! Tip
+    All labels specified must be used or titan will throw a warning and ignore the action.
 
 Though you could create three separate Counters it might be more convenient to create a simple Counter with a label that can be set to the path that is used.
 
@@ -192,7 +201,31 @@ api_visits_total {endpoint="/count"} 1
 api_visits_total {endpoint="/home"} 3
 ```
 
-If you use `labels` you must specify __all of the labels__ every time you change the value of the metric (`inc`, `dec`, `set`, `observe`). Otherwise titan throws a warning and ignores the action. 
+If you use `labels` you must specify all of the labels every time you change the value of the metric (`inc`, `dec`, `set`, `observe`). Otherwise titan throws a warning and ignores the action. 
 
-!!! Tip
-    All labels specified must be used or titan will throw a warning and ignore the action.
+!!! error
+    Since all labels must be specified this will fail.
+    
+    ```r hl_lines="21"
+    c <- Counter$new(
+      "btn_clicks_total",
+      "Total button clicks",
+      labels = c("color", "module")
+    )
+
+    # fails
+    # missing all labels
+    c$inc()
+
+    # fails
+    # missing one label
+    c$inc(color = "blue")
+
+    # fails
+    # missing another label
+    c$inc(module = "homepage")
+
+    # Succeeds
+    # both labels present
+    c$inc(color = "blue", module = "homepage")
+    ```    

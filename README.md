@@ -8,6 +8,8 @@
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/devOpifex/titan?branch=master&svg=true)](https://ci.appveyor.com/project/devOpifex/titan)
 <!-- badges: end -->
 
+[Website](https://titan.opifex.org) | [Monitoring](https://titan.opifex.org/about/monitoring/)
+
 [Prometheus](prometheus.io/) monitoring for shiny applications, plumber APIs, and other R web services.
 
 </div>
