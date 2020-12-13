@@ -3,5 +3,10 @@
 language: R
 cache: packages
 
+addons:
+  apt:
+    packages:
+    - libsodium
+
 after_success:
   - Rscript -e 'covr::coveralls()'
