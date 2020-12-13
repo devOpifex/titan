@@ -14,12 +14,9 @@
 
 </div>
 
-## Installation
+## Acknowledgement 
 
-``` r
-# install.packages("remotes")
-remotes::install_github("devOpifex/titan")
-```
+I have put this package together in order to 1) grasp a better understanding of Prometheus metrics and 2) have some direct control over the source code of software I deploy for clients. I have written and re-written this three times before discovering [openmetrics](https://github.com/atheriel/openmetrics/), an R package that provides the same functionalities. I have taken much inspiration from it.
 
 ## Shiny
 
@@ -106,10 +103,6 @@ app$get("/metrics", function(req, res){
 
 app$start()
 ```
-
-## Acknowledgement 
-
-I have put this package together in order to 1) grasp a better understanding of Prometheus metrics and 2) have some direct control over the source code of software I deploy for clients. I have written and re-written this three times before discovering [openmetrics](https://github.com/atheriel/openmetrics/), an R package that provides the same functionalities. I have taken much inspiration from it.
 
 ## Related work
 
