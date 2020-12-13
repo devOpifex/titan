@@ -26,6 +26,9 @@ nav:
       - Shiny: guide/shiny.md
       - Plumber: guide/plumber.md
       - Ambiorix: guide/ambiorix.md
+      - Authentication: guide/authentication.md
+  - Deploy:
+    - Prometheus: deploy/prometheus.md
   - Meta:
-    - Contribute: contribute.md
-    - Changelog: changelog.md
+    - Contribute: meta/contribute.md
+    - Changelog: meta/changelog.md

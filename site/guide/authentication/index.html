@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Ambiorix - titan</title>
+  <title>Authentication - titan</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../../css/theme.css" />
@@ -19,8 +19,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Ambiorix";
-    var mkdocs_page_input_path = "guide/ambiorix.md";
+    var mkdocs_page_name = "Authentication";
+    var mkdocs_page_input_path = "guide/authentication.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -69,11 +69,15 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../plumber/">Plumber</a>
                     </li>
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Ambiorix</a>
-    <ul class="current">
-    </ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../ambiorix/">Ambiorix</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../authentication/">Authentication</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Authentication</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#securing-the-endpoint">Securing the endpoint</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#prometheus">Prometheus</a>
+    </li>
+    </ul>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Deploy</span></p>
@@ -113,7 +117,7 @@
         
       
     
-    <li>Ambiorix</li>
+    <li>Authentication</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -124,36 +128,63 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="ambiorix">Ambiorix</h1>
-<p>Then again, the metrics themselves and their usage does not differ, only the way the metrics are served.</p>
-<p>With <a href="https://github.com/JohnCoene/ambiorix">ambiorix</a>, create a new <code>get</code> method on the <code>/metrics</code> endpoint, and have it return the results of <code>renderMetrics</code>.</p>
-<pre><code class="r">library(titan)
-library(ambiorix)
+                <h1 id="authentication">Authentication</h1>
+<p>If you run shiny applications and plumber APIs on a secure server behind a proxy then you probably do not need authentication. If said applications are exposed  publicly then you might want to use authentication so that the metrics are not publicly accessible.</p>
+<p>Prometheus supports <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication">basic authentication</a>, by default it does not use any, but optionally a user and password can be specified in the <code>prometheus.yml</code> so that these are used when hitting the <code>/metrics</code> endpoint.</p>
+<p>This means the endpoint needs to be secured with the same user and password.</p>
+<h2 id="securing-the-endpoint">Securing the endpoint</h2>
+<p>Use the helper function <code>generateBasicAuth</code> to create a token based on a username and password. Note that the function throws a warning: this function should not be left as-is in your application or plumber API.</p>
+<pre><code class="r">generateBasicAuth(
+  username = &quot;titan&quot;,
+  password = &quot;secret2020!&quot;
+) 
+</code></pre>
 
-# basic counter
-c &lt;- Counter$new(
-  name = &quot;visits_total&quot;, 
-  help = &quot;Total visit to the site&quot;,
-  labels = &quot;path&quot;
+<pre><code>[1] &quot;Basic dGl0YW46c2VjcmV0MjAyMCE=&quot;
+Warning message:
+Do not deploy or share this 
+</code></pre>
+
+<p>Once the authentication token is created it can be used in <code>setAuthentication</code>. <strong>The token should not be displayed in the code as in the example below,</strong> ideally should be an environment variable or option.</p>
+<pre><code class="r">library(titan)
+library(shiny)
+
+setAuthentication(&quot;Basic dGl0YW46c2VjcmV0MjAyMCE=&quot;)
+
+ui &lt;- fluidPage(
+  h2(&quot;Secure endpoint&quot;)
 )
 
-app &lt;- Ambiorix$new()
+server &lt;- function(input, output){}
 
-app$get(&quot;/&quot;, function(req, res){
-  c$inc(path = &quot;/&quot;)
-  res$send(&quot;Using {titan} with {ambiorix}!&quot;)
-})
+titanApp(ui, server, visits = &quot;visits&quot;)
+</code></pre>
 
-app$get(&quot;/about&quot;, function(req, res){
-  c$inc(path = &quot;/about&quot;)
-  res$send(&quot;About {titan} and {ambiorix}!&quot;)
-})
+<p>Running the application above then visiting <code>/metrics</code> should display <code>Unauthorized</code>. Indeed, visiting the endpoint from the browser executes a simple <code>GET</code> request that does not feature bear the token: it is unauthorised.</p>
+<p>One can open a new R session and use the convenience function <code>getMetrics</code> to test the endpoint. The function optionally takes a second argument, the authentication to use.</p>
+<pre><code class="r">titan::getMetrics(
+  &quot;http://127.0.0.1:3145/&quot;, 
+  auth = &quot;Basic dGl0YW46c2VjcmV0MjAyMCE=&quot;
+)
+</code></pre>
 
-app$get(&quot;/metrics&quot;, function(req, res){
-  res$text(renderMetrics())
-})
+<pre><code>Response [http://127.0.0.1:3145/metrics]
+  Date: 2020-12-13 10:46
+  Status: 200
+  Content-Type: text/plain
+  Size: 81 B
+# HELP visits Number of visits to the application
+# TYPE visits counter
+visits 1
+</code></pre>
 
-app$start()
+<p>This returns the metrics as it is, unlike via the browser, authenticated.</p>
+<h2 id="prometheus">Prometheus</h2>
+<p>Then one can place the username and password in the job configuration.</p>
+<pre><code class="yml">- job_name: my-api
+  basic_auth:
+    username: titan
+    password: secret2020!
 </code></pre>
               
             </div>
@@ -162,10 +193,10 @@ app$start()
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../authentication/" class="btn btn-neutral float-right" title="Authentication">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../../deploy/prometheus/" class="btn btn-neutral float-right" title="Prometheus">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../plumber/" class="btn btn-neutral" title="Plumber"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../ambiorix/" class="btn btn-neutral" title="Ambiorix"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -191,10 +222,10 @@ app$start()
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../plumber/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../ambiorix/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../authentication/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../../deploy/prometheus/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
