@@ -72,7 +72,7 @@ titan::prTitan("file.R", latency = "latency") %>%
 
 ## Ambiorix
 
-Using titan with ambiorix.
+Using titan with [ambiorix](https://ambiorix.john-coene.com).
 
 ```r
 library(titan)
