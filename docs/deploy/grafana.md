@@ -25,6 +25,7 @@ Grafana actually create the service for you already so you can simply run it.
 
 ```
 sudo systemctl start grafana-server
+sudo systemctl enable grafana-server
 sudo systemctl status grafana-server
 ```
 
