@@ -6,7 +6,7 @@
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/devOpifex/titan?branch=master&svg=true)](https://ci.appveyor.com/project/devOpifex/titan)
 <!-- badges: end -->
 
-<img src="docs/images/titan.png" />
+<img src="docs/images/titan.png" height = "200px" />
 
 [Prometheus](prometheus.io/) monitoring for shiny applications, plumber APIs, and other R web services.
 
