@@ -12,6 +12,9 @@
 prTitan <- function(file = NULL, ..., latency = NULL){
   checkInstalled("plumber")
 
+  if(is.logical(latency))
+    stop("`latency` must be a character string", call. = FALSE)
+
   pr <- plumber::pr(file, ...)
 
   if(!is.null(latency))

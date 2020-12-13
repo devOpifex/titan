@@ -30,6 +30,18 @@ titanApp <- function(ui, server, ..., inputs = NULL, visits = NULL,
   concurrentGauge <- NULL
   durationHist <- NULL
 
+  if(is.logical(inputs))
+    stop("`inputs` must be a character string", call. = FALSE)
+
+  if(is.logical(visits))
+    stop("`visits` must be a character string", call. = FALSE)
+
+  if(is.logical(concurrent))
+    stop("`concurrent` must be a character string", call. = FALSE)
+
+  if(is.logical(duration))
+    stop("`duration` must be a character string", call. = FALSE)
+
   if(!is.null(inputs))
     inputCounter <- Counter$new(
       inputs,
