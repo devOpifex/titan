@@ -60,6 +60,7 @@ nav:
   - Deploy:
     - Prometheus: deploy/prometheus.md
     - Grafana: deploy/grafana.md
-  - Development:
+  - Meta:
     - Contribute: meta/contribute.md
     - Changelog: meta/changelog.md
+    - License: meta/license.md
