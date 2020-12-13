@@ -8,7 +8,7 @@
 [![Coveralls test coverage](https://coveralls.io/repos/github/devOpifex/titan/badge.svg)](https://coveralls.io/r/devOpifex/titan?branch=master)
 <!-- badges: end -->
 
-[Website](https://titan.opifex.org) | [Monitoring](https://titan.opifex.org/about/monitoring/)
+[Website](https://titan.opifex.org) | [Monitoring](https://titan.opifex.org/about/monitoring/) | [Install](https://titan.opifex.org/guide/installation/) | [Metrics](https://titan.opifex.org/guide/metrics/)
 
 [Prometheus](prometheus.io/) monitoring for shiny applications, plumber APIs, and other R web services.
 
