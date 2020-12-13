@@ -164,11 +164,11 @@ The Summary metric is very similar to the histogram, and works the same with Tit
 
 ## Labels
 
-Labels allow adding granularity to metrics without duplicating them.
+Labels allow adding granularity to metrics without duplicating them, they can be applied to any metric.
 
 From the [official documentation](https://prometheus.io/docs/practices/naming/#labels):
 
-!!! abstract
+!!! warning
     Remember that every unique combination of key-value label pairs represents a new time series, which can dramatically increase the amount of data stored. Do not use labels to store dimensions with high cardinality (many different label values), such as user IDs, email addresses, or other unbounded sets of values. --- Official documentation
 
 Say for instance you have a small API with three endpoints and simply want to track the number of times they get pinged.

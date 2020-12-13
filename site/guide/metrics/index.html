@@ -823,10 +823,10 @@ request_process_time_sum 13.0094513893127
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
 <p>The Summary metric is very similar to the histogram, and works the same with Titan (predicate, etc.) except it does not count the observations in each buckets, instead it computes the sum of it. Also these buckets in Summary are called quantiles and must be between zero and one (0 &lt; q &lt; 1). </p>
 <h2 id="labels">Labels<a class="headerlink" href="#labels" title="Permanent link">&para;</a></h2>
-<p>Labels allow adding granularity to metrics without duplicating them.</p>
+<p>Labels allow adding granularity to metrics without duplicating them, they can be applied to any metric.</p>
 <p>From the <a href="https://prometheus.io/docs/practices/naming/#labels">official documentation</a>:</p>
-<div class="admonition abstract">
-<p class="admonition-title">Abstract</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
 <p>Remember that every unique combination of key-value label pairs represents a new time series, which can dramatically increase the amount of data stored. Do not use labels to store dimensions with high cardinality (many different label values), such as user IDs, email addresses, or other unbounded sets of values. &mdash; Official documentation</p>
 </div>
 <p>Say for instance you have a small API with three endpoints and simply want to track the number of times they get pinged.</p>
