@@ -569,19 +569,6 @@
 <li><a href="https://github.com/atheriel/openmetrics/">openmetrics</a> provides support for all metrics as well as authentication, and goes a step further in enforcing <a href="https://openmetrics.io/">OpenMetrics</a> standards.</li>
 <li><a href="https://github.com/cfmack/pRometheus/">pRometheus</a> Provides support for Gauge and Counter.</li>
 </ul>
-<p _="%" endblock="endblock">{% block extrahead %}
-  {% set title = config.site_name %}
-  {% if page and page.meta and page.meta.title %}
-    {% set title = title ~ &rdquo; - &rdquo; ~ page.meta.title %}
-  {% elif page and page.title and not page.is_homepage %}
-    {% set title = title ~ &rdquo; - &rdquo; ~ page.title | striptags %}
-  {% endif %}
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="devOPifex" />
-  <meta name="twitter:creator" content="devOpifex" />
-  <meta name="twitter:title" content="titan - Monitoring for R" />
-  <meta name="twitter:description" content="Prometheus monitoring for shiny, plumber APIs, and other R web services." />
-  <meta name="twitter:image" content="https://titan.opifex.org/images/titan-banner.png" /></p>
                 
               
               
