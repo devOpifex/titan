@@ -3,10 +3,8 @@
 language: R
 cache: packages
 
-addons:
-  apt:
-    packages:
-    - libsodium
+before_install:
+  - sudo apt-get -y libsodium-dev
 
 after_success:
   - Rscript -e 'covr::coveralls()'
