@@ -1,3 +1,10 @@
+---
+title: Prometheus metrics
+summary: The various metrics titan supports.
+authors:
+    - John Coene
+---
+
 # Metrics
 
 Prometheus provides four types of metrics. This document only briefly explains them, please refer to the [official documentation](https://prometheus.io/docs/concepts/metric_types/) if you need to learn more about it.
@@ -67,6 +74,9 @@ current_users_total 1
 ```
 
 So why would you use a Counter when a Gauge does the same and more? Because this is stored and processed differently by Prometheus. Prometheus is, at its core, a time series database and will take the metric type into account when reporting metrics.
+
+!!! warning
+    Gauges and counters are fundamentally stored as different data types; do not simply switch one for the other, think thoroughly about what you measure.
 
 ## Histogram
 
@@ -152,7 +162,8 @@ Labels allow adding granularity to metrics without duplicating them.
 
 From the [official documentation](https://prometheus.io/docs/practices/naming/#labels):
 
->  CAUTION: Remember that every unique combination of key-value label pairs represents a new time series, which can dramatically increase the amount of data stored. Do not use labels to store dimensions with high cardinality (many different label values), such as user IDs, email addresses, or other unbounded sets of values.
+!!! danger
+    Remember that every unique combination of key-value label pairs represents a new time series, which can dramatically increase the amount of data stored. Do not use labels to store dimensions with high cardinality (many different label values), such as user IDs, email addresses, or other unbounded sets of values.
 
 Say for instance you have a small API with three endpoints and simply want to track the number of times they get pinged.
 

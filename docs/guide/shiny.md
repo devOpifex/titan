@@ -1,3 +1,10 @@
+---
+title: Shiny
+summary: How to use titan with shiny applications.
+authors:
+    - John Coene
+---
+
 # Shiny Basics
 
 In this wee vignette we give just basic examples of how to use titan in shiny applications.
@@ -57,6 +64,9 @@ titanApp(
   duration = "duration"
 )
 ```
+
+!!! danger
+    On a large application tracking all inputs can create a lot of data.
 
 ## Counter
 

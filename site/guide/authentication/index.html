@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  
+  <meta name="author" content="Opifex">
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
   <title>Authentication - titan</title>
@@ -28,6 +28,16 @@
   <script src="../../js/modernizr-2.8.3.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'G-TZMQ98HS6D', 'titan.opifex.org');
+      ga('send', 'pageview');
+  </script>
   
 </head>
 
@@ -61,7 +71,7 @@
                 </ul>
                 <p class="caption"><span class="caption-text">Guide</span></p>
                 <ul class="current">
-                    <li class="toctree-l1"><a class="reference internal" href="../">Installation</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../metrics/">Metrics</a>
                     </li>
@@ -122,6 +132,9 @@
     <li>Authentication</li>
     <li class="wy-breadcrumbs-aside">
       
+        <a href="https://github.com/devOpifex/titan/edit/master/docs/guide/authentication.md"
+          class="icon icon-github"> Edit on Github</a>
+      
     </li>
   </ul>
   
@@ -130,11 +143,11 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="authentication">Authentication</h1>
+                <h1 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">&para;</a></h1>
 <p>If you run shiny applications and plumber APIs on a secure server behind a proxy then you probably do not need authentication. If said applications are exposed  publicly then you might want to use authentication so that the metrics are not publicly accessible.</p>
 <p>Prometheus supports <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication">basic authentication</a>, by default it does not use any, but optionally a user and password can be specified in the <code>prometheus.yml</code> so that these are used when hitting the <code>/metrics</code> endpoint.</p>
 <p>This means the endpoint needs to be secured with the same user and password.</p>
-<h2 id="securing-the-endpoint">Securing the endpoint</h2>
+<h2 id="securing-the-endpoint">Securing the endpoint<a class="headerlink" href="#securing-the-endpoint" title="Permanent link">&para;</a></h2>
 <p>Use the helper function <code>generateBasicAuth</code> to create a token based on a username and password. Note that the function throws a warning: this function should not be left as-is in your application or plumber API.</p>
 <pre><code class="r">generateBasicAuth(
   username = &quot;titan&quot;,
@@ -147,6 +160,11 @@ Warning message:
 Do not deploy or share this 
 </code></pre>
 
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Do not use <code>generateBasicAuth</code> in your application or use the 
+token in plain text: it exposes the password.</p>
+</div>
 <p>Once the authentication token is created it can be used in <code>setAuthentication</code>. <strong>The token should not be displayed in the code as in the example below,</strong> ideally should be an environment variable or option.</p>
 <pre><code class="r">library(titan)
 library(shiny)
@@ -181,7 +199,7 @@ visits 1
 </code></pre>
 
 <p>This returns the metrics as it is, unlike via the browser, authenticated.</p>
-<h2 id="prometheus">Prometheus</h2>
+<h2 id="prometheus">Prometheus<a class="headerlink" href="#prometheus" title="Permanent link">&para;</a></h2>
 <p>Then one can place the username and password in the job configuration.</p>
 <pre><code class="yml">- job_name: my-api
   basic_auth:
@@ -207,6 +225,8 @@ visits 1
 
   <div role="contentinfo">
     <!-- Copyright etc -->
+    
+      <p>Opifex</p>
     
   </div>
 

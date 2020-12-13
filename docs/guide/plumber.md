@@ -1,3 +1,10 @@
+---
+title: Using titan with plumber
+summary: How to use titan with plumber APIs.
+authors:
+    - John Coene
+---
+
 # Plumber APIs
 
 The metrics and how they are used never changes, the only thing that changes across projects is how the metrics are served.

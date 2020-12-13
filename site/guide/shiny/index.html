@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  
+  <meta name="author" content="Opifex">
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
   <title>Shiny - titan</title>
@@ -28,6 +28,16 @@
   <script src="../../js/modernizr-2.8.3.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'G-TZMQ98HS6D', 'titan.opifex.org');
+      ga('send', 'pageview');
+  </script>
   
 </head>
 
@@ -61,7 +71,7 @@
                 </ul>
                 <p class="caption"><span class="caption-text">Guide</span></p>
                 <ul class="current">
-                    <li class="toctree-l1"><a class="reference internal" href="../">Installation</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../metrics/">Metrics</a>
                     </li>
@@ -126,6 +136,9 @@
     <li>Shiny</li>
     <li class="wy-breadcrumbs-aside">
       
+        <a href="https://github.com/devOpifex/titan/edit/master/docs/guide/shiny.md"
+          class="icon icon-github"> Edit on Github</a>
+      
     </li>
   </ul>
   
@@ -134,9 +147,9 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="shiny-basics">Shiny Basics</h1>
+                <h1 id="shiny-basics">Shiny Basics<a class="headerlink" href="#shiny-basics" title="Permanent link">&para;</a></h1>
 <p>In this wee vignette we give just basic examples of how to use titan in shiny applications.</p>
-<h2 id="helpers">Helpers</h2>
+<h2 id="helpers">Helpers<a class="headerlink" href="#helpers" title="Permanent link">&para;</a></h2>
 <p>Titan allows easily tracking some interactions by default, saving you the trouble of setting up metrics.</p>
 <p>Starting from the (very) basic shiny application below which simply prints text to the console at the click of a button.</p>
 <pre><code class="r">library(shiny)
@@ -185,8 +198,12 @@ titanApp(
 )
 </code></pre>
 
-<h2 id="counter">Counter</h2>
-<p>Let's use titan to track the number of clicks on this button rather than use the defaults provided by titan. We can use a counter since the number of clicks can only increase over time.</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>On a large application tracking all inputs can create a lot of data.</p>
+</div>
+<h2 id="counter">Counter<a class="headerlink" href="#counter" title="Permanent link">&para;</a></h2>
+<p>Let&rsquo;s use titan to track the number of clicks on this button rather than use the defaults provided by titan. We can use a counter since the number of clicks can only increase over time.</p>
 <p>Load the titan package then create the counter. Note that it is created outside the application, as it only needs to be created once, placing it in the <code>server</code> would recreate it every time. Though this should not be an issue as titan prevents you from overwriting an already created counter it is best to avoid it.</p>
 <p>In the observer we increment the counter, then note that we launch the application with <code>titanApp</code> and not <code>shinyApp</code>, it works the exact same way but exposes the metrics.</p>
 <pre><code class="r">library(titan)
@@ -214,10 +231,10 @@ titanApp(ui, server)
 </code></pre>
 
 <p><img alt="" src="../../images/shiny-basic.png" /></p>
-<h2 id="histogram">Histogram</h2>
+<h2 id="histogram">Histogram<a class="headerlink" href="#histogram" title="Permanent link">&para;</a></h2>
 <p>We can also use a histogram to track the performances of a particularly long request.</p>
-<p>Say for instance, that the application, at the click of a button, makes a relatively large request to a database or runs a time consuming model, surely we'd like to track that.</p>
-<p>We can build a histogram to track the time it takes to run that process. We'll use the histogram to put the time it takes into three bins:</p>
+<p>Say for instance, that the application, at the click of a button, makes a relatively large request to a database or runs a time consuming model, surely we&rsquo;d like to track that.</p>
+<p>We can build a histogram to track the time it takes to run that process. We&rsquo;ll use the histogram to put the time it takes into three bins:</p>
 <ul>
 <li>Less than 3 seconds</li>
 <li>Between 3 and 6 seconds</li>
@@ -267,9 +284,9 @@ titanApp(ui, server)
 </code></pre>
 
 <p><img alt="" src="../../images/shiny-histogram.png" /></p>
-<h2 id="gauge">Gauge</h2>
+<h2 id="gauge">Gauge<a class="headerlink" href="#gauge" title="Permanent link">&para;</a></h2>
 <p>You could also create a gauge to track the current number of visitors on the application using a Gauge.</p>
-<p>It's as simple as initialising the Gauge and increasing it by one every time the server fires.</p>
+<p>It&rsquo;s as simple as initialising the Gauge and increasing it by one every time the server fires.</p>
 <pre><code class="r">library(shiny)
 
 g &lt;- Gauge$new(
@@ -306,6 +323,8 @@ titanApp(ui, server)
 
   <div role="contentinfo">
     <!-- Copyright etc -->
+    
+      <p>Opifex</p>
     
   </div>
 

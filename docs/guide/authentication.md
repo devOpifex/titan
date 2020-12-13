@@ -1,3 +1,10 @@
+---
+title: Authentication
+summary: Implement authentication to secure the metrics endpoint.
+authors:
+    - John Coene
+---
+
 # Authentication
 
 If you run shiny applications and plumber APIs on a secure server behind a proxy then you probably do not need authentication. If said applications are exposed  publicly then you might want to use authentication so that the metrics are not publicly accessible.
@@ -22,6 +29,11 @@ generateBasicAuth(
 Warning message:
 Do not deploy or share this 
 ```
+
+!!! danger
+    Do not use `generateBasicAuth` in your application or use the 
+    token in plain text: it exposes the password.
+
 
 Once the authentication token is created it can be used in `setAuthentication`. __The token should not be displayed in the code as in the example below,__ ideally should be an environment variable or option.
 

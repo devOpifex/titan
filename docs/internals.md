@@ -1,3 +1,10 @@
+---
+title: Internals of titan
+summary: Some description of the internals of the package.
+authors:
+    - John Coene
+---
+
 # Internals
 
 This gives some details on the internals of titan that may be of use when using the package.
@@ -14,7 +21,8 @@ When titan is loaded in your environment with `library(titan)` it creates an env
 
 This is useful when, for instance, you setup a shiny application with titan, run it locally with `titanApp`, test it, then stop the app to make changes; when you run it again the metrics from the previous run will remain.
 
-You can run `cleanRegistry` to clean the environment.
+!!! info
+    You can run `cleanRegistry` to clean the environment.
 
 ## Serving
 

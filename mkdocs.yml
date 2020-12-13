@@ -10,10 +10,25 @@ theme:
     - search.suggest
 
 plugins:
-  - search
+  - search:
+      min_search_length: 2
 
 extra_css:
   - css/extra.css
+
+repo_url: https://github.com/devOpifex/titan/
+repo_name: Github
+site_description: Serve Prometheus metrics for shiny applications and plumber services
+site_author: Opifex
+copyright: Opifex
+google_analytics: ['G-TZMQ98HS6D', 'titan.opifex.org']
+
+markdown_extensions:
+    - admonition
+    - smarty
+    - toc:
+        permalink: True
+        separator: "-"
 
 nav:
   - Home: index.md
@@ -21,7 +36,7 @@ nav:
     - Monitoring: about.md
     - Internals: internals.md
   - Guide: 
-      - Installation: guide/index.md
+      - Installation: guide/installation.md
       - Metrics: guide/metrics.md
       - Shiny: guide/shiny.md
       - Plumber: guide/plumber.md

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  
+  <meta name="author" content="Opifex">
   
   <link rel="shortcut icon" href="../img/favicon.ico">
   <title>Internals - titan</title>
@@ -28,6 +28,16 @@
   <script src="../js/modernizr-2.8.3.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'G-TZMQ98HS6D', 'titan.opifex.org');
+      ga('send', 'pageview');
+  </script>
   
 </head>
 
@@ -69,7 +79,7 @@
                 </ul>
                 <p class="caption"><span class="caption-text">Guide</span></p>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../guide/">Installation</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../guide/installation/">Installation</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../guide/metrics/">Metrics</a>
                     </li>
@@ -124,6 +134,9 @@
     <li>Internals</li>
     <li class="wy-breadcrumbs-aside">
       
+        <a href="https://github.com/devOpifex/titan/edit/master/docs/internals.md"
+          class="icon icon-github"> Edit on Github</a>
+      
     </li>
   </ul>
   
@@ -132,16 +145,19 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="internals">Internals</h1>
+                <h1 id="internals">Internals<a class="headerlink" href="#internals" title="Permanent link">&para;</a></h1>
 <p>This gives some details on the internals of titan that may be of use when using the package.</p>
-<h2 id="principle">Principle</h2>
+<h2 id="principle">Principle<a class="headerlink" href="#principle" title="Permanent link">&para;</a></h2>
 <p>Titan aims not to make your service go down, that would be too ironic. Therefore titan makes very little use of <code>stop</code> and instead uses <code>warning</code> starting in <code>[IGNORING]</code> and skips the action.</p>
 <p>E.g.: One cannot decrease the value of Counters, if you try to do so Titan will return a warning and ignore the action but will not <code>stop</code>.</p>
-<h2 id="storage">Storage</h2>
+<h2 id="storage">Storage<a class="headerlink" href="#storage" title="Permanent link">&para;</a></h2>
 <p>When titan is loaded in your environment with <code>library(titan)</code> it creates an environment in which it stores all metrics.</p>
 <p>This is useful when, for instance, you setup a shiny application with titan, run it locally with <code>titanApp</code>, test it, then stop the app to make changes; when you run it again the metrics from the previous run will remain.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
 <p>You can run <code>cleanRegistry</code> to clean the environment.</p>
-<h2 id="serving">Serving</h2>
+</div>
+<h2 id="serving">Serving<a class="headerlink" href="#serving" title="Permanent link">&para;</a></h2>
 <p>As mentioned Prometheus pulls the metrics from your service, therefore those metrics have to be made available. These are exposed in the form of a plain text (<code>text/plain</code>) endpoint called <code>/metrics</code> where titan will serve the metrics that Prometheus can then read, store, and analyse.</p>
 <p>With shiny you can use the function <code>titanApp</code> where you would normally use <code>shinyApp</code>, with plumber, Ambiorix, and other services you can use <code>renderMetrics</code>. </p>
 <p>There is more detail and many examples on how to use this on this site.</p>
@@ -152,7 +168,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../guide/" class="btn btn-neutral float-right" title="Installation">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../guide/installation/" class="btn btn-neutral float-right" title="Installation">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../about/" class="btn btn-neutral" title="Monitoring"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -164,6 +180,8 @@
 
   <div role="contentinfo">
     <!-- Copyright etc -->
+    
+      <p>Opifex</p>
     
   </div>
 
@@ -184,7 +202,7 @@
         <span><a href="../about/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../guide/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../guide/installation/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

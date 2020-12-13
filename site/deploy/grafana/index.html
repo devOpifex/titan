@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  
+  <meta name="author" content="Opifex">
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
   <title>Grafana - titan</title>
@@ -28,6 +28,16 @@
   <script src="../../js/modernizr-2.8.3.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'G-TZMQ98HS6D', 'titan.opifex.org');
+      ga('send', 'pageview');
+  </script>
   
 </head>
 
@@ -61,7 +71,7 @@
                 </ul>
                 <p class="caption"><span class="caption-text">Guide</span></p>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../guide/">Installation</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../guide/installation/">Installation</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../../guide/metrics/">Metrics</a>
                     </li>
@@ -122,6 +132,9 @@
     <li>Grafana</li>
     <li class="wy-breadcrumbs-aside">
       
+        <a href="https://github.com/devOpifex/titan/edit/master/docs/deploy/grafana.md"
+          class="icon icon-github"> Edit on Github</a>
+      
     </li>
   </ul>
   
@@ -130,10 +143,10 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="grafana">Grafana</h1>
+                <h1 id="grafana">Grafana<a class="headerlink" href="#grafana" title="Permanent link">&para;</a></h1>
 <p>Prometheus does an amazing job of collecting metrics but the dashboard and tracking is provides is rather ugly. <a href="https://grafana.com/">Grafana</a> on the other make for great monitoring, dashboards, alerts, etc.</p>
 <p>Moreover it connects very easily with Prometheus; hence you leave prometheus collect the metrics and have Grafana read those metrics to provide monitoring.</p>
-<h2 id="install">Install</h2>
+<h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
 <p>We can follow the <a href="https://grafana.com/docs/grafana/latest/installation/debian">official documentation to install grafana on Ubuntu 20</a>.</p>
 <pre><code>sudo apt-get install -y apt-transport-https
 sudo apt-get install -y software-properties-common wget
@@ -145,7 +158,7 @@ sudo apt-get update
 sudo apt-get install grafana
 </code></pre>
 
-<h2 id="run">Run</h2>
+<h2 id="run">Run<a class="headerlink" href="#run" title="Permanent link">&para;</a></h2>
 <p>Grafana actually create the service for you already so you can simply run it.</p>
 <pre><code>sudo systemctl start grafana-server
 sudo systemctl enable grafana-server
@@ -153,7 +166,7 @@ sudo systemctl status grafana-server
 </code></pre>
 
 <p>You can then login on port <code>3000</code>!</p>
-<p>Click the cog icon to import Prometheus data and you're good to go; create dashboards and alerts, etc.</p>
+<p>Click the cog icon to import Prometheus data and you&rsquo;re good to go; create dashboards and alerts, etc.</p>
               
             </div>
           </div>
@@ -173,6 +186,8 @@ sudo systemctl status grafana-server
 
   <div role="contentinfo">
     <!-- Copyright etc -->
+    
+      <p>Opifex</p>
     
   </div>
 

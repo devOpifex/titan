@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  
+  <meta name="author" content="Opifex">
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
   <title>Prometheus - titan</title>
@@ -28,6 +28,16 @@
   <script src="../../js/modernizr-2.8.3.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'G-TZMQ98HS6D', 'titan.opifex.org');
+      ga('send', 'pageview');
+  </script>
   
 </head>
 
@@ -61,7 +71,7 @@
                 </ul>
                 <p class="caption"><span class="caption-text">Guide</span></p>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../guide/">Installation</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../guide/installation/">Installation</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../../guide/metrics/">Metrics</a>
                     </li>
@@ -126,6 +136,9 @@
     <li>Prometheus</li>
     <li class="wy-breadcrumbs-aside">
       
+        <a href="https://github.com/devOpifex/titan/edit/master/docs/deploy/prometheus.md"
+          class="icon icon-github"> Edit on Github</a>
+      
     </li>
   </ul>
   
@@ -134,10 +147,10 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="prometheus">Prometheus</h1>
+                <h1 id="prometheus">Prometheus<a class="headerlink" href="#prometheus" title="Permanent link">&para;</a></h1>
 <p>Serving metrics with titan is only part of the story. Once those are served one must set up and deploy Prometheus so it can scrape those results.</p>
 <p>There are a few ways in which Prometheus can be deployed. The easiest I find is simply to install the binary and run is a service, this way it automatically restarts when the server reboots, etc.</p>
-<h2 id="installation">Installation</h2>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <p>Below we download the zipped <a href="https://prometheus.io/download/">latest release</a> (at the time of writing this v2.23.0).</p>
 <pre><code class="bash">wget https://github.com/prometheus/prometheus/releases/download/v2.23.0/prometheus-2.23.0.linux-amd64.tar.gz
 
@@ -151,8 +164,8 @@ mv prometheus-2.23.0.linux-amd64 prometheus
 </code></pre>
 
 <p>This should run prometheus and make it available on port <code>9090</code> by default and you should be able to see prometheus running at <code>&lt;server-ip&gt;:9090</code>. If you do not make sure that port <code>9090</code> is open on your server.</p>
-<p>The <code>prometheus.yml</code> file contains the "targets" to scrape, that is the plumber APIs and shiny applications to scrape the metrics.</p>
-<h2 id="service">Service</h2>
+<p>The <code>prometheus.yml</code> file contains the &ldquo;targets&rdquo; to scrape, that is the plumber APIs and shiny applications to scrape the metrics.</p>
+<h2 id="service">Service<a class="headerlink" href="#service" title="Permanent link">&para;</a></h2>
 <p>We can create a new service to easily have Prometheus run in the background, restart when needed, etc.</p>
 <pre><code>vi /etc/systemd/system/prometheus.service
 </code></pre>
@@ -187,7 +200,7 @@ sudo systemctl enable prometheus
 </code></pre>
 
 <p>Running <code>sudo systemctl status prometheus</code> will show whether the service is running correctly.</p>
-<h2 id="configuration-file">Configuration file</h2>
+<h2 id="configuration-file">Configuration file<a class="headerlink" href="#configuration-file" title="Permanent link">&para;</a></h2>
 <p>We have yet to explore the configuration file. Below is an example of a job to scrape a shiny application.</p>
 <pre><code class="yml">scrape_configs:
   - job_name: my-application
@@ -206,7 +219,7 @@ sudo systemctl enable prometheus
       password: securePassword
 </code></pre>
 
-<h2 id="reload-configuration">Reload Configuration</h2>
+<h2 id="reload-configuration">Reload Configuration<a class="headerlink" href="#reload-configuration" title="Permanent link">&para;</a></h2>
 <p>Once changes have been made to the configuration we must tell prometheus to reload it. Since we set the flag <code>--web.enable-lifecycle</code> when launching the Prometheus service we can simply make a <code>POST</code> request to the <code>/-/reload</code> endpoint of Prometheus to reload the configuration file.</p>
 <pre><code>curl -X POST http://localhost:9090/-/reload
 </code></pre>
@@ -215,7 +228,7 @@ sudo systemctl enable prometheus
 <pre><code class="r">reloadConfig(&quot;http://localhost:9090&quot;)
 </code></pre>
 
-<p>From there onwards it's just a matter of adding jobs to the configuration file and reload it.</p>
+<p>From there onwards it&rsquo;s just a matter of adding jobs to the configuration file and reload it.</p>
 <p>Happy tracking!</p>
               
             </div>
@@ -236,6 +249,8 @@ sudo systemctl enable prometheus
 
   <div role="contentinfo">
     <!-- Copyright etc -->
+    
+      <p>Opifex</p>
     
   </div>
 

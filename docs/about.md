@@ -1,3 +1,10 @@
+---
+title: About Monitoring
+summary: A brief description of monitoring.
+authors:
+    - John Coene
+---
+
 # About Titan & Monitoring
 
 Titan is an R package to allow generating [Prometheus](https://prometheus.io/) metrics for R projects, including shiny, plumber, ambiorix, and more.
@@ -20,8 +27,8 @@ Up until recently most monitoring was probably "black box," applications were de
 
 Nowadays, with the advent of micro-services where developers are responsible for the deployment of the apps they build, the industry is increasingly turning towards "white box" monitoring.
 
-> You build it you run it
-> -- Jeff Bezos
+!!! quote
+    You build it you run it -- Jeff Bezos
 
 As the developer of the service you know more about it than anyone and can therefore setup more appropriate monitoring; Prometheus and titan let you do just that.
 

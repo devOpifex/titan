@@ -1,3 +1,10 @@
+---
+title: Using titan with ambiorix
+summary: How to monitor metrics for ambiorix applications.
+authors:
+    - John Coene
+---
+
 # Ambiorix
 
 Then again, the metrics themselves and their usage does not differ, only the way the metrics are served.

@@ -1,6 +1,16 @@
+---
+title: Changelog
+summary: Changes in the source code and features.
+authors:
+    - John Coene
+---
+
 # titan 2.0.0
 
-Rewritten the entire source code, much cleaner and more performant.
+- Refactor entire source code.
+- Better performances.
+- Documentation site.
+- Support for authentication.
 
 # titan 1.0.0
 

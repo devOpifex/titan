@@ -1,3 +1,10 @@
+---
+title: Installation
+summary: How to install the package.
+authors:
+    - John Coene
+---
+
 # Get Started
 
 First install the R package.

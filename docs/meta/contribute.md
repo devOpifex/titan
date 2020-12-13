@@ -1,3 +1,8 @@
+---
+title: CoC
+summary: Contributor covenant code of conduct.
+---
+
 # Contributor Covenant Code of Conduct
 
 ## Our Pledge
