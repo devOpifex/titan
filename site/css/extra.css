@@ -7,3 +7,7 @@ body, input {
 code, pre {
   font-family: 'JetBrains Mono', monospace;
 }
+
+.wy-side-nav-search{
+  background-color: #e6522c;
+}

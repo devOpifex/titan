@@ -1,156 +1,611 @@
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <meta name="author" content="Opifex">
-  
-  <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Metrics - titan</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
-  <link rel="stylesheet" href="../../css/theme.css" />
-  <link rel="stylesheet" href="../../css/theme_extra.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
-  <link href="../../css/extra.css" rel="stylesheet" />
-  
-  <script>
-    // Current page data
-    var mkdocs_page_name = "Metrics";
-    var mkdocs_page_input_path = "guide/metrics.md";
-    var mkdocs_page_url = null;
-  </script>
-  
-  <script src="../../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
-  
-  <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'G-TZMQ98HS6D', 'titan.opifex.org');
-      ga('send', 'pageview');
-  </script>
-  
-</head>
-
-<body class="wy-body-for-nav" role="document">
-
-  <div class="wy-grid-for-nav">
-
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
-      <div class="wy-side-nav-search">
-        <a href="../.." class="icon icon-home"> titan</a>
-        <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
-  </form>
-</div>
-      </div>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Serve Prometheus metrics for shiny applications and plumber services">
+      
+      
+      
+      
+        <meta name="author" content="Opifex">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
+    
+    
+      
+        <title>Prometheus metrics - titan</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.19753c6b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.196e0c26.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ff6e42">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+    
+      
+        
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-TZMQ98HS6D","titan.opifex.org"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview",document.location.pathname)})</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="deep-orange" data-md-color-accent="orange">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#metrics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
-                    </li>
-                </ul>
-                <p class="caption"><span class="caption-text">About</span></p>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../about/">Monitoring</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../internals/">Internals</a>
-                    </li>
-                </ul>
-                <p class="caption"><span class="caption-text">Guide</span></p>
-                <ul class="current">
-                    <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
-                    </li>
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Metrics</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#basics">Basics</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#counter">Counter</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#gauge">Gauge</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#histogram">Histogram</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#labels">Labels</a>
-    </li>
-    </ul>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../shiny/">Shiny</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../plumber/">Plumber</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../ambiorix/">Ambiorix</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../authentication/">Authentication</a>
-                    </li>
-                </ul>
-                <p class="caption"><span class="caption-text">Deploy</span></p>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../deploy/prometheus/">Prometheus</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../deploy/grafana/">Grafana</a>
-                    </li>
-                </ul>
-                <p class="caption"><span class="caption-text">Meta</span></p>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../meta/contribute/">Contribute</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../meta/changelog/">Changelog</a>
-                    </li>
-                </ul>
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="titan" class="md-header-nav__button md-logo" aria-label="titan">
+      
+  <img src="../../images/titan.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            titan
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Prometheus metrics
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
       </div>
     </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../..">titan</a>
-      </nav>
-
-      
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="../..">Docs</a> &raquo;</li>
-    
-      
-        
-          <li>Guide &raquo;</li>
-        
-      
-    
-    <li>Metrics</li>
-    <li class="wy-breadcrumbs-aside">
-      
-        <a href="https://github.com/devOpifex/titan/edit/master/docs/guide/metrics.md"
-          class="icon icon-github"> Edit on Github</a>
-      
-    </li>
-  </ul>
-  
-  <hr/>
+  </div>
 </div>
-          <div role="main">
-            <div class="section">
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/devOpifex/titan/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Github
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="titan" class="md-nav__button md-logo" aria-label="titan">
+      
+  <img src="../../images/titan.png" alt="logo">
+
+    </a>
+    titan
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/devOpifex/titan/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Github
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+    <label class="md-nav__link" for="nav-2">
+      About
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="About" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        About
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../about/" class="md-nav__link">
+      Monitoring
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../internals/" class="md-nav__link">
+      Internals
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    <label class="md-nav__link" for="nav-3">
+      Guide
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Guide" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Guide
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../installation/" class="md-nav__link">
+      Installation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Metrics
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      Metrics
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basics" class="md-nav__link">
+    Basics
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#counter" class="md-nav__link">
+    Counter
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gauge" class="md-nav__link">
+    Gauge
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#histogram" class="md-nav__link">
+    Histogram
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#labels" class="md-nav__link">
+    Labels
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../shiny/" class="md-nav__link">
+      Shiny
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plumber/" class="md-nav__link">
+      Plumber
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ambiorix/" class="md-nav__link">
+      Ambiorix
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../authentication/" class="md-nav__link">
+      Authentication
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+    <label class="md-nav__link" for="nav-4">
+      Deploy
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Deploy" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Deploy
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../deploy/prometheus/" class="md-nav__link">
+      Prometheus
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../deploy/grafana/" class="md-nav__link">
+      Grafana
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+    <label class="md-nav__link" for="nav-5">
+      Meta
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Meta" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Meta
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../meta/contribute/" class="md-nav__link">
+      Contribute
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../meta/changelog/" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basics" class="md-nav__link">
+    Basics
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#counter" class="md-nav__link">
+    Counter
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gauge" class="md-nav__link">
+    Gauge
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#histogram" class="md-nav__link">
+    Histogram
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#labels" class="md-nav__link">
+    Labels
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
               
+                
+                  <a href="https://github.com/devOpifex/titan/edit/master/docs/guide/metrics.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
                 <h1 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">&para;</a></h1>
 <p>Prometheus provides four types of metrics. This document only briefly explains them, please refer to the <a href="https://prometheus.io/docs/concepts/metric_types/">official documentation</a> if you need to learn more about it.</p>
 <p>Note that of the four types the most commonly used are the Counter and Gauge, the Histogram and Summary are extremely useful but used must less as they are most complicated to fully understand and set up correctly. Many client libraries of Prometheus do not even provide support for Histograms and Summaries. </p>
@@ -163,42 +618,42 @@
 <p>A counter is the most basic metrics one can use. It consists of a simple counter <strong>that can only go up</strong>; the value of counters can never decrease.</p>
 <p>This can be used to measure the number of times an application is visited, or the number of times an endpoint is hit: these values only ever go up. Never use Counters for values that go down, titan will not let you decrease their value.</p>
 <p>Instantiate a new counter from the <code>Counter</code> R6 class, give it a name and some help text, then use the method <code>inc</code> to increase it. You can also use the method <code>set</code> to set it to a specific value, again make sure that value is greater than that which the counter already holds or it will throw a warning and <em>not set the counter to that value.</em></p>
-<pre><code class="r">c &lt;- Counter$new(
-  name = &quot;btn_clicks_total&quot;,
-  help = &quot;Total clicks on buttons&quot;
-)
+<div class="highlight"><pre><span></span><code><span class="n">c</span> <span class="o">&lt;-</span> <span class="n">Counter</span><span class="o">$</span><span class="nf">new</span><span class="p">(</span>
+  <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;btn_clicks_total&quot;</span><span class="p">,</span>
+  <span class="n">help</span> <span class="o">=</span> <span class="s">&quot;Total clicks on buttons&quot;</span>
+<span class="p">)</span>
 
-c$inc() # increase
-c$inc(2) 
+<span class="n">c</span><span class="o">$</span><span class="nf">inc</span><span class="p">()</span> <span class="c1"># increase</span>
+<span class="n">c</span><span class="o">$</span><span class="nf">inc</span><span class="p">(</span><span class="m">2</span><span class="p">)</span> 
 
-# preview the metrics
-previewMetrics()
-</code></pre>
+<span class="c1"># preview the metrics</span>
+<span class="nf">previewMetrics</span><span class="p">()</span>
+</code></pre></div>
 
-<pre><code># HELP btn_clicks_total Total clicks on buttons
+<div class="highlight"><pre><span></span><code># HELP btn_clicks_total Total clicks on buttons
 # TYPE btn_clicks_total counter
 btn_clicks_total 3 
-</code></pre>
+</code></pre></div>
 
 <h2 id="gauge">Gauge<a class="headerlink" href="#gauge" title="Permanent link">&para;</a></h2>
 <p>A gauge is very similar to the Counter at the exception that <strong>its value can decrease</strong>.</p>
 <p>Then again this is set up in similar way as the Counter, the only difference is that it also has a <code>dec</code> method to decrease the gauge.</p>
-<pre><code class="r">g &lt;- Gauge$new(
-  name = &quot;current_users_total&quot;,
-  help = &quot;Total number of users right now&quot;
-)
+<div class="highlight"><pre><span></span><code><span class="n">g</span> <span class="o">&lt;-</span> <span class="n">Gauge</span><span class="o">$</span><span class="nf">new</span><span class="p">(</span>
+  <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;current_users_total&quot;</span><span class="p">,</span>
+  <span class="n">help</span> <span class="o">=</span> <span class="s">&quot;Total number of users right now&quot;</span>
+<span class="p">)</span>
 
-g$inc(2) # increase by 2
-g$dec() # decrease by 1
+<span class="n">g</span><span class="o">$</span><span class="nf">inc</span><span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="c1"># increase by 2</span>
+<span class="n">g</span><span class="o">$</span><span class="nf">dec</span><span class="p">()</span> <span class="c1"># decrease by 1</span>
 
-# preview the metrics
-previewMetrics()
-</code></pre>
+<span class="c1"># preview the metrics</span>
+<span class="nf">previewMetrics</span><span class="p">()</span>
+</code></pre></div>
 
-<pre><code># HELP current_users_total Total number of users right now
+<div class="highlight"><pre><span></span><code># HELP current_users_total Total number of users right now
 # TYPE current_users_total gauge
 current_users_total 1
-</code></pre>
+</code></pre></div>
 
 <p>So why would you use a Counter when a Gauge does the same and more? Because this is stored and processed differently by Prometheus. Prometheus is, at its core, a time series database and will take the metric type into account when reporting metrics.</p>
 <div class="admonition warning">
@@ -208,65 +663,65 @@ current_users_total 1
 <h2 id="histogram">Histogram<a class="headerlink" href="#histogram" title="Permanent link">&para;</a></h2>
 <p>Histograms allow you to count observations and put them in configurable buckets.</p>
 <p>Start by declaring a predicate; a function which will turn put the observations into buckets. A bucket is defined using the <code>bucket</code> function which takes 1) the label of the bucket, and 2) the value of said bucket. Below we create a predicate that will put the observations into two buckets. It will be used to measure the time it take to process a request, if the request takes more than 3 seconds it goes into a bucket called &ldquo;3&rdquo; and if it takes over 3 seconds it will put the observation into another bucket called &ldquo;9&rdquo;.</p>
-<pre><code class="r"># predicate to put observations into buckets.
-pred &lt;- function(value){
-  v &lt;- as.numeric(value)
+<div class="highlight"><pre><span></span><code><span class="c1"># predicate to put observations into buckets.</span>
+<span class="n">pred</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">value</span><span class="p">){</span>
+  <span class="n">v</span> <span class="o">&lt;-</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
-  # put in bucket 3 if less than 3 seconds
-  if(v &lt; 3)
-    return(bucket(label = &quot;3&quot;, v))
+  <span class="c1"># put in bucket 3 if less than 3 seconds</span>
+  <span class="nf">if</span><span class="p">(</span><span class="n">v</span> <span class="o">&lt;</span> <span class="m">3</span><span class="p">)</span>
+    <span class="nf">return</span><span class="p">(</span><span class="nf">bucket</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s">&quot;3&quot;</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
 
-  # otherwise put in bucket 9
-  bucket(label = &quot;9&quot;, v)
-}
-</code></pre>
+  <span class="c1"># otherwise put in bucket 9</span>
+  <span class="nf">bucket</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s">&quot;9&quot;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>The creation of the histogram itself differs little from other metrics: specify a unique name, help text, and pass the predicate function previously defined. </p>
-<pre><code class="r">h &lt;- Histogram$new(
-  name = &quot;request_process_time&quot;,
-  help = &quot;Time it took to process the request&quot;,
-  predicate = pred
-)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">h</span> <span class="o">&lt;-</span> <span class="n">Histogram</span><span class="o">$</span><span class="nf">new</span><span class="p">(</span>
+  <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;request_process_time&quot;</span><span class="p">,</span>
+  <span class="n">help</span> <span class="o">=</span> <span class="s">&quot;Time it took to process the request&quot;</span><span class="p">,</span>
+  <span class="n">predicate</span> <span class="o">=</span> <span class="n">pred</span>
+<span class="p">)</span>
+</code></pre></div>
 
 <p>Here, to demonstrate, we create a function to simulate a request taking time by randomly making the function sleep for between 1 and 9 seconds. When the function exits we <code>observe</code> the time difference between the beginning and end of the function. The <code>observe</code> method will internally run the <code>predicate</code> and place the results into buckets.</p>
-<pre><code class="r">simulateRequest &lt;- function(){
-  # time at which the request starts
-  start &lt;- Sys.time()
+<div class="highlight"><pre><span></span><code><span class="n">simulateRequest</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(){</span>
+  <span class="c1"># time at which the request starts</span>
+  <span class="n">start</span> <span class="o">&lt;-</span> <span class="nf">Sys.time</span><span class="p">()</span>
 
-  # when done
-  on.exit({
-    # compute time difference
-    diff &lt;- Sys.time() - start
+  <span class="c1"># when done</span>
+  <span class="nf">on.exit</span><span class="p">({</span>
+    <span class="c1"># compute time difference</span>
+    <span class="n">diff</span> <span class="o">&lt;-</span> <span class="nf">Sys.time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
 
-    # observe data
-    # will internally run `pred`
-    h$observe(diff)
-  })
+    <span class="c1"># observe data</span>
+    <span class="c1"># will internally run `pred`</span>
+    <span class="n">h</span><span class="o">$</span><span class="nf">observe</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
+  <span class="p">})</span>
 
-  # sleep between 1 and 9 seconds
-  Sys.sleep(sample(1:9, 1))
+  <span class="c1"># sleep between 1 and 9 seconds</span>
+  <span class="nf">Sys.sleep</span><span class="p">(</span><span class="nf">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">9</span><span class="p">,</span> <span class="m">1</span><span class="p">))</span>
 
-  print(&quot;done&quot;)
-}
+  <span class="nf">print</span><span class="p">(</span><span class="s">&quot;done&quot;</span><span class="p">)</span>
+<span class="p">}</span>
 
-# simulate some requests
-simulateRequest()
-simulateRequest()
-simulateRequest()
-simulateRequest()
+<span class="c1"># simulate some requests</span>
+<span class="nf">simulateRequest</span><span class="p">()</span>
+<span class="nf">simulateRequest</span><span class="p">()</span>
+<span class="nf">simulateRequest</span><span class="p">()</span>
+<span class="nf">simulateRequest</span><span class="p">()</span>
 
-# preview the metrics
-previewMetrics()
-</code></pre>
+<span class="c1"># preview the metrics</span>
+<span class="nf">previewMetrics</span><span class="p">()</span>
+</code></pre></div>
 
-<pre><code># HELP request_process_time Time it took to process the request
+<div class="highlight"><pre><span></span><code># HELP request_process_time Time it took to process the request
 # TYPE request_process_time histogram
 request_process_time {le=&quot;3&quot;} 2 
 request_process_time {le=&quot;9&quot;} 2 
 request_process_time_count 4 
 request_process_time_sum 13.0094513893127 
-</code></pre>
+</code></pre></div>
 
 <p>Note that the histogram (as per Prometheus standards) also logs the <code>count</code>, the number of observations and the <code>sum</code> the sum of the observations. Above we can see that 4 requests were made that took a total of ~13 seconds; 2 of these took less than 3 seconds and the other 2 took more than that.</p>
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
@@ -280,81 +735,135 @@ request_process_time_sum 13.0094513893127
 </div>
 <p>Say for instance you have a small API with three endpoints and simply want to track the number of times they get pinged.</p>
 <p>Though you could create three separate Counters it might be more convenient to create a simple Counter with a label that can be set to the path that is used.</p>
-<pre><code class="r">c &lt;- Counter$new(
-  name = &quot;api_visits_total&quot;,
-  help = &quot;Total API visits&quot;,
-  labels = &quot;endpoint&quot;
-)
+<div class="highlight"><pre><span></span><code><span class="n">c</span> <span class="o">&lt;-</span> <span class="n">Counter</span><span class="o">$</span><span class="nf">new</span><span class="p">(</span>
+  <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;api_visits_total&quot;</span><span class="p">,</span>
+  <span class="n">help</span> <span class="o">=</span> <span class="s">&quot;Total API visits&quot;</span><span class="p">,</span>
+  <span class="n">labels</span> <span class="o">=</span> <span class="s">&quot;endpoint&quot;</span>
+<span class="p">)</span>
 
-c$inc(1, endpoint = &quot;/&quot;)
-c$inc(1, endpoint = &quot;/count&quot;)
-c$inc(1, endpoint = &quot;/home&quot;)
-c$inc(2, endpoint = &quot;/home&quot;)
+<span class="n">c</span><span class="o">$</span><span class="nf">inc</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="n">endpoint</span> <span class="o">=</span> <span class="s">&quot;/&quot;</span><span class="p">)</span>
+<span class="n">c</span><span class="o">$</span><span class="nf">inc</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="n">endpoint</span> <span class="o">=</span> <span class="s">&quot;/count&quot;</span><span class="p">)</span>
+<span class="n">c</span><span class="o">$</span><span class="nf">inc</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="n">endpoint</span> <span class="o">=</span> <span class="s">&quot;/home&quot;</span><span class="p">)</span>
+<span class="n">c</span><span class="o">$</span><span class="nf">inc</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="n">endpoint</span> <span class="o">=</span> <span class="s">&quot;/home&quot;</span><span class="p">)</span>
 
-previewMetrics()
-</code></pre>
+<span class="nf">previewMetrics</span><span class="p">()</span>
+</code></pre></div>
 
-<pre><code># HELP api_visits_total Total API visits
+<div class="highlight"><pre><span></span><code># HELP api_visits_total Total API visits
 # TYPE api_visits_total counter
 api_visits_total {endpoint=&quot;/&quot;} 1 
 api_visits_total {endpoint=&quot;/count&quot;} 1 
 api_visits_total {endpoint=&quot;/home&quot;} 3
-</code></pre>
+</code></pre></div>
 
 <p>If you use <code>labels</code> you must specify <strong>all of the labels</strong> every time you change the value of the metric (<code>inc</code>, <code>dec</code>, <code>set</code>, <code>observe</code>). Otherwise titan throws a warning and ignores the action. </p>
+                
+                  
+                
               
-            </div>
+              
+                
+
+
+              
+            </article>
           </div>
-          <footer>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
   
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../shiny/" class="btn btn-neutral float-right" title="Shiny">Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
-        <a href="../installation/" class="btn btn-neutral" title="Installation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../installation/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Installation
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../shiny/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Shiny
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
     </div>
   
-
-  <hr/>
-
-  <div role="contentinfo">
-    <!-- Copyright etc -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Opifex
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+  <div class="md-footer-social">
     
-      <p>Opifex</p>
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/devOpifex" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/devOpifex" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
     
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+    </div>
+  </div>
 </footer>
       
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-
-  <div class="rst-versions" role="note" aria-label="versions">
-    <span class="rst-current-version" data-toggle="rst-current-version">
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.0ac82a11.min.js"></script>
+      <script src="../../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ['navigation.instant', 'search.suggest'],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
       
-        <span><a href="../installation/" style="color: #fcfcfc;">&laquo; Previous</a></span>
-      
-      
-        <span style="margin-left: 15px"><a href="../shiny/" style="color: #fcfcfc">Next &raquo;</a></span>
-      
-    </span>
-</div>
-    <script>var base_url = '../..';</script>
-    <script src="../../js/theme.js" defer></script>
-      <script src="../../search/main.js" defer></script>
-    <script defer>
-        window.onload = function () {
-            SphinxRtdTheme.Navigation.enable(true);
-        };
-    </script>
-
-</body>
+    
+  </body>
 </html>

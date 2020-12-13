@@ -1,6 +1,7 @@
 site_name: titan
 theme:
-  name: readthedocs
+  name: material
+  logo: images/titan.png
   use_pygments: true
   palette:
     primary: deep orange
@@ -16,16 +17,27 @@ plugins:
 extra_css:
   - css/extra.css
 
+extra:
+  social:
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/devOpifex
+    - icon: fontawesome/brands/github
+      link: https://github.com/devOpifex
+
 repo_url: https://github.com/devOpifex/titan/
 repo_name: Github
 site_description: Serve Prometheus metrics for shiny applications and plumber services
 site_author: Opifex
-copyright: Opifex
+copyright: Copyright &copy; 2020 Opifex
 google_analytics: ['G-TZMQ98HS6D', 'titan.opifex.org']
 
 markdown_extensions:
     - admonition
+    - meta
     - smarty
+    - pymdownx.highlight
+    - pymdownx.superfences
+    - attr_list
     - toc:
         permalink: True
         separator: "-"
