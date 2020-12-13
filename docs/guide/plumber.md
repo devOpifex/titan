@@ -29,7 +29,7 @@ function() {
 
 Then use the function `prTitan` as you would normally use `pr`. This example here will serve the metrics but _none are currently tracked._
 
-```r
+```r hl_lines="3"
 library(plumber)
 
 titan::prTitan("file.R") %>% 

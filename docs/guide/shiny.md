@@ -42,7 +42,8 @@ As mentioned, all of those are optional (off by default) but whether you use the
 
 This function takes the same inputs as `shinyApp` and more. The arguments `inputs`, `visits`, `concurrent`, and `duration`, which all default to `NULL` meaning they are not being tracked. To track those metrics one must pass it a character string defining the name of the metric. 
 
-```r
+```r hl_lines="1 15"
+library(titan)
 library(shiny)
 
 ui <- fluidPage(

@@ -13,7 +13,7 @@
       
         <meta name="author" content="Opifex">
       
-      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <link rel="shortcut icon" href="../../images/titan.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
     
     
@@ -420,13 +420,13 @@
     
     <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
     <label class="md-nav__link" for="nav-5">
-      Meta
+      Development
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="Meta" data-md-level="1">
+    <nav class="md-nav" aria-label="Development" data-md-level="1">
       <label class="md-nav__title" for="nav-5">
         <span class="md-nav__icon md-icon"></span>
-        Meta
+        Development
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -495,7 +495,19 @@
                 <h1 id="plumber-apis">Plumber APIs<a class="headerlink" href="#plumber-apis" title="Permanent link">&para;</a></h1>
 <p>The metrics and how they are used never changes, the only thing that changes across projects is how the metrics are served.</p>
 <p>Create the plumber API as you normally would.</p>
-<div class="highlight"><pre><span></span><code><span class="c1">#* Increment a counter</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1">#* Increment a counter</span>
 <span class="c1">#* @get /</span>
 <span class="nf">function</span><span class="p">()</span> <span class="p">{</span>
   <span class="nf">return</span><span class="p">(</span><span class="s">&quot;Hello titan!&quot;</span><span class="p">)</span>
@@ -509,13 +521,18 @@
   <span class="nf">hist</span><span class="p">(</span><span class="n">rand</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
+</td></tr></table>
 
 <p>Then use the function <code>prTitan</code> as you would normally use <code>pr</code>. This example here will serve the metrics but <em>none are currently tracked.</em></p>
-<div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">plumber</span><span class="p">)</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">plumber</span><span class="p">)</span>
 
-<span class="n">titan</span><span class="o">::</span><span class="nf">prTitan</span><span class="p">(</span><span class="s">&quot;file.R&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-  <span class="nf">pr_run</span><span class="p">()</span>
+<span class="hll"><span class="n">titan</span><span class="o">::</span><span class="nf">prTitan</span><span class="p">(</span><span class="s">&quot;file.R&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+</span>  <span class="nf">pr_run</span><span class="p">()</span>
 </code></pre></div>
+</td></tr></table>
 
 <p>As with shiny, titan provides an out-of-the-box metric to track: <code>latency</code>. As with shiny (<code>titanApp</code>), the <code>latency</code> argument defaults to <code>NULL</code> meaning this is not being tracked, to turn on that tracking pass it a character string: the name of the metric.</p>
 <p>Latency tracks the time it takes for the API to serve requests. This is tracked with a Histogram that uses predefined <code>bucket</code>s that put the request time in milliseconds in various bins (e.g.: 300 milliseconds, 600 milliseconds, etc.). It also uses some labels to track:</p>
@@ -524,11 +541,15 @@
 <li>The path of the request, e.g.: <code>/plot</code>.</li>
 <li>The status of the request, e.g.: <code>200</code> or <code>404</code>.</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">plumber</span><span class="p">)</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">plumber</span><span class="p">)</span>
 
 <span class="n">titan</span><span class="o">::</span><span class="nf">prTitan</span><span class="p">(</span><span class="s">&quot;file.R&quot;</span><span class="p">,</span> <span class="n">latency</span> <span class="o">=</span> <span class="s">&quot;latency&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
   <span class="nf">pr_run</span><span class="p">()</span>
 </code></pre></div>
+</td></tr></table>
                 
                   
                 

@@ -5,7 +5,7 @@ authors:
     - John Coene
 ---
 
-# Get Started
+# Installation
 
 First install the R package.
 

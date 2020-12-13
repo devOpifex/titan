@@ -13,7 +13,7 @@
       
         <meta name="author" content="Opifex">
       
-      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <link rel="shortcut icon" href="../../images/titan.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
     
     
@@ -470,13 +470,13 @@
     
     <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
     <label class="md-nav__link" for="nav-5">
-      Meta
+      Development
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="Meta" data-md-level="1">
+    <nav class="md-nav" aria-label="Development" data-md-level="1">
       <label class="md-nav__title" for="nav-5">
         <span class="md-nav__icon md-icon"></span>
-        Meta
+        Development
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -583,26 +583,51 @@
 <p>There are a few ways in which Prometheus can be deployed. The easiest I find is simply to install the binary and run is a service, this way it automatically restarts when the server reboots, etc.</p>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <p>Below we download the zipped <a href="https://prometheus.io/download/">latest release</a> (at the time of writing this v2.23.0).</p>
-<div class="highlight"><pre><span></span><code>wget https://github.com/prometheus/prometheus/releases/download/v2.23.0/prometheus-2.23.0.linux-amd64.tar.gz
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>wget https://github.com/prometheus/prometheus/releases/download/v2.23.0/prometheus-2.23.0.linux-amd64.tar.gz
 
 tar xvfz prometheus-2.23.0.linux-amd64.tar.gz
 mv prometheus-2.23.0.linux-amd64 prometheus
 </code></pre></div>
+</td></tr></table>
 
 <p>This downloads, unzips the files necessary to run Prometheus, then renames the directory from <code>prometheus-2.23.0.linux-amd64</code> to <code>prometheus</code>. Next you can move into that directory and run Prometheus manually to make sure all works well.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> ./prometheus
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nb">cd</span> ./prometheus
 ./prometheus
 </code></pre></div>
+</td></tr></table>
 
 <p>This should run prometheus and make it available on port <code>9090</code> by default and you should be able to see prometheus running at <code>&lt;server-ip&gt;:9090</code>. If you do not make sure that port <code>9090</code> is open on your server.</p>
 <p>The <code>prometheus.yml</code> file contains the &ldquo;targets&rdquo; to scrape, that is the plumber APIs and shiny applications to scrape the metrics.</p>
 <h2 id="service">Service<a class="headerlink" href="#service" title="Permanent link">&para;</a></h2>
 <p>We can create a new service to easily have Prometheus run in the background, restart when needed, etc.</p>
-<div class="highlight"><pre><span></span><code>vi /etc/systemd/system/prometheus.service
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>vi /etc/systemd/system/prometheus.service
 </code></pre></div>
+</td></tr></table>
 
 <p>In that service place the following.</p>
-<div class="highlight"><pre><span></span><code>[Unit]
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>[Unit]
 Description=Prometheus
 Documentation=https://prometheus.io/docs/introduction/overview/
 Wants=network-online.target
@@ -622,18 +647,36 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 </code></pre></div>
+</td></tr></table>
 
 <p>This essentially will create a new service, very similar to shiny-server. Note the use of <code>--web.enable-lifecycle</code> to reload the configuration file by executing a <code>POST</code> query.</p>
 <p>This creates the service it can then be run after reloading the daemon.</p>
-<div class="highlight"><pre><span></span><code>sudo systemctl daemon-reload
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>sudo systemctl daemon-reload
 sudo systemctl start prometheus
 sudo systemctl enable prometheus
 </code></pre></div>
+</td></tr></table>
 
 <p>Running <code>sudo systemctl status prometheus</code> will show whether the service is running correctly.</p>
 <h2 id="configuration-file">Configuration file<a class="headerlink" href="#configuration-file" title="Permanent link">&para;</a></h2>
 <p>We have yet to explore the configuration file. Below is an example of a job to scrape a shiny application.</p>
-<div class="highlight"><pre><span></span><code>scrape_configs:
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>scrape_configs:
   - job_name: my-application
     scheme: &#39;http&#39;
     targets: [&#39;shiny-server.com&#39;]
@@ -649,15 +692,18 @@ sudo systemctl enable prometheus
       username: myName
       password: securePassword
 </code></pre></div>
+</td></tr></table>
 
 <h2 id="reload-configuration">Reload Configuration<a class="headerlink" href="#reload-configuration" title="Permanent link">&para;</a></h2>
 <p>Once changes have been made to the configuration we must tell prometheus to reload it. Since we set the flag <code>--web.enable-lifecycle</code> when launching the Prometheus service we can simply make a <code>POST</code> request to the <code>/-/reload</code> endpoint of Prometheus to reload the configuration file.</p>
-<div class="highlight"><pre><span></span><code>curl -X POST http://localhost:9090/-/reload
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>curl -X POST http://localhost:9090/-/reload
 </code></pre></div>
+</td></tr></table>
 
 <p>There is a convenience function in titan to do so from R.</p>
-<div class="highlight"><pre><span></span><code><span class="nf">reloadConfig</span><span class="p">(</span><span class="s">&quot;http://localhost:9090&quot;</span><span class="p">)</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nf">reloadConfig</span><span class="p">(</span><span class="s">&quot;http://localhost:9090&quot;</span><span class="p">)</span>
 </code></pre></div>
+</td></tr></table>
 
 <p>From there onwards it&rsquo;s just a matter of adding jobs to the configuration file and reload it.</p>
 <p>Happy tracking!</p>

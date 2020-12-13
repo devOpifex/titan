@@ -2,6 +2,7 @@ site_name: titan
 theme:
   name: material
   logo: images/titan.png
+  favicon: images/titan.png
   use_pygments: true
   palette:
     primary: deep orange
@@ -35,8 +36,10 @@ markdown_extensions:
     - admonition
     - meta
     - smarty
-    - pymdownx.highlight
+    - pymdownx.highlight:
+        linenums: true
     - pymdownx.superfences
+    - pymdownx.inlinehilite
     - attr_list
     - toc:
         permalink: True
@@ -57,6 +60,6 @@ nav:
   - Deploy:
     - Prometheus: deploy/prometheus.md
     - Grafana: deploy/grafana.md
-  - Meta:
+  - Development:
     - Contribute: meta/contribute.md
     - Changelog: meta/changelog.md

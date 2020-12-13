@@ -13,7 +13,7 @@
       
         <meta name="author" content="Opifex">
       
-      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <link rel="shortcut icon" href="../../images/titan.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
     
     
@@ -456,13 +456,13 @@
     
     <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
     <label class="md-nav__link" for="nav-5">
-      Meta
+      Development
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="Meta" data-md-level="1">
+    <nav class="md-nav" aria-label="Development" data-md-level="1">
       <label class="md-nav__title" for="nav-5">
         <span class="md-nav__icon md-icon"></span>
-        Meta
+        Development
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -556,16 +556,23 @@
 <p>This means the endpoint needs to be secured with the same user and password.</p>
 <h2 id="securing-the-endpoint">Securing the endpoint<a class="headerlink" href="#securing-the-endpoint" title="Permanent link">&para;</a></h2>
 <p>Use the helper function <code>generateBasicAuth</code> to create a token based on a username and password. Note that the function throws a warning: this function should not be left as-is in your application or plumber API.</p>
-<div class="highlight"><pre><span></span><code><span class="nf">generateBasicAuth</span><span class="p">(</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nf">generateBasicAuth</span><span class="p">(</span>
   <span class="n">username</span> <span class="o">=</span> <span class="s">&quot;titan&quot;</span><span class="p">,</span>
   <span class="n">password</span> <span class="o">=</span> <span class="s">&quot;secret2020!&quot;</span>
 <span class="p">)</span> 
 </code></pre></div>
+</td></tr></table>
 
-<div class="highlight"><pre><span></span><code>[1] &quot;Basic dGl0YW46c2VjcmV0MjAyMCE=&quot;
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>[1] &quot;Basic dGl0YW46c2VjcmV0MjAyMCE=&quot;
 Warning message:
 Do not deploy or share this 
 </code></pre></div>
+</td></tr></table>
 
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -573,7 +580,18 @@ Do not deploy or share this
 token in plain text: it exposes the password.</p>
 </div>
 <p>Once the authentication token is created it can be used in <code>setAuthentication</code>. <strong>The token should not be displayed in the code as in the example below,</strong> ideally should be an environment variable or option.</p>
-<div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">titan</span><span class="p">)</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">titan</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">shiny</span><span class="p">)</span>
 
 <span class="nf">setAuthentication</span><span class="p">(</span><span class="s">&quot;Basic dGl0YW46c2VjcmV0MjAyMCE=&quot;</span><span class="p">)</span>
@@ -586,16 +604,28 @@ token in plain text: it exposes the password.</p>
 
 <span class="nf">titanApp</span><span class="p">(</span><span class="n">ui</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">visits</span> <span class="o">=</span> <span class="s">&quot;visits&quot;</span><span class="p">)</span>
 </code></pre></div>
+</td></tr></table>
 
 <p>Running the application above then visiting <code>/metrics</code> should display <code>Unauthorized</code>. Indeed, visiting the endpoint from the browser executes a simple <code>GET</code> request that does not feature bear the token: it is unauthorised.</p>
 <p>One can open a new R session and use the convenience function <code>getMetrics</code> to test the endpoint. The function optionally takes a second argument, the authentication to use.</p>
-<div class="highlight"><pre><span></span><code><span class="n">titan</span><span class="o">::</span><span class="nf">getMetrics</span><span class="p">(</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">titan</span><span class="o">::</span><span class="nf">getMetrics</span><span class="p">(</span>
   <span class="s">&quot;http://127.0.0.1:3145/&quot;</span><span class="p">,</span> 
   <span class="n">auth</span> <span class="o">=</span> <span class="s">&quot;Basic dGl0YW46c2VjcmV0MjAyMCE=&quot;</span>
 <span class="p">)</span>
 </code></pre></div>
+</td></tr></table>
 
-<div class="highlight"><pre><span></span><code>Response [http://127.0.0.1:3145/metrics]
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>Response [http://127.0.0.1:3145/metrics]
   Date: 2020-12-13 10:46
   Status: 200
   Content-Type: text/plain
@@ -604,15 +634,20 @@ token in plain text: it exposes the password.</p>
 # TYPE visits counter
 visits 1
 </code></pre></div>
+</td></tr></table>
 
 <p>This returns the metrics as it is, unlike via the browser, authenticated.</p>
 <h2 id="prometheus">Prometheus<a class="headerlink" href="#prometheus" title="Permanent link">&para;</a></h2>
 <p>Then one can place the username and password in the job configuration.</p>
-<div class="highlight"><pre><span></span><code>- job_name: my-api
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>- job_name: my-api
   basic_auth:
     username: titan
     password: secret2020!
 </code></pre></div>
+</td></tr></table>
                 
                   
                 

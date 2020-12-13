@@ -13,7 +13,7 @@
       
         <meta name="author" content="Opifex">
       
-      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <link rel="shortcut icon" href="../../images/titan.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
     
     
@@ -470,13 +470,13 @@
     
     <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
     <label class="md-nav__link" for="nav-5">
-      Meta
+      Development
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="Meta" data-md-level="1">
+    <nav class="md-nav" aria-label="Development" data-md-level="1">
       <label class="md-nav__title" for="nav-5">
         <span class="md-nav__icon md-icon"></span>
-        Meta
+        Development
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -583,7 +583,19 @@
 <h2 id="helpers">Helpers<a class="headerlink" href="#helpers" title="Permanent link">&para;</a></h2>
 <p>Titan allows easily tracking some interactions by default, saving you the trouble of setting up metrics.</p>
 <p>Starting from the (very) basic shiny application below which simply prints text to the console at the click of a button.</p>
-<div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">shiny</span><span class="p">)</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">shiny</span><span class="p">)</span>
 
 <span class="n">ui</span> <span class="o">&lt;-</span> <span class="nf">fluidPage</span><span class="p">(</span>
   <span class="nf">actionButton</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span> <span class="s">&quot;click me!&quot;</span><span class="p">)</span>
@@ -597,6 +609,7 @@
 
 <span class="nf">shinyApp</span><span class="p">(</span><span class="n">ui</span><span class="p">,</span> <span class="n">server</span><span class="p">)</span>
 </code></pre></div>
+</td></tr></table>
 
 <p>We will see how to define custom metrics later but before we do so, there are a number out-of-the-box (optional) metrics that titan provides:</p>
 <ol>
@@ -607,7 +620,28 @@
 </ol>
 <p>As mentioned, all of those are optional (off by default) but whether you use the defaults presented here and/or your custom metrics you <strong>must use</strong> <code>titanApp</code> to launch the application. </p>
 <p>This function takes the same inputs as <code>shinyApp</code> and more. The arguments <code>inputs</code>, <code>visits</code>, <code>concurrent</code>, and <code>duration</code>, which all default to <code>NULL</code> meaning they are not being tracked. To track those metrics one must pass it a character string defining the name of the metric. </p>
-<div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">shiny</span><span class="p">)</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="hll"><span class="nf">library</span><span class="p">(</span><span class="n">titan</span><span class="p">)</span>
+</span><span class="nf">library</span><span class="p">(</span><span class="n">shiny</span><span class="p">)</span>
 
 <span class="n">ui</span> <span class="o">&lt;-</span> <span class="nf">fluidPage</span><span class="p">(</span>
   <span class="nf">actionButton</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span> <span class="s">&quot;click me!&quot;</span><span class="p">)</span>
@@ -620,14 +654,15 @@
 <span class="p">}</span>
 
 <span class="c1"># use titanApp</span>
-<span class="nf">titanApp</span><span class="p">(</span>
-  <span class="n">ui</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span>
+<span class="hll"><span class="nf">titanApp</span><span class="p">(</span>
+</span>  <span class="n">ui</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span>
   <span class="n">inputs</span> <span class="o">=</span> <span class="s">&quot;inputs&quot;</span><span class="p">,</span>
   <span class="n">visits</span> <span class="o">=</span> <span class="s">&quot;visits&quot;</span><span class="p">,</span>
   <span class="n">concurrent</span> <span class="o">=</span> <span class="s">&quot;concurrent&quot;</span><span class="p">,</span>
   <span class="n">duration</span> <span class="o">=</span> <span class="s">&quot;duration&quot;</span>
 <span class="p">)</span>
 </code></pre></div>
+</td></tr></table>
 
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -637,7 +672,28 @@
 <p>Let&rsquo;s use titan to track the number of clicks on this button rather than use the defaults provided by titan. We can use a counter since the number of clicks can only increase over time.</p>
 <p>Load the titan package then create the counter. Note that it is created outside the application, as it only needs to be created once, placing it in the <code>server</code> would recreate it every time. Though this should not be an issue as titan prevents you from overwriting an already created counter it is best to avoid it.</p>
 <p>In the observer we increment the counter, then note that we launch the application with <code>titanApp</code> and not <code>shinyApp</code>, it works the exact same way but exposes the metrics.</p>
-<div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">titan</span><span class="p">)</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">titan</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">shiny</span><span class="p">)</span>
 
 <span class="c1"># create the counter</span>
@@ -660,6 +716,7 @@
 <span class="c1"># use titanApp</span>
 <span class="nf">titanApp</span><span class="p">(</span><span class="n">ui</span><span class="p">,</span> <span class="n">server</span><span class="p">)</span>
 </code></pre></div>
+</td></tr></table>
 
 <p><img alt="" src="../../images/shiny-basic.png" /></p>
 <h2 id="histogram">Histogram<a class="headerlink" href="#histogram" title="Permanent link">&para;</a></h2>
@@ -671,7 +728,47 @@
 <li>Between 3 and 6 seconds</li>
 <li>6 Seconds and more</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">titan</span><span class="p">)</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">titan</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">shiny</span><span class="p">)</span>
 
 <span class="n">classify</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">value</span><span class="p">){</span>
@@ -713,12 +810,28 @@
 
 <span class="nf">titanApp</span><span class="p">(</span><span class="n">ui</span><span class="p">,</span> <span class="n">server</span><span class="p">)</span>
 </code></pre></div>
+</td></tr></table>
 
 <p><img alt="" src="../../images/shiny-histogram.png" /></p>
 <h2 id="gauge">Gauge<a class="headerlink" href="#gauge" title="Permanent link">&para;</a></h2>
 <p>You could also create a gauge to track the current number of visitors on the application using a Gauge.</p>
 <p>It&rsquo;s as simple as initialising the Gauge and increasing it by one every time the server fires.</p>
-<div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">shiny</span><span class="p">)</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">shiny</span><span class="p">)</span>
 
 <span class="n">g</span> <span class="o">&lt;-</span> <span class="n">Gauge</span><span class="o">$</span><span class="nf">new</span><span class="p">(</span>
   <span class="s">&quot;visitors_total&quot;</span><span class="p">,</span>
@@ -735,6 +848,7 @@
 
 <span class="nf">titanApp</span><span class="p">(</span><span class="n">ui</span><span class="p">,</span> <span class="n">server</span><span class="p">)</span>
 </code></pre></div>
+</td></tr></table>
                 
                   
                 

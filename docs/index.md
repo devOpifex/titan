@@ -8,6 +8,9 @@
 
 I have put this package together in order to 1) grasp a better understanding of Prometheus metrics and 2) have some direct control over the source code of software I deploy for clients. I have written and re-written this three times before discovering [openmetrics](https://github.com/atheriel/openmetrics/), an R package that provides the same functionalities. I have taken much inspiration from it.
 
+!!! info
+    Prometheus is the _titan_ god of fire.
+
 ## Related work
 
 There are other packages out there that will let you serve Prometheus metrics.

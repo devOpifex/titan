@@ -193,3 +193,6 @@ api_visits_total {endpoint="/home"} 3
 ```
 
 If you use `labels` you must specify __all of the labels__ every time you change the value of the metric (`inc`, `dec`, `set`, `observe`). Otherwise titan throws a warning and ignores the action. 
+
+!!! Tip
+    All labels specified must be used or titan will throw a warning and ignore the action.

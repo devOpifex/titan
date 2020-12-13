@@ -13,7 +13,7 @@
       
         <meta name="author" content="Opifex">
       
-      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <link rel="shortcut icon" href="../../images/titan.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
     
     
@@ -420,13 +420,13 @@
     
     <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
     <label class="md-nav__link" for="nav-5">
-      Meta
+      Development
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="Meta" data-md-level="1">
+    <nav class="md-nav" aria-label="Development" data-md-level="1">
       <label class="md-nav__title" for="nav-5">
         <span class="md-nav__icon md-icon"></span>
-        Meta
+        Development
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -495,7 +495,33 @@
                 <h1 id="ambiorix">Ambiorix<a class="headerlink" href="#ambiorix" title="Permanent link">&para;</a></h1>
 <p>Then again, the metrics themselves and their usage does not differ, only the way the metrics are served.</p>
 <p>With <a href="https://github.com/JohnCoene/ambiorix">ambiorix</a>, create a new <code>get</code> method on the <code>/metrics</code> endpoint, and have it return the results of <code>renderMetrics</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">titan</span><span class="p">)</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">titan</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">ambiorix</span><span class="p">)</span>
 
 <span class="c1"># basic counter</span>
@@ -517,12 +543,13 @@
   <span class="n">res</span><span class="o">$</span><span class="nf">send</span><span class="p">(</span><span class="s">&quot;About {titan} and {ambiorix}!&quot;</span><span class="p">)</span>
 <span class="p">})</span>
 
-<span class="n">app</span><span class="o">$</span><span class="nf">get</span><span class="p">(</span><span class="s">&quot;/metrics&quot;</span><span class="p">,</span> <span class="nf">function</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">res</span><span class="p">){</span>
-  <span class="n">res</span><span class="o">$</span><span class="nf">text</span><span class="p">(</span><span class="nf">renderMetrics</span><span class="p">())</span>
-<span class="p">})</span>
-
+<span class="hll"><span class="n">app</span><span class="o">$</span><span class="nf">get</span><span class="p">(</span><span class="s">&quot;/metrics&quot;</span><span class="p">,</span> <span class="nf">function</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">res</span><span class="p">){</span>
+</span><span class="hll">  <span class="n">res</span><span class="o">$</span><span class="nf">text</span><span class="p">(</span><span class="nf">renderMetrics</span><span class="p">())</span>
+</span><span class="hll"><span class="p">})</span>
+</span>
 <span class="n">app</span><span class="o">$</span><span class="nf">start</span><span class="p">()</span>
 </code></pre></div>
+</td></tr></table>
                 
                   
                 

@@ -13,7 +13,7 @@
       
         <meta name="author" content="Opifex">
       
-      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <link rel="shortcut icon" href="../../images/titan.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
     
     
@@ -484,13 +484,13 @@
     
     <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
     <label class="md-nav__link" for="nav-5">
-      Meta
+      Development
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="Meta" data-md-level="1">
+    <nav class="md-nav" aria-label="Development" data-md-level="1">
       <label class="md-nav__title" for="nav-5">
         <span class="md-nav__icon md-icon"></span>
-        Meta
+        Development
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -618,7 +618,16 @@
 <p>A counter is the most basic metrics one can use. It consists of a simple counter <strong>that can only go up</strong>; the value of counters can never decrease.</p>
 <p>This can be used to measure the number of times an application is visited, or the number of times an endpoint is hit: these values only ever go up. Never use Counters for values that go down, titan will not let you decrease their value.</p>
 <p>Instantiate a new counter from the <code>Counter</code> R6 class, give it a name and some help text, then use the method <code>inc</code> to increase it. You can also use the method <code>set</code> to set it to a specific value, again make sure that value is greater than that which the counter already holds or it will throw a warning and <em>not set the counter to that value.</em></p>
-<div class="highlight"><pre><span></span><code><span class="n">c</span> <span class="o">&lt;-</span> <span class="n">Counter</span><span class="o">$</span><span class="nf">new</span><span class="p">(</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">c</span> <span class="o">&lt;-</span> <span class="n">Counter</span><span class="o">$</span><span class="nf">new</span><span class="p">(</span>
   <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;btn_clicks_total&quot;</span><span class="p">,</span>
   <span class="n">help</span> <span class="o">=</span> <span class="s">&quot;Total clicks on buttons&quot;</span>
 <span class="p">)</span>
@@ -629,16 +638,29 @@
 <span class="c1"># preview the metrics</span>
 <span class="nf">previewMetrics</span><span class="p">()</span>
 </code></pre></div>
+</td></tr></table>
 
-<div class="highlight"><pre><span></span><code># HELP btn_clicks_total Total clicks on buttons
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code># HELP btn_clicks_total Total clicks on buttons
 # TYPE btn_clicks_total counter
 btn_clicks_total 3 
 </code></pre></div>
+</td></tr></table>
 
 <h2 id="gauge">Gauge<a class="headerlink" href="#gauge" title="Permanent link">&para;</a></h2>
 <p>A gauge is very similar to the Counter at the exception that <strong>its value can decrease</strong>.</p>
 <p>Then again this is set up in similar way as the Counter, the only difference is that it also has a <code>dec</code> method to decrease the gauge.</p>
-<div class="highlight"><pre><span></span><code><span class="n">g</span> <span class="o">&lt;-</span> <span class="n">Gauge</span><span class="o">$</span><span class="nf">new</span><span class="p">(</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">g</span> <span class="o">&lt;-</span> <span class="n">Gauge</span><span class="o">$</span><span class="nf">new</span><span class="p">(</span>
   <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;current_users_total&quot;</span><span class="p">,</span>
   <span class="n">help</span> <span class="o">=</span> <span class="s">&quot;Total number of users right now&quot;</span>
 <span class="p">)</span>
@@ -649,11 +671,15 @@ btn_clicks_total 3
 <span class="c1"># preview the metrics</span>
 <span class="nf">previewMetrics</span><span class="p">()</span>
 </code></pre></div>
+</td></tr></table>
 
-<div class="highlight"><pre><span></span><code># HELP current_users_total Total number of users right now
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code># HELP current_users_total Total number of users right now
 # TYPE current_users_total gauge
 current_users_total 1
 </code></pre></div>
+</td></tr></table>
 
 <p>So why would you use a Counter when a Gauge does the same and more? Because this is stored and processed differently by Prometheus. Prometheus is, at its core, a time series database and will take the metric type into account when reporting metrics.</p>
 <div class="admonition warning">
@@ -663,7 +689,17 @@ current_users_total 1
 <h2 id="histogram">Histogram<a class="headerlink" href="#histogram" title="Permanent link">&para;</a></h2>
 <p>Histograms allow you to count observations and put them in configurable buckets.</p>
 <p>Start by declaring a predicate; a function which will turn put the observations into buckets. A bucket is defined using the <code>bucket</code> function which takes 1) the label of the bucket, and 2) the value of said bucket. Below we create a predicate that will put the observations into two buckets. It will be used to measure the time it take to process a request, if the request takes more than 3 seconds it goes into a bucket called &ldquo;3&rdquo; and if it takes over 3 seconds it will put the observation into another bucket called &ldquo;9&rdquo;.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># predicate to put observations into buckets.</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1"># predicate to put observations into buckets.</span>
 <span class="n">pred</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">value</span><span class="p">){</span>
   <span class="n">v</span> <span class="o">&lt;-</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
@@ -675,17 +711,50 @@ current_users_total 1
   <span class="nf">bucket</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s">&quot;9&quot;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
+</td></tr></table>
 
 <p>The creation of the histogram itself differs little from other metrics: specify a unique name, help text, and pass the predicate function previously defined. </p>
-<div class="highlight"><pre><span></span><code><span class="n">h</span> <span class="o">&lt;-</span> <span class="n">Histogram</span><span class="o">$</span><span class="nf">new</span><span class="p">(</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">h</span> <span class="o">&lt;-</span> <span class="n">Histogram</span><span class="o">$</span><span class="nf">new</span><span class="p">(</span>
   <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;request_process_time&quot;</span><span class="p">,</span>
   <span class="n">help</span> <span class="o">=</span> <span class="s">&quot;Time it took to process the request&quot;</span><span class="p">,</span>
   <span class="n">predicate</span> <span class="o">=</span> <span class="n">pred</span>
 <span class="p">)</span>
 </code></pre></div>
+</td></tr></table>
 
 <p>Here, to demonstrate, we create a function to simulate a request taking time by randomly making the function sleep for between 1 and 9 seconds. When the function exits we <code>observe</code> the time difference between the beginning and end of the function. The <code>observe</code> method will internally run the <code>predicate</code> and place the results into buckets.</p>
-<div class="highlight"><pre><span></span><code><span class="n">simulateRequest</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(){</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">simulateRequest</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(){</span>
   <span class="c1"># time at which the request starts</span>
   <span class="n">start</span> <span class="o">&lt;-</span> <span class="nf">Sys.time</span><span class="p">()</span>
 
@@ -714,14 +783,21 @@ current_users_total 1
 <span class="c1"># preview the metrics</span>
 <span class="nf">previewMetrics</span><span class="p">()</span>
 </code></pre></div>
+</td></tr></table>
 
-<div class="highlight"><pre><span></span><code># HELP request_process_time Time it took to process the request
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code># HELP request_process_time Time it took to process the request
 # TYPE request_process_time histogram
 request_process_time {le=&quot;3&quot;} 2 
 request_process_time {le=&quot;9&quot;} 2 
 request_process_time_count 4 
 request_process_time_sum 13.0094513893127 
 </code></pre></div>
+</td></tr></table>
 
 <p>Note that the histogram (as per Prometheus standards) also logs the <code>count</code>, the number of observations and the <code>sum</code> the sum of the observations. Above we can see that 4 requests were made that took a total of ~13 seconds; 2 of these took less than 3 seconds and the other 2 took more than that.</p>
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
@@ -735,7 +811,18 @@ request_process_time_sum 13.0094513893127
 </div>
 <p>Say for instance you have a small API with three endpoints and simply want to track the number of times they get pinged.</p>
 <p>Though you could create three separate Counters it might be more convenient to create a simple Counter with a label that can be set to the path that is used.</p>
-<div class="highlight"><pre><span></span><code><span class="n">c</span> <span class="o">&lt;-</span> <span class="n">Counter</span><span class="o">$</span><span class="nf">new</span><span class="p">(</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">c</span> <span class="o">&lt;-</span> <span class="n">Counter</span><span class="o">$</span><span class="nf">new</span><span class="p">(</span>
   <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;api_visits_total&quot;</span><span class="p">,</span>
   <span class="n">help</span> <span class="o">=</span> <span class="s">&quot;Total API visits&quot;</span><span class="p">,</span>
   <span class="n">labels</span> <span class="o">=</span> <span class="s">&quot;endpoint&quot;</span>
@@ -748,15 +835,25 @@ request_process_time_sum 13.0094513893127
 
 <span class="nf">previewMetrics</span><span class="p">()</span>
 </code></pre></div>
+</td></tr></table>
 
-<div class="highlight"><pre><span></span><code># HELP api_visits_total Total API visits
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code># HELP api_visits_total Total API visits
 # TYPE api_visits_total counter
 api_visits_total {endpoint=&quot;/&quot;} 1 
 api_visits_total {endpoint=&quot;/count&quot;} 1 
 api_visits_total {endpoint=&quot;/home&quot;} 3
 </code></pre></div>
+</td></tr></table>
 
 <p>If you use <code>labels</code> you must specify <strong>all of the labels</strong> every time you change the value of the metric (<code>inc</code>, <code>dec</code>, <code>set</code>, <code>observe</code>). Otherwise titan throws a warning and ignores the action. </p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>All labels specified must be used or titan will throw a warning and ignore the action.</p>
+</div>
                 
                   
                 
