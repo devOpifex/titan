@@ -8,6 +8,7 @@
 
 [Prometheus](prometheus.io/) monitoring for shiny applications, plumber APIs, and other R web services.
 
+[Monitoring](/about/monitoring){: .md-button .md-button--primary }
 [Get Started](/guide/installation){: .md-button }
 
 ## Acknowledgement 
