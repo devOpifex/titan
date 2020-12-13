@@ -72,13 +72,20 @@ We have yet to explore the configuration file. Below is an example of a job to s
 
 ```yml
 scrape_configs:
-  - job_name: my-api
+  - job_name: my-application
     scheme: 'http'
     targets: ['shiny-server.com']
     metrics_path: 'myapp/metrics'
     basic_auth:
       username: titan
       password: secret2020!
+  - job_name: my-other-application
+    scheme: 'http'
+    targets: ['shiny-server.com']
+    metrics_path: 'anotherApp/metrics'
+    basic_auth:
+      username: myName
+      password: securePassword
 ```
 
 ## Reload Configuration
