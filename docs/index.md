@@ -1,9 +1,9 @@
 # Titan
 
 <!-- badges: start -->
-[![R build status](https://github.com/devOpifex/titan/workflows/R-CMD-check/badge.svg)](https://github.com/devOpifex/titan/actions)
 [![Travis build status](https://travis-ci.com/devOpifex/titan.svg?branch=master)](https://travis-ci.com/devOpifex/titan)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/devOpifex/titan?branch=master&svg=true)](https://ci.appveyor.com/project/devOpifex/titan)
+[![Coveralls test coverage](https://coveralls.io/repos/github/devOpifex/titan/badge.svg)](https://coveralls.io/r/devOpifex/titan?branch=master)
 <!-- badges: end -->
 
 [Prometheus](prometheus.io/) monitoring for shiny applications, plumber APIs, and other R web services.
