@@ -4,6 +4,8 @@ Serving metrics with titan is only part of the story. Once those are served one 
 
 There are a few ways in which Prometheus can be deployed. The easiest I find is simply to install the binary and run is a service, this way it automatically restarts when the server reboots, etc.
 
+## Installation
+
 Below we download the zipped [latest release](https://prometheus.io/download/) (at the time of writing this v2.23.0).
 
 ```bash
@@ -23,6 +25,8 @@ cd ./prometheus
 This should run prometheus and make it available on port `9090` by default and you should be able to see prometheus running at `<server-ip>:9090`. If you do not make sure that port `9090` is open on your server.
 
 The `prometheus.yml` file contains the "targets" to scrape, that is the plumber APIs and shiny applications to scrape the metrics.
+
+## Service
 
 We can create a new service to easily have Prometheus run in the background, restart when needed, etc.
 

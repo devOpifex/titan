@@ -78,6 +78,10 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">Prometheus</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#service">Service</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#configuration-file">Configuration file</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#reload-configuration">Reload Configuration</a>
@@ -133,6 +137,7 @@
                 <h1 id="prometheus">Prometheus</h1>
 <p>Serving metrics with titan is only part of the story. Once those are served one must set up and deploy Prometheus so it can scrape those results.</p>
 <p>There are a few ways in which Prometheus can be deployed. The easiest I find is simply to install the binary and run is a service, this way it automatically restarts when the server reboots, etc.</p>
+<h2 id="installation">Installation</h2>
 <p>Below we download the zipped <a href="https://prometheus.io/download/">latest release</a> (at the time of writing this v2.23.0).</p>
 <pre><code class="bash">wget https://github.com/prometheus/prometheus/releases/download/v2.23.0/prometheus-2.23.0.linux-amd64.tar.gz
 
@@ -147,6 +152,7 @@ mv prometheus-2.23.0.linux-amd64 prometheus
 
 <p>This should run prometheus and make it available on port <code>9090</code> by default and you should be able to see prometheus running at <code>&lt;server-ip&gt;:9090</code>. If you do not make sure that port <code>9090</code> is open on your server.</p>
 <p>The <code>prometheus.yml</code> file contains the "targets" to scrape, that is the plumber APIs and shiny applications to scrape the metrics.</p>
+<h2 id="service">Service</h2>
 <p>We can create a new service to easily have Prometheus run in the background, restart when needed, etc.</p>
 <pre><code>vi /etc/systemd/system/prometheus.service
 </code></pre>
