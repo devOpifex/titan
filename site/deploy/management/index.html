@@ -18,7 +18,7 @@
     
     
       
-        <title>Using titan with plumber - titan</title>
+        <title>Management - titan</title>
       
     
     
@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#plumber-apis" class="md-skip">
+        <a href="#management" class="md-skip">
           Skip to content
         </a>
       
@@ -100,7 +100,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Using titan with plumber
+              Management
             
           </span>
         </div>
@@ -258,12 +258,10 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
     <label class="md-nav__link" for="nav-3">
       Guide
       <span class="md-nav__icon md-icon"></span>
@@ -282,7 +280,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../installation/" class="md-nav__link">
+    <a href="../../guide/installation/" class="md-nav__link">
       Installation
     </a>
   </li>
@@ -294,7 +292,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../metrics/" class="md-nav__link">
+    <a href="../../guide/metrics/" class="md-nav__link">
       Metrics
     </a>
   </li>
@@ -306,7 +304,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../shiny/" class="md-nav__link">
+    <a href="../../guide/shiny/" class="md-nav__link">
       Shiny
     </a>
   </li>
@@ -316,20 +314,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-    <a href="./" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../../guide/plumber/" class="md-nav__link">
       Plumber
     </a>
-    
   </li>
 
         
@@ -339,7 +328,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../ambiorix/" class="md-nav__link">
+    <a href="../../guide/ambiorix/" class="md-nav__link">
       Ambiorix
     </a>
   </li>
@@ -351,7 +340,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../authentication/" class="md-nav__link">
+    <a href="../../guide/authentication/" class="md-nav__link">
       Authentication
     </a>
   </li>
@@ -366,10 +355,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
     <label class="md-nav__link" for="nav-4">
       Deploy
       <span class="md-nav__icon md-icon"></span>
@@ -388,7 +379,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../deploy/prometheus/" class="md-nav__link">
+    <a href="../prometheus/" class="md-nav__link">
       Prometheus
     </a>
   </li>
@@ -398,11 +389,77 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../../deploy/management/" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Management
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
       Management
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#reload" class="md-nav__link">
+    Reload
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#health" class="md-nav__link">
+    Health
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ready" class="md-nav__link">
+    Ready
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quit" class="md-nav__link">
+    Quit
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defaults" class="md-nav__link">
+    Defaults
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -412,7 +469,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../deploy/grafana/" class="md-nav__link">
+    <a href="../grafana/" class="md-nav__link">
       Grafana
     </a>
   </li>
@@ -501,6 +558,49 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#reload" class="md-nav__link">
+    Reload
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#health" class="md-nav__link">
+    Health
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ready" class="md-nav__link">
+    Ready
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quit" class="md-nav__link">
+    Quit
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defaults" class="md-nav__link">
+    Defaults
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -511,69 +611,51 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/devOpifex/titan/edit/master/docs/guide/plumber.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/devOpifex/titan/edit/master/docs/deploy/management.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="plumber-apis">Plumber APIs<a class="headerlink" href="#plumber-apis" title="Permanent link">&para;</a></h1>
-<p>The metrics and how they are used never changes, the only thing that changes across projects is how the metrics are served.</p>
-<p>Create the plumber API as you normally would.</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1">#* Increment a counter</span>
-<span class="c1">#* @get /</span>
-<span class="nf">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nf">return</span><span class="p">(</span><span class="s">&quot;Hello titan!&quot;</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="c1">#* Plot a histogram</span>
-<span class="c1">#* @serializer png</span>
-<span class="c1">#* @get /plot</span>
-<span class="nf">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="n">rand</span> <span class="o">&lt;-</span> <span class="nf">rnorm</span><span class="p">(</span><span class="m">100</span><span class="p">)</span>
-  <span class="nf">hist</span><span class="p">(</span><span class="n">rand</span><span class="p">)</span>
-<span class="p">}</span>
+                <h1 id="management">Management<a class="headerlink" href="#management" title="Permanent link">&para;</a></h1>
+<p>There are different ways to manage the Prometheus server. The package provides utility functions to do so via various Prometheus endpoints.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>All Management-related functions start with a capital letter.</p>
+</div>
+<h2 id="reload">Reload<a class="headerlink" href="#reload" title="Permanent link">&para;</a></h2>
+<p>One the <a href="/deploy/prometheus">Prometheus server deployed</a>, when changes are made to the configuration file <code>prometheus.yml</code> you must tell Prometheus to reload the file or the changes are not taken into account.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nf">PromReload</span><span class="p">()</span>
 </code></pre></div>
 </td></tr></table>
 
-<p>Then use the function <code>prTitan</code> as you would normally use <code>pr</code>. This example here will serve the metrics but <em>none are currently tracked.</em></p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
-2
-3
-4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">plumber</span><span class="p">)</span>
-
-<span class="hll"><span class="n">titan</span><span class="o">::</span><span class="nf">prTitan</span><span class="p">(</span><span class="s">&quot;file.R&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-</span>  <span class="nf">pr_run</span><span class="p">()</span>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This requires the flag <code>--web.enable-lifecycle</code> when launching the Prometheus service</p>
+</div>
+<h2 id="health">Health<a class="headerlink" href="#health" title="Permanent link">&para;</a></h2>
+<p>You can check the health of the Prometheus service with.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nf">PromHealthy</span><span class="p">()</span>
 </code></pre></div>
 </td></tr></table>
 
-<p>As with shiny, titan provides an out-of-the-box metric to track: <code>latency</code>. As with shiny (<code>titanApp</code>), the <code>latency</code> argument defaults to <code>NULL</code> meaning this is not being tracked, to turn on that tracking pass it a character string: the name of the metric.</p>
-<p>Latency tracks the time it takes for the API to serve requests. This is tracked with a Histogram that uses predefined <code>bucket</code>s that put the request time in milliseconds in various bins (e.g.: 300 milliseconds, 600 milliseconds, etc.). It also uses some labels to track:</p>
-<ol>
-<li>The method used for the request, e.g.: <code>GET</code> or <code>POST</code>.</li>
-<li>The path of the request, e.g.: <code>/plot</code>.</li>
-<li>The status of the request, e.g.: <code>200</code> or <code>404</code>.</li>
-</ol>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
-2
-3
-4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">plumber</span><span class="p">)</span>
-
-<span class="n">titan</span><span class="o">::</span><span class="nf">prTitan</span><span class="p">(</span><span class="s">&quot;file.R&quot;</span><span class="p">,</span> <span class="n">latency</span> <span class="o">=</span> <span class="s">&quot;latency&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-  <span class="nf">pr_run</span><span class="p">()</span>
+<h2 id="ready">Ready<a class="headerlink" href="#ready" title="Permanent link">&para;</a></h2>
+<p>You can check whether Prometeus is ready to serve traffic (i.e. respond to queries).</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nf">PromReady</span><span class="p">()</span>
 </code></pre></div>
 </td></tr></table>
+
+<h2 id="quit">Quit<a class="headerlink" href="#quit" title="Permanent link">&para;</a></h2>
+<p>You can gracefully shut down the service with. By default it prompts the user for an input to confirm the action.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nf">PromQuit</span><span class="p">()</span>
+</code></pre></div>
+</td></tr></table>
+
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This requires the flag <code>--web.enable-lifecycle</code> when launching the Prometheus service</p>
+</div>
+<h2 id="defaults">Defaults<a class="headerlink" href="#defaults" title="Permanent link">&para;</a></h2>
+<p>By default the management functions assume the Prometheus server is hosted at the <code>PROMETHEUS_URL</code> environment variable and if that is not set default to <code>http://localhost:9090</code>.</p>
                 
                   
                 
@@ -594,7 +676,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../shiny/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../prometheus/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -603,19 +685,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Shiny
+                Prometheus
               </div>
             </div>
           </a>
         
         
-          <a href="../ambiorix/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../grafana/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Ambiorix
+                Grafana
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">

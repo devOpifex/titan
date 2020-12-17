@@ -59,6 +59,7 @@ nav:
       - Authentication: guide/authentication.md
   - Deploy:
     - Prometheus: deploy/prometheus.md
+    - Management: deploy/management.md
     - Grafana: deploy/grafana.md
   - Meta:
     - Contribute: meta/contribute.md

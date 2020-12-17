@@ -103,8 +103,12 @@ curl -X POST http://localhost:9090/-/reload
 There is a convenience function in titan to do so from R.
 
 ```r
-reloadConfig("http://localhost:9090")
+PromReload("http://localhost:9090")
 ```
+
+!!! tip
+    All functions that pertain to the Management of the Prometheus
+    server start with a capital letter. 
 
 From there onwards it's just a matter of adding jobs to the configuration file and reload it.
 

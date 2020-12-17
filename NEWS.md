@@ -4,6 +4,7 @@
 - Better performances.
 - Documentation site.
 - Support for authentication.
+- Support Management API.
 
 # titan 1.0.0
 
