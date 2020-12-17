@@ -1,4 +1,4 @@
-test_that("multiplication works", {
+test_that("Histogram", {
 
   cleanRegistry()
 
@@ -30,4 +30,19 @@ test_that("multiplication works", {
     renderMetrics(),
     "# HELP temp temperature of stuff\n# TYPE temp histogram\ntemp{le=\"+\",room=\"kitchen\"} 1\ntemp{le=\"1\",room=\"kitchen\"} 2\ntemp{le=\"+\",room=\"bathroom\"} 1\ntemp_count{room=\"kitchen\"} 3\ntemp_count{room=\"bathroom\"} 1\ntemp_sum{room=\"kitchen\"} 1.4\ntemp_sum{room=\"bathroom\"} 1\n"
   )
+
+  cleanRegistry()
+
+  wrongPred <- function(x){
+    "error"
+  }
+
+  temp2 <- Histogram$new(
+    "temp2",
+    "temperature of stuff",
+    predicate = wrongPred
+  )
+
+  expect_warning(temp2$observe(1))
+  
 })
