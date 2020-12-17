@@ -76,10 +76,12 @@ cleanRegistry <- function(){
 #' 
 #' @param name Namespace.
 #' 
+#' @note Rerun the function to remove the namespace.
+#' 
 #' @name ns
 #' 
 #' @export 
-setTitanNamespace <- function(name){
+setTitanNamespace <- function(name = NULL){
   options(TITAN_NAMESPACE = name)
 }
 

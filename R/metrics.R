@@ -222,7 +222,7 @@ MetricInterface <- R6::R6Class(
         existingType <- existing$getType()
 
         if(existingType != type)
-          stop("Metric name already used")
+          stop("Metric name already used", call. = FALSE)
 
         return(self)
       }

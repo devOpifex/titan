@@ -19,7 +19,7 @@ bucket <- function(label, value){
 #' @rdname bucket
 #' @export 
 is.bucket <- function(obj){
-  inherits(obj, "bucket")
+  if(inherits(obj, "bucket"))
     return(TRUE)
   
   FALSE
