@@ -6,7 +6,7 @@
 \alias{getTitanNamespace}
 \title{Set a Namespace}
 \usage{
-setTitanNamespace(name)
+setTitanNamespace(name = NULL)
 
 getTitanNamespace()
 }
@@ -17,4 +17,7 @@ getTitanNamespace()
 Set a namespace, all metrics name will
 be preceded by the namespace and an underscore:
 \code{namespace_metricName}.
+}
+\note{
+Rerun the function to remove the namespace.
 }
