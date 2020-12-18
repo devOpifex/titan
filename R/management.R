@@ -31,7 +31,8 @@
 #' @export
 PromReload <- function(uri = Sys.getenv("PROMETHEUS_URL", "http://localhost:9090")){
   uri <- buildUrl(uri, "reload")
-  httr::POST(uri)
+  response <- httr::POST(uri)
+  status2bool(response)
 }
 
 #' @rdname mgmt
@@ -39,12 +40,7 @@ PromReload <- function(uri = Sys.getenv("PROMETHEUS_URL", "http://localhost:9090
 PromHealthy <- function(uri = Sys.getenv("PROMETHEUS_URL", "http://localhost:9090")){
   uri <- buildUrl(uri, "healthy")
   response <- httr::GET(uri)
-  status <- httr::status_code(response)
-
-  if(status == 200L)
-    return(TRUE)
-
-  FALSE
+  status2bool(response)
 }
 
 #' @rdname mgmt
@@ -52,12 +48,7 @@ PromHealthy <- function(uri = Sys.getenv("PROMETHEUS_URL", "http://localhost:909
 PromReady <- function(uri = Sys.getenv("PROMETHEUS_URL", "http://localhost:9090")){
   uri <- buildUrl(uri, "ready")
   response <- httr::GET(uri)
-  status <- httr::status_code(response)
-
-  if(status == 200L)
-    return(TRUE)
-
-  FALSE
+  status2bool(response)
 }
 
 #' @rdname mgmt
@@ -107,4 +98,21 @@ buildUrl <- function(uri, endpoint = c("healthy", "reload", "ready", "quit")){
   
   uri <- cleanUrl(uri)
   sprintf("%s/-/%s", uri, endpoint)
+}
+
+#' Status as Boolean
+#' 
+#' @param response Response from the httr package.
+#' 
+#' @return `TRUE` if the status is `200` and `FALSE` otherwise.
+#' 
+#' @noRd 
+#' @keywords internal
+status2bool <- function(response){
+  status <- httr::status_code(response)
+
+  if(status == 200L)
+    return(TRUE)
+
+  FALSE
 }
