@@ -61,7 +61,6 @@ nav:
     - Prometheus: deploy/prometheus.md
     - Management: deploy/management.md
     - Grafana: deploy/grafana.md
-  - Meta:
-    - Contribute: meta/contribute.md
-    - Changelog: meta/changelog.md
-    - License: meta/license.md
+  - Contribute: meta/contribute.md
+  - Changelog: meta/changelog.md
+  - License: meta/license.md
