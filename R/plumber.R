@@ -17,22 +17,22 @@ prTitan <- function(file = NULL, ..., latency = NULL){
 
   pr <- plumber::pr(file, ...)
 
-  if(!is.null(latency))
+  if(!is.null(latency)){
+    latencyHist <- Histogram$new(
+      latency,
+      "Time it takes to serve requests (ms)",
+      predicate = requestLatency,
+      labels = c("method", "path", "status")
+    )
     pr <- plumber::pr_hook(pr, "preroute", function(req){
       req$TITAN_START <- Sys.time()
     })
+  }
   
 
   pr <- plumber::pr_hook(pr, "postroute", function(req, res){
 
     if(!is.null(latency)){
-      latencyHist <- Histogram$new(
-        latency,
-        "Time it takes to serve requests (ms)",
-        predicate = requestLatency,
-        labels = c("method", "path", "status")
-      )
-
       diff <- Sys.time() - req$TITAN_START
 
       latencyHist$observe(
