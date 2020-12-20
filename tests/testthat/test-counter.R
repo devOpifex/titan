@@ -19,4 +19,6 @@ test_that("Counter", {
     renderMetrics(),
     "# HELP btn_total total clicks\n# TYPE btn_total counter\nbtn_total 4\n"
   )
+
+  testthat::expect_output(previewMetrics())
 })
