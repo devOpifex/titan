@@ -10,7 +10,7 @@
 
 [Docs](https://titan.opifex.org) | [Monitoring](https://titan.opifex.org/about/monitoring/) | [Install](https://titan.opifex.org/guide/installation/) | [Metrics](https://titan.opifex.org/guide/metrics/)
 
-[Prometheus](prometheus.io/) monitoring for shiny applications, plumber APIs, and other R web services.
+[Prometheus](https://prometheus.io/) monitoring for shiny applications, plumber APIs, and other R web services.
 
 </div>
 
