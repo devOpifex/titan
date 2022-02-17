@@ -145,7 +145,7 @@ titanApp <- function(ui, server, ..., inputs = NULL, visits = NULL,
 
 sessionDuration <- function(val){
 
-  v <- as.numeric(val)
+  v <- as.integer(val)
 
   if(v < 30)
     return(bucket("30", v))
