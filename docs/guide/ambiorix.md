@@ -11,7 +11,7 @@ Then again, the metrics themselves and their usage does not differ, only the way
 
 With [ambiorix](https://github.com/JohnCoene/ambiorix), create a new `get` method on the `/metrics` endpoint, and have it return the results of `renderMetrics`.
 
-```r hl_lines="23 24 25"
+```r hl_lines="11"
 library(titan)
 library(ambiorix)
 
@@ -24,6 +24,8 @@ c <- Counter$new(
 
 app <- Ambiorix$new()
 
+app$use(titan())
+
 app$get("/", function(req, res){
   c$inc(path = "/")
   res$send("Using {titan} with {ambiorix}!")
@@ -32,10 +34,6 @@ app$get("/", function(req, res){
 app$get("/about", function(req, res){
   c$inc(path = "/about")
   res$send("About {titan} and {ambiorix}!")
-})
-
-app$get("/metrics", function(req, res){
-  res$text(renderMetrics())
 })
 
 app$start()

@@ -1,3 +1,7 @@
+# titan 2.0.1
+
+- Added ambiorix middleware
+
 # titan 2.0.0
 
 - Refactor entire source code.
